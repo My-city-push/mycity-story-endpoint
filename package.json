@@ -7,8 +7,8 @@
     "node": ">=20"
   },
   "scripts": {
-    "start": "node startup-test.js",
-    "check": "node --check index.js && node --check startup-test.js"
+    "start": "node publish-once.js",
+    "check": "node --check index.js && node --check publish-once.js"
   },
   "dependencies": {
     "express": "^5.1.0",
