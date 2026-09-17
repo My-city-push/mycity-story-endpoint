@@ -7,8 +7,8 @@
     "node": ">=20"
   },
   "scripts": {
-    "start": "node index.js",
-    "check": "node --check index.js"
+    "start": "node cloudinary-story-test.js",
+    "check": "node --check index.js && node --check cloudinary-story-test.js"
   },
   "dependencies": {
     "express": "^5.1.0",
