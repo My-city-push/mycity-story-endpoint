@@ -7,8 +7,8 @@
     "node": ">=20"
   },
   "scripts": {
-    "start": "node fix-la-fiesta-render.js",
-    "check": "node --check index.js && node --check fix-la-fiesta-render.js"
+    "start": "node update-la-fiesta-render-asset.js",
+    "check": "node --check index.js && node --check update-la-fiesta-render-asset.js"
   },
   "dependencies": {
     "express": "^5.1.0",
