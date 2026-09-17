@@ -7,8 +7,8 @@
     "node": ">=20"
   },
   "scripts": {
-    "start": "node index.js",
-    "check": "node --check index.js"
+    "start": "node draft-la-fiesta-v2.js",
+    "check": "node --check index.js && node --check draft-la-fiesta-v2.js"
   },
   "dependencies": {
     "express": "^5.1.0",
