@@ -3,7 +3,7 @@ import crypto from "node:crypto";
 import admin from "firebase-admin";
 
 const app = express();
-app.use(express.json({ limit: "2mb" }));
+app.use(express.json({ limit: "12mb" }));
 
 const PORT = Number(process.env.PORT || 10000);
 const FIREBASE_DATABASE_URL = String(process.env.FIREBASE_DATABASE_URL || "").replace(/\/+$/, "");
@@ -15,6 +15,9 @@ const OWNER = Object.freeze({
 });
 const ALLOW_PUBLISH = /^true$/i.test(String(process.env.ALLOW_PUBLISH || "false"));
 const ALLOW_PUBLIC_RTDB_FALLBACK = /^true$/i.test(String(process.env.ALLOW_PUBLIC_RTDB_FALLBACK || "false"));
+const CLOUDINARY_CLOUD_NAME = String(process.env.CLOUDINARY_CLOUD_NAME || "dxnxwaigw");
+const CLOUDINARY_UNSIGNED_PRESET = String(process.env.CLOUDINARY_UNSIGNED_PRESET || "mycity_unsigned");
+const CLOUDINARY_STORY_UPLOAD_FOLDER = String(process.env.CLOUDINARY_STORY_UPLOAD_FOLDER || "mycity/story-uploads");
 
 const VITRINE_ROOT = "storyVitrine";
 const VITRINE_FEED = "storyVitrineFeed";
@@ -246,6 +249,73 @@ async function createStoryRecord(story) {
   throw new Error("Firebase is not configured");
 }
 
+
+async function uploadToCloudinaryFromInput(input) {
+  const raw = safeString(input.mediaDataUri || input.dataUri || input.base64DataUri, 12000000);
+  if (!raw) return null;
+  if (!/^data:(image|video)\//i.test(raw)) {
+    throw new Error("mediaDataUri must be a valid image/video data URI");
+  }
+
+  const mediaType = /^data:video\//i.test(raw) ? "video" : "image";
+  const form = new FormData();
+  form.append("file", raw);
+  form.append("upload_preset", CLOUDINARY_UNSIGNED_PRESET);
+  if (CLOUDINARY_STORY_UPLOAD_FOLDER) form.append("folder", CLOUDINARY_STORY_UPLOAD_FOLDER);
+  form.append("tags", "mycity,story_upload,ai_generated");
+  form.append("context", [
+    "source=mycity_ai_story_endpoint",
+    "publisher=story_publisher_independent",
+    "userId=" + OWNER.userId
+  ].join("|"));
+
+  const endpoint = "https://api.cloudinary.com/v1_1/" +
+    encodeURIComponent(CLOUDINARY_CLOUD_NAME) + "/" + mediaType + "/upload";
+
+  const response = await fetch(endpoint, { method: "POST", body: form });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok || !data.secure_url) {
+    throw new Error("Cloudinary upload failed: " + safeString(data?.error?.message || response.status, 300));
+  }
+
+  return {
+    mediaType,
+    secureUrl: safeString(data.secure_url, 4000),
+    thumbnailUrl: mediaType === "video"
+      ? safeString(String(data.secure_url).replace(/\.[a-z0-9]+(?:\?.*)?$/i, ".jpg"), 4000)
+      : safeString(data.secure_url, 4000),
+    publicId: safeString(data.public_id, 500),
+    assetId: safeString(data.asset_id, 500),
+    resourceType: safeString(data.resource_type || mediaType, 50),
+    width: Number(data.width || 0) || 0,
+    height: Number(data.height || 0) || 0,
+    bytes: Number(data.bytes || 0) || 0,
+    format: safeString(data.format, 50)
+  };
+}
+
+async function resolveStoryMediaInput(input) {
+  const uploaded = await uploadToCloudinaryFromInput(input);
+  if (!uploaded) return input;
+
+  return {
+    ...input,
+    mediaType: uploaded.mediaType,
+    mediaUrl: uploaded.secureUrl,
+    imageUrl: uploaded.mediaType === "image" ? uploaded.secureUrl : uploaded.thumbnailUrl,
+    videoUrl: uploaded.mediaType === "video" ? uploaded.secureUrl : "",
+    thumbnailUrl: uploaded.thumbnailUrl,
+    cloudinarySecureUrl: uploaded.secureUrl,
+    cloudinaryPublicId: uploaded.publicId,
+    cloudinaryAssetId: uploaded.assetId,
+    cloudinaryResourceType: uploaded.resourceType,
+    cloudinaryWidth: uploaded.width,
+    cloudinaryHeight: uploaded.height,
+    cloudinaryBytes: uploaded.bytes,
+    cloudinaryFormat: uploaded.format
+  };
+}
+
 function idempotencyPath(requestId) {
   return `aiStoryRequests/${requestId.replace(/[.#$\/\[\]]/g, "_")}`;
 }
@@ -263,8 +333,8 @@ app.get("/health", async (_req, res) => {
 
 app.post("/ai/story", requireApiKey, async (req, res) => {
   try {
-    const input = req.body || {};
-    const requestId = safeString(input.requestId, 200);
+    const rawInput = req.body || {};
+    const requestId = safeString(rawInput.requestId, 200);
 
     if (requestId) {
       const prior = await firebaseGet(idempotencyPath(requestId));
@@ -273,6 +343,7 @@ app.post("/ai/story", requireApiKey, async (req, res) => {
       }
     }
 
+    const input = await resolveStoryMediaInput(rawInput);
     const { story, status, mediaType } = buildStoryPayload(input);
     const storyId = await createStoryRecord(story);
     if (!storyId) throw new Error("Firebase did not return a story id");
