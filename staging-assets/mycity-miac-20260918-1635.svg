@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img" aria-labelledby="title desc">
+  <title id="title">Tu voz también cuenta</title>
+  <desc id="desc">Visual original de MyCity sobre participación cívica e inmigrante en Louisville</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f1720"/>
+      <stop offset="1" stop-color="#182d33"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6ed3c6"/>
+      <stop offset="1" stop-color="#b8e7dc"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+
+  <g opacity="0.14" fill="none" stroke="#dce8e6" stroke-width="2">
+    <path d="M80 1550H1000M80 1625H1000M80 1700H1000M80 1775H1000"/>
+    <path d="M150 1450V1840M280 1450V1840M430 1450V1840M610 1450V1840M790 1450V1840M930 1450V1840"/>
+  </g>
+
+  <g transform="translate(80 105)">
+    <rect x="0" y="0" width="260" height="58" rx="29" fill="#ffffff" opacity="0.1"/>
+    <text x="28" y="39" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#f4f8f7" letter-spacing="2">MYCITY LOCAL DESK</text>
+  </g>
+
+  <g transform="translate(80 320)">
+    <circle cx="64" cy="64" r="64" fill="url(#accent)"/>
+    <path d="M34 51h60a16 16 0 0 1 16 16v25a16 16 0 0 1-16 16H65l-18 16 5-16H34a16 16 0 0 1-16-16V67a16 16 0 0 1 16-16z" fill="#0f1720"/>
+    <circle cx="49" cy="78" r="6" fill="#b8e7dc"/>
+    <circle cx="69" cy="78" r="6" fill="#b8e7dc"/>
+    <circle cx="89" cy="78" r="6" fill="#b8e7dc"/>
+  </g>
+
+  <g transform="translate(80 520)">
+    <text x="0" y="0" font-family="Arial, Helvetica, sans-serif" font-size="118" font-weight="800" fill="#f4f8f7" letter-spacing="-3">TU VOZ</text>
+    <text x="0" y="128" font-family="Arial, Helvetica, sans-serif" font-size="118" font-weight="800" fill="#f4f8f7" letter-spacing="-3">TAMBIÉN</text>
+    <text x="0" y="256" font-family="Arial, Helvetica, sans-serif" font-size="118" font-weight="800" fill="#6ed3c6" letter-spacing="-3">CUENTA</text>
+    <rect x="0" y="315" width="650" height="5" rx="2.5" fill="url(#accent)"/>
+    <text x="0" y="395" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="600" fill="#dce8e6">Consejo internacional de Louisville</text>
+  </g>
+
+  <g transform="translate(80 1120)">
+    <rect x="0" y="0" width="920" height="220" rx="36" fill="#ffffff" opacity="0.08" stroke="#ffffff" stroke-opacity="0.16"/>
+    <text x="46" y="72" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#b8e7dc" letter-spacing="1">PRÓXIMA REUNIÓN</text>
+    <text x="46" y="140" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="800" fill="#f4f8f7">LUN 21 SEP · 6–7 PM</text>
+    <text x="46" y="190" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#c9d5d2">Participación cívica · recursos · comunidad</text>
+  </g>
+
+  <g transform="translate(80 1535)">
+    <path d="M0 155c95-72 175-110 256-110 92 0 126 45 211 45 97 0 131-78 234-78 82 0 145 39 219 103" fill="none" stroke="#6ed3c6" stroke-width="10" stroke-linecap="round" opacity="0.9"/>
+    <circle cx="256" cy="45" r="14" fill="#f4f8f7"/>
+    <circle cx="467" cy="90" r="14" fill="#f4f8f7"/>
+    <circle cx="701" cy="12" r="14" fill="#f4f8f7"/>
+  </g>
+
+  <text x="80" y="1830" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#9fb5b1">Louisville / Kentuckiana</text>
+  <text x="1000" y="1830" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#f4f8f7">MyCity</text>
+</svg>
