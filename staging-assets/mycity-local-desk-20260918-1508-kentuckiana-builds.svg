@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1117"/>
+      <stop offset="1" stop-color="#17232D"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="900" cy="220" r="240" fill="#E89C3B" opacity="0.12"/>
+  <circle cx="120" cy="1640" r="320" fill="#2AA7A1" opacity="0.10"/>
+
+  <text x="86" y="120" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#8FD3CE">MYCITY · TRABAJO &amp; OPORTUNIDAD</text>
+  <rect x="86" y="160" width="180" height="8" rx="4" fill="#E89C3B"/>
+
+  <text x="86" y="340" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="800" fill="#FFFFFF">Construcción:</text>
+  <text x="86" y="445" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="800" fill="#FFFFFF">una puerta de entrada</text>
+  <text x="86" y="520" font-family="Arial, Helvetica, sans-serif" font-size="38" fill="#C8D2DA">Capacitación local para empezar o avanzar en oficios</text>
+  <text x="86" y="570" font-family="Arial, Helvetica, sans-serif" font-size="38" fill="#C8D2DA">como electricidad, maquinaria y fibra óptica.</text>
+
+  <g transform="translate(86 690)">
+    <rect width="908" height="300" rx="34" fill="#FFFFFF" opacity="0.06"/>
+    <text x="46" y="76" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#8FD3CE">KENTUCKIANA BUILDS</text>
+    <text x="46" y="142" font-family="Arial, Helvetica, sans-serif" font-size="34" fill="#FFFFFF">• Entrenamiento práctico</text>
+    <text x="46" y="198" font-family="Arial, Helvetica, sans-serif" font-size="34" fill="#FFFFFF">• Conexión con empleadores locales</text>
+    <text x="46" y="254" font-family="Arial, Helvetica, sans-serif" font-size="34" fill="#FFFFFF">• Orientación virtual para comenzar</text>
+  </g>
+
+  <g transform="translate(86 1050)">
+    <rect width="908" height="250" rx="34" fill="#E89C3B" opacity="0.12"/>
+    <text x="46" y="72" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#FFD59C">DATO DEL PROGRAMA</text>
+    <text x="46" y="138" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="800" fill="#FFFFFF">≈ $20/hora</text>
+    <text x="46" y="196" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#E7EDF2">promedio de empleo reportado para graduados el año pasado.</text>
+  </g>
+
+  <g transform="translate(86 1380)">
+    <text x="0" y="0" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" fill="#FFFFFF">Requisitos básicos publicados:</text>
+    <text x="0" y="58" font-family="Arial, Helvetica, sans-serif" font-size="29" fill="#C8D2DA">18+, autorización para trabajar en EE. UU., ID estatal</text>
+    <text x="0" y="104" font-family="Arial, Helvetica, sans-serif" font-size="29" fill="#C8D2DA">y diploma de high school o GED.</text>
+  </g>
+
+  <rect x="86" y="1580" width="908" height="2" fill="#FFFFFF" opacity="0.15"/>
+  <text x="86" y="1660" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#8FD3CE">¿Te interesa entrar a los oficios?</text>
+  <text x="86" y="1714" font-family="Arial, Helvetica, sans-serif" font-size="31" fill="#FFFFFF">MyCity te cuenta dónde empezar y qué necesitas.</text>
+  <text x="86" y="1815" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#8B98A3">Fuente verificada: KentuckianaWorks · 18 SEP 2026</text>
+</svg>
