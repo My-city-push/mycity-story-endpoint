@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <rect width="1080" height="1920" fill="#F3F0E8"/>
+  <rect x="0" y="0" width="1080" height="280" fill="#102A2E"/>
+  <rect x="0" y="1660" width="1080" height="260" fill="#102A2E"/>
+  <circle cx="910" cy="150" r="180" fill="#D8E663" opacity="0.96"/>
+  <circle cx="940" cy="1520" r="250" fill="#64B6AC" opacity="0.18"/>
+  <circle cx="160" cy="1450" r="190" fill="#E98B66" opacity="0.15"/>
+
+  <text x="74" y="95" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#F3F0E8" letter-spacing="4">MYCITY TE CUENTA</text>
+  <text x="74" y="180" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="700" fill="#F3F0E8">LOUISVILLE · SERVICIO LOCAL</text>
+
+  <text x="76" y="430" font-family="Arial, Helvetica, sans-serif" font-size="116" font-weight="800" fill="#102A2E">MAÑANA</text>
+  <text x="76" y="555" font-family="Arial, Helvetica, sans-serif" font-size="82" font-weight="800" fill="#102A2E">SACA LO QUE</text>
+  <text x="76" y="650" font-family="Arial, Helvetica, sans-serif" font-size="82" font-weight="800" fill="#102A2E">YA NO USAS</text>
+
+  <rect x="76" y="720" width="928" height="220" rx="34" fill="#FFFFFF" stroke="#102A2E" stroke-width="4"/>
+  <text x="118" y="792" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700" fill="#2E605F">SÁBADO 19 DE SEPTIEMBRE</text>
+  <text x="118" y="865" font-family="Arial, Helvetica, sans-serif" font-size="62" font-weight="800" fill="#102A2E">10 AM — 2 PM</text>
+  <text x="118" y="917" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="600" fill="#496365">No llegues antes de las 10: ayuda a evitar tráfico.</text>
+
+  <text x="76" y="1035" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800" fill="#102A2E">DOS PUNTOS DE ENTREGA</text>
+  <text x="76" y="1104" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700" fill="#102A2E">Sun Valley Park</text>
+  <text x="76" y="1154" font-family="Arial, Helvetica, sans-serif" font-size="31" fill="#496365">10401 Lower River Rd</text>
+  <text x="76" y="1228" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700" fill="#102A2E">Ashby Lane Baptist Church</text>
+  <text x="76" y="1278" font-family="Arial, Helvetica, sans-serif" font-size="31" fill="#496365">6617 Ashby Ln</text>
+
+  <g transform="translate(76,1365)">
+    <rect width="928" height="190" rx="34" fill="#D8E663"/>
+    <text x="40" y="58" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="800" fill="#102A2E">GRATIS PARA RESIDENTES DE JEFFERSON COUNTY</text>
+    <text x="40" y="112" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="600" fill="#102A2E">Electrónicos · llantas · artículos grandes · metal</text>
+    <text x="40" y="154" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="600" fill="#102A2E">reciclables · documentos · medicamentos · yard waste</text>
+  </g>
+
+  <g transform="translate(76,1610)">
+    <rect width="160" height="14" rx="7" fill="#E98B66"/>
+  </g>
+  <text x="76" y="1747" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#F3F0E8">SEPARA TU CARGA POR CATEGORÍAS</text>
+  <text x="76" y="1810" font-family="Arial, Helvetica, sans-serif" font-size="31" fill="#D6E0DE">Así la fila avanza más rápido y más materiales</text>
+  <text x="76" y="1853" font-family="Arial, Helvetica, sans-serif" font-size="31" fill="#D6E0DE">pueden reciclarse, donarse o reutilizarse.</text>
+</svg>
