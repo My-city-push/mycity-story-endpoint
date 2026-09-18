@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#111827"/>
+    <stop offset="50%" stop-color="#7c2d12"/>
+    <stop offset="100%" stop-color="#0f766e"/>
+  </linearGradient>
+</defs>
+<rect width="1080" height="1920" fill="url(#bg)"/>
+<circle cx="865" cy="220" r="250" fill="#f59e0b" opacity=".20"/>
+<circle cx="180" cy="1580" r="290" fill="#22c55e" opacity=".15"/>
+<text x="90" y="145" font-family="Arial,Helvetica,sans-serif" font-size="42" font-weight="700" fill="#fde68a">MYCITY • LOUISVILLE</text>
+<text x="90" y="325" font-family="Arial,Helvetica,sans-serif" font-size="84" font-weight="800" fill="#ffffff">LA VILLA LOU</text>
+<text x="90" y="425" font-family="Arial,Helvetica,sans-serif" font-size="60" font-weight="800" fill="#fbbf24">Preston Hwy celebra su identidad latina</text>
+<rect x="90" y="625" width="900" height="665" rx="52" fill="#ffffff"/>
+<text x="150" y="770" font-family="Arial,Helvetica,sans-serif" font-size="48" font-weight="800" fill="#111827">¿QUÉ SIGNIFICA PARA LA COMUNIDAD?</text>
+<text x="150" y="885" font-family="Arial,Helvetica,sans-serif" font-size="39" fill="#334155">Louisville Metro presentó “La Villa Lou”</text>
+<text x="150" y="945" font-family="Arial,Helvetica,sans-serif" font-size="39" fill="#334155">como nombre comunitario para un tramo</text>
+<text x="150" y="1005" font-family="Arial,Helvetica,sans-serif" font-size="39" fill="#334155">de Preston Highway con fuerte presencia</text>
+<text x="150" y="1065" font-family="Arial,Helvetica,sans-serif" font-size="39" fill="#334155">hispana, negocios y vida cultural.</text>
+<text x="150" y="1175" font-family="Arial,Helvetica,sans-serif" font-size="40" font-weight="700" fill="#0f766e">También hay recursos para pequeños negocios:</text>
+<text x="150" y="1240" font-family="Arial,Helvetica,sans-serif" font-size="34" fill="#475569">REACH • METCO • South End Fund • SBDC</text>
+<text x="90" y="1455" font-family="Arial,Helvetica,sans-serif" font-size="56" font-weight="800" fill="#ffffff">La ciudad crece cuando sus negocios crecen</text>
+<text x="90" y="1550" font-family="Arial,Helvetica,sans-serif" font-size="40" fill="#e5e7eb">Más visibilidad, acceso a recursos y participación</text>
+<text x="90" y="1610" font-family="Arial,Helvetica,sans-serif" font-size="40" fill="#e5e7eb">pueden fortalecer la economía local.</text>
+<rect x="90" y="1730" width="900" height="110" rx="55" fill="#fbbf24"/>
+<text x="540" y="1800" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="42" font-weight="800" fill="#111827">¿QUÉ NEGOCIO LATINO RECOMIENDAS?</text>
+</svg>
