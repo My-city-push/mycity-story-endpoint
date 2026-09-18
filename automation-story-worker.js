@@ -22,6 +22,69 @@ async function uploadRemote(sourceUrl){
   if(!res.ok||!data.secure_url) throw new Error("Cloudinary upload failed: "+safe(data?.error?.message||res.status,300));
   return data;
 }
+async function sendPublishNotificationHook(storyId, story){
+  const url=safe(process.env.PROFILE_STORY_NOTIFY_HOOK_URL||"https://hook.us1.make.com/j1mpnbe8v78bq6m2y9smr3wq6d8mk92q",4000);
+  if(!url) return {skipped:true};
+  const createdAtMs=Date.now();
+  const payload={
+    action:"story_feed_publish_notification",
+    mode:"notification_only",
+    notificationOnly:true,
+    firebaseAlreadyWritten:true,
+    source:safe(story.source||story.origin)||"mycity_profile_upload",
+    contentType:"story",
+    contentKey:safe(story.contentKey)||"story_upload",
+    displayTarget:safe(story.displayTarget)||"story_vertical",
+    mediaType:safe(story.postType).toLowerCase()==="video"?"video":"image",
+    userId:safe(story.userId),
+    fullName:safe(story.fullName),
+    avatar:safe(story.avatar),
+    storyKey:safe(storyId),
+    firebasePath:"/story/"+safe(storyId),
+    sourceUsername:safe(story.sourceUsername),
+    sourcePostId:safe(story.sourcePostId),
+    sourcePermalink:safe(story.sourcePermalink),
+    caption:safe(story.caption),
+    message:safe(story.caption),
+    postType:safe(story.postType),
+    postProductType:safe(story.postProductType),
+    mediaUrl:safe(story.mediaUrl),
+    imageUrl:safe(story.imageUrl),
+    videoUrl:safe(story.videoUrl),
+    thumbnailUrl:safe(story.thumbnailUrl),
+    cloudinarySecureUrl:safe(story.cloudinarySecureUrl),
+    originalInstagramMediaUrl:safe(story.originalInstagramMediaUrl),
+    instagramStats:story.instagramStats||{},
+    isRepostInstance:!!story.isRepostInstance,
+    repostOfStoryKey:safe(story.repostOfStoryKey),
+    repostRootStoryKey:safe(story.repostRootStoryKey),
+    originalOwnerUserId:safe(story.originalOwnerUserId),
+    originalOwnerName:safe(story.originalOwnerName),
+    matchedExistingStoryKey:"",
+    rawInstagramPost:null,
+    storyKind:safe(story.storyKind||story.storyType||story.contentKey),
+    storyType:safe(story.storyType),
+    mapStory:false,
+    location:null,
+    mapAddress:"",
+    mapLatitude:0,
+    mapLongitude:0,
+    locationNotification:null,
+    publicationStatus:safe(story.publicationStatus),
+    publishedAtMs:Number(story.publishedAtMs||0)||0,
+    createdAtMs,
+    createdAtISO:new Date(createdAtMs).toISOString()
+  };
+  const res=await fetch(url,{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify(payload)
+  });
+  const text=await res.text().catch(()=>"");
+  if(!res.ok) throw new Error("Make notification hook failed: "+res.status+" "+safe(text,300));
+  console.log("AUTOMATED_STORY_NOTIFY sent storyId="+storyId+" status="+res.status);
+  return {ok:true,status:res.status};
+}
 async function run(){
   if(!/^true$/i.test(safe(process.env.RUN_AUTOMATED_STORY_DRAFT||"false",10))) return;
   const databaseURL=safe(process.env.FIREBASE_DATABASE_URL,1000).replace(/\/+$/,"");
@@ -121,6 +184,7 @@ async function run(){
   });
 
   await idem.set({storyId:ref.key,status:"published",mediaType:"image",userId:ownerId,requestId,cloudinarySecureUrl:mediaUrl,createdAtMs:now});
+  await sendPublishNotificationHook(ref.key,story);
   console.log("AUTOMATED_STORY_PUBLISHED created storyId="+ref.key+" secureUrl="+mediaUrl);
 }
 try{ await run(); }catch(e){ console.error("AUTOMATED_STORY_DRAFT failed:",e?.message||e); }
