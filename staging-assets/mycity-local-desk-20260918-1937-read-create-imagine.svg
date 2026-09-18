@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img" aria-labelledby="title desc">
+  <title id="title">Mañana: leer, crear, imaginar</title>
+  <desc id="desc">Visual editorial de MyCity sobre el evento gratuito Read, Create, Imagine en Douglass Community Center el 19 de septiembre de 2026.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1117"/>
+      <stop offset="1" stop-color="#1b2633"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#000" flood-opacity=".30"/>
+    </filter>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="910" cy="190" r="270" fill="#4dc3ff" opacity=".11"/>
+  <circle cx="130" cy="1620" r="350" fill="#ffd45c" opacity=".10"/>
+
+  <text x="84" y="120" fill="#aab4c0" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" letter-spacing="4">MYCITY · LOCAL DESK</text>
+  <text x="84" y="250" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="84" font-weight="800">Mañana:</text>
+  <text x="84" y="350" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="84" font-weight="800">leer, crear, imaginar</text>
+  <text x="84" y="425" fill="#7fd6ff" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">Sábado 19 · 1–3 PM · Entrada gratuita</text>
+
+  <g filter="url(#shadow)">
+    <rect x="74" y="520" width="932" height="390" rx="42" fill="#ffffff"/>
+    <text x="118" y="600" fill="#1a1f27" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">READ, CREATE, IMAGINE</text>
+    <text x="118" y="682" fill="#10141a" font-family="Arial, Helvetica, sans-serif" font-size="49" font-weight="800">Historias que pasan</text>
+    <text x="118" y="744" fill="#10141a" font-family="Arial, Helvetica, sans-serif" font-size="49" font-weight="800">de la página a la imaginación</text>
+    <line x1="118" y1="794" x2="962" y2="794" stroke="#dce2e8" stroke-width="3"/>
+    <text x="118" y="848" fill="#3b4654" font-family="Arial, Helvetica, sans-serif" font-size="30">Douglass Community Center · Louisville</text>
+  </g>
+
+  <g transform="translate(84 1000)">
+    <rect width="912" height="345" rx="38" fill="#151c25" stroke="#3c4755" stroke-width="2"/>
+    <text x="40" y="70" fill="#9fb0c3" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">PARA LAS FAMILIAS</text>
+    <text x="40" y="145" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="39" font-weight="800">• Autores infantiles locales</text>
+    <text x="40" y="205" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="39" font-weight="800">• Lecturas en vivo + juegos</text>
+    <text x="40" y="265" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="39" font-weight="800">• Actividades de alfabetización</text>
+    <text x="40" y="315" fill="#7fd6ff" font-family="Arial, Helvetica, sans-serif" font-size="28">También habrá recursos y consejos para padres.</text>
+  </g>
+
+  <g transform="translate(84 1440)">
+    <rect width="912" height="230" rx="38" fill="#ffd45c"/>
+    <text x="44" y="72" fill="#13171d" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">PLAN GRATUITO PARA MAÑANA</text>
+    <text x="44" y="135" fill="#13171d" font-family="Arial, Helvetica, sans-serif" font-size="41" font-weight="800">Una tarde para leer juntos</text>
+    <text x="44" y="188" fill="#26303b" font-family="Arial, Helvetica, sans-serif" font-size="31">y conocer creadores de Kentuckiana.</text>
+  </g>
+
+  <text x="84" y="1788" fill="#d9e1e8" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">¿Qué actividades familiares quieres ver más?</text>
+  <text x="84" y="1850" fill="#7f8b99" font-family="Arial, Helvetica, sans-serif" font-size="24">Fuente: Louisville Metro · Información consultada 18 Sep 2026</text>
+</svg>
