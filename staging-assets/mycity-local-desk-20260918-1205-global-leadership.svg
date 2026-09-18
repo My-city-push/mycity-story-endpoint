@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071116"/>
+      <stop offset="0.58" stop-color="#10262A"/>
+      <stop offset="1" stop-color="#17383A"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#55D6C2"/>
+      <stop offset="1" stop-color="#F3C969"/>
+    </linearGradient>
+    <filter id="soft"><feGaussianBlur stdDeviation="36"/></filter>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="900" cy="310" r="220" fill="#2C8C83" opacity="0.16" filter="url(#soft)"/>
+  <circle cx="140" cy="1510" r="260" fill="#DCA44C" opacity="0.11" filter="url(#soft)"/>
+
+  <g opacity="0.22" fill="none" stroke="#9EDFD6" stroke-width="2">
+    <path d="M84 1260 C270 1130, 470 1170, 650 1080 S930 920, 1012 790"/>
+    <path d="M96 1305 C310 1190, 470 1240, 680 1135 S930 1010, 1008 875"/>
+  </g>
+
+  <g transform="translate(92 126)">
+    <rect x="0" y="0" width="324" height="58" rx="29" fill="#FFFFFF" opacity="0.08" stroke="#FFFFFF" stroke-opacity="0.2"/>
+    <circle cx="34" cy="29" r="8" fill="#55D6C2"/>
+    <text x="56" y="38" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#EAF7F5" letter-spacing="1.2">MYCITY TE CUENTA</text>
+  </g>
+
+  <g transform="translate(90 300)">
+    <text x="0" y="0" font-family="Arial, Helvetica, sans-serif" font-size="43" font-weight="700" fill="#55D6C2">LOUISVILLE · COMUNIDAD</text>
+    <text x="0" y="108" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="800" fill="#FFFFFF">LIDERAZGO</text>
+    <text x="0" y="208" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="800" fill="#FFFFFF">INMIGRANTE</text>
+    <rect x="0" y="254" width="720" height="9" rx="4.5" fill="url(#glow)"/>
+    <text x="0" y="346" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="600" fill="#D7E7E4">La Academia Global de Louisville</text>
+    <text x="0" y="402" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="600" fill="#D7E7E4">cierra hoy su cohorte 2026.</text>
+  </g>
+
+  <g transform="translate(90 875)">
+    <rect x="0" y="0" width="900" height="300" rx="36" fill="#FFFFFF" opacity="0.075" stroke="#FFFFFF" stroke-opacity="0.16"/>
+    <text x="38" y="70" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#F3C969">¿QUÉ ABRE DESPUÉS?</text>
+    <text x="38" y="132" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700" fill="#FFFFFF">Las solicitudes para la cohorte 2027</text>
+    <text x="38" y="180" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700" fill="#FFFFFF">abrirán en noviembre de 2026.</text>
+    <text x="38" y="236" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#C9DBD8">Programa gratuito para líderes y profesionales</text>
+    <text x="38" y="274" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#C9DBD8">que sirven a comunidades internacionales.</text>
+  </g>
+
+  <g transform="translate(90 1295)">
+    <circle cx="88" cy="88" r="88" fill="#55D6C2" opacity="0.15"/>
+    <circle cx="88" cy="68" r="30" fill="none" stroke="#55D6C2" stroke-width="8"/>
+    <path d="M34 140c15-36 93-36 108 0" fill="none" stroke="#55D6C2" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="272" cy="88" r="88" fill="#F3C969" opacity="0.13"/>
+    <path d="M225 92h94M272 45v94" stroke="#F3C969" stroke-width="9" stroke-linecap="round"/>
+    <text x="398" y="45" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#FFFFFF">Aprende cómo funciona la ciudad.</text>
+    <text x="398" y="94" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#FFFFFF">Conecta recursos. Crea redes.</text>
+    <text x="398" y="143" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#FFFFFF">Lleva ideas a tu comunidad.</text>
+  </g>
+
+  <g transform="translate(90 1638)">
+    <rect x="0" y="0" width="900" height="154" rx="30" fill="#071116" opacity="0.58" stroke="#55D6C2" stroke-opacity="0.3"/>
+    <text x="36" y="58" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="700" fill="#55D6C2">GUÁRDALO PARA NOVIEMBRE</text>
+    <text x="36" y="105" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#FFFFFF">¿Conoces a alguien que debería aplicar en 2027?</text>
+  </g>
+
+  <text x="90" y="1860" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#A9BEBA">Fuente: Louisville Metro · Office for Immigrant Affairs · 18 SEP 2026</text>
+</svg>
