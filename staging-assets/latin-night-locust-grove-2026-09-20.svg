@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img" aria-labelledby="title desc">
+  <title id="title">Noche Latina en Locust Grove</title>
+  <desc id="desc">Gráfico vertical original para Story de MyCity con fecha, horario y lugar del evento Latin Night en Louisville.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#10131a"/>
+      <stop offset="0.55" stop-color="#2a1532"/>
+      <stop offset="1" stop-color="#5a2130"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ffd46b" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#ff7b55" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#000" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="870" cy="250" r="280" fill="url(#sun)"/>
+
+  <!-- Decorative rhythm lines -->
+  <g fill="none" stroke-linecap="round" opacity="0.55">
+    <path d="M-60 430 C170 280 340 520 560 390 S930 260 1150 430" stroke="#ffb84d" stroke-width="16"/>
+    <path d="M-80 505 C170 355 360 600 585 460 S930 350 1170 520" stroke="#ef5d7a" stroke-width="10"/>
+    <path d="M-50 575 C165 455 365 690 600 550 S955 455 1140 610" stroke="#4ed0c8" stroke-width="7"/>
+  </g>
+
+  <!-- MyCity editorial tag -->
+  <g transform="translate(72 86)">
+    <rect width="270" height="66" rx="33" fill="#ffffff" fill-opacity="0.12" stroke="#ffffff" stroke-opacity="0.25"/>
+    <text x="135" y="44" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" letter-spacing="2" fill="#ffffff">MYCITY · PLAN</text>
+  </g>
+
+  <!-- Header -->
+  <g font-family="Arial, Helvetica, sans-serif" fill="#ffffff" filter="url(#shadow)">
+    <text x="72" y="700" font-size="76" font-weight="800" letter-spacing="2">NOCHE</text>
+    <text x="72" y="790" font-size="104" font-weight="900" letter-spacing="1" fill="#ffd166">LATINA</text>
+    <text x="72" y="848" font-size="36" font-weight="600" fill="#f4e9f1">Música · salsa · comida · comunidad</text>
+  </g>
+
+  <!-- Abstract dancing figures -->
+  <g transform="translate(655 565)" opacity="0.95">
+    <circle cx="70" cy="68" r="38" fill="#ffd166"/>
+    <path d="M65 115 C20 155 10 255 55 320 C88 365 150 330 150 275 C150 205 120 140 65 115Z" fill="#ef5d7a"/>
+    <path d="M40 155 C-20 190 -35 235 -50 295" stroke="#ffd166" stroke-width="24" stroke-linecap="round"/>
+    <path d="M118 155 C178 128 205 80 225 32" stroke="#ffd166" stroke-width="24" stroke-linecap="round"/>
+    <circle cx="270" cy="110" r="34" fill="#f1e7d2"/>
+    <path d="M265 150 C220 190 210 270 240 338 C265 394 330 390 360 330 C392 266 350 183 265 150Z" fill="#4ed0c8"/>
+    <path d="M242 198 C186 220 160 270 136 322" stroke="#f1e7d2" stroke-width="22" stroke-linecap="round"/>
+    <path d="M338 198 C386 180 410 142 428 102" stroke="#f1e7d2" stroke-width="22" stroke-linecap="round"/>
+  </g>
+
+  <!-- Info card -->
+  <g transform="translate(72 1045)" font-family="Arial, Helvetica, sans-serif">
+    <rect width="936" height="540" rx="48" fill="#ffffff" fill-opacity="0.10" stroke="#ffffff" stroke-opacity="0.18" stroke-width="2"/>
+
+    <text x="54" y="86" font-size="34" font-weight="800" fill="#ffd166">DOMINGO 20 DE SEPTIEMBRE</text>
+
+    <g transform="translate(54 128)">
+      <circle cx="28" cy="30" r="26" fill="#ef5d7a"/>
+      <path d="M28 15 V31 L40 40" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="78" y="42" font-size="37" font-weight="700" fill="#ffffff">Puertas 5:00 PM · Música 5:30–9:00 PM</text>
+    </g>
+
+    <g transform="translate(54 214)">
+      <circle cx="28" cy="30" r="26" fill="#4ed0c8"/>
+      <path d="M28 10 C16 10 8 20 8 32 C8 48 28 62 28 62 C28 62 48 48 48 32 C48 20 40 10 28 10Z" fill="none" stroke="#fff" stroke-width="4"/>
+      <circle cx="28" cy="31" r="7" fill="#fff"/>
+      <text x="78" y="33" font-size="36" font-weight="800" fill="#ffffff">Historic Locust Grove</text>
+      <text x="78" y="75" font-size="31" fill="#ece8ee">561 Blankenbaker Ln · Louisville, KY 40207</text>
+    </g>
+
+    <line x1="54" y1="324" x2="882" y2="324" stroke="#ffffff" stroke-opacity="0.20"/>
+
+    <text x="54" y="383" font-size="32" font-weight="700" fill="#ffffff">DJ Xavi · clases de salsa · Latin Jazz &amp; Caribbean Funk</text>
+    <text x="54" y="432" font-size="30" fill="#f3dfe8">Adultos $10 · menores de 18 entran gratis</text>
+    <text x="54" y="487" font-size="28" fill="#d9d2db">También habrá comida local durante la noche.</text>
+  </g>
+
+  <!-- Footer CTA -->
+  <g transform="translate(72 1645)" font-family="Arial, Helvetica, sans-serif">
+    <text x="0" y="0" font-size="34" font-weight="700" fill="#ffffff">¿Con quién irías?</text>
+    <text x="0" y="54" font-size="30" fill="#ffd9df">Coméntalo en MyCity y arma el plan.</text>
+    <rect x="0" y="105" width="420" height="76" rx="38" fill="#ffd166"/>
+    <text x="210" y="155" text-anchor="middle" font-size="30" font-weight="900" fill="#2a1532">GUÁRDALO PARA EL DOMINGO</text>
+  </g>
+
+  <!-- Small source note, factual not branded -->
+  <text x="72" y="1870" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#ffffff" fill-opacity="0.58">Información verificada con Historic Locust Grove · 17 Sep 2026</text>
+</svg>
