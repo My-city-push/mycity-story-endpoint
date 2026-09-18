@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<rect width="1080" height="1920" fill="#fff7ed"/>
+<circle cx="920" cy="210" r="220" fill="#fb923c" opacity=".22"/>
+<circle cx="170" cy="1580" r="300" fill="#22c55e" opacity=".14"/>
+<text x="90" y="145" font-family="Arial,Helvetica,sans-serif" font-size="42" font-weight="700" fill="#7c2d12">MYCITY • LOUISVILLE</text>
+<text x="90" y="320" font-family="Arial,Helvetica,sans-serif" font-size="78" font-weight="800" fill="#111827">FIESTA DE CUMPLEAÑOS</text>
+<text x="90" y="410" font-family="Arial,Helvetica,sans-serif" font-size="78" font-weight="800" fill="#ea580c">EN EL ZOO</text>
+<text x="90" y="505" font-family="Arial,Helvetica,sans-serif" font-size="44" font-weight="700" fill="#475569">September Birthday Bash</text>
+<rect x="90" y="640" width="900" height="560" rx="46" fill="#ffffff"/>
+<text x="150" y="780" font-family="Arial,Helvetica,sans-serif" font-size="50" font-weight="800" fill="#111827">SÁBADO 26 DE SEPTIEMBRE</text>
+<text x="150" y="900" font-family="Arial,Helvetica,sans-serif" font-size="72" font-weight="800" fill="#15803d">10 A.M. – 1 P.M.</text>
+<text x="150" y="1015" font-family="Arial,Helvetica,sans-serif" font-size="50" font-weight="700" fill="#334155">Louisville Zoo</text>
+<text x="150" y="1100" font-family="Arial,Helvetica,sans-serif" font-size="38" fill="#475569">Celebración de los animales que cumplen</text>
+<text x="150" y="1160" font-family="Arial,Helvetica,sans-serif" font-size="38" fill="#475569">años durante septiembre.</text>
+<text x="90" y="1380" font-family="Arial,Helvetica,sans-serif" font-size="58" font-weight="800" fill="#7c2d12">Un plan diferente para la familia</text>
+<text x="90" y="1470" font-family="Arial,Helvetica,sans-serif" font-size="42" fill="#475569">Actividades y momentos especiales alrededor</text>
+<text x="90" y="1535" font-family="Arial,Helvetica,sans-serif" font-size="42" fill="#475569">de los animales del Zoo.</text>
+<rect x="90" y="1700" width="900" height="110" rx="55" fill="#ea580c"/>
+<text x="540" y="1770" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="43" font-weight="800" fill="#ffffff">GUÁRDALO PARA EL SÁBADO</text>
+</svg>
