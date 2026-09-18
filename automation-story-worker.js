@@ -55,9 +55,9 @@ async function run(){
     userId:ownerId,
     fullName:safe(process.env.MYCITY_USER_NAME||"my city",250),
     avatar:safe(process.env.MYCITY_USER_AVATAR,4000),
-    active:false,
-    isPublished:false,
-    publicationStatus:"draft",
+    active:true,
+    isPublished:true,
+    publicationStatus:"published",
     source:"mycity_profile_upload",
     origin:"profile_upload",
     publisherSource:"story_publisher_independent",
@@ -83,7 +83,7 @@ async function run(){
     cloudinaryBytes:Number(up.bytes||0)||0,
     cloudinaryFormat:safe(up.format,50),
     viewsCount:0,commentsCount:0,repostsCount:0,likesCount:0,
-    createdAtMs:now,updatedAtMs:now,publishedAtMs:0,
+    createdAtMs:now,updatedAtMs:now,publishedAtMs:now,
     remainingLifeMs:24*60*60*1000,
     aiGenerated:true,aiSource:"mycity_local_desk",aiRequestId:requestId,
     previewAspectRatio:"9:16",storyPreviewAspectRatio:"9:16",
@@ -92,8 +92,36 @@ async function run(){
   };
   const ref=db.ref("story").push();
   await ref.set(story);
-  await idem.set({storyId:ref.key,status:"draft",mediaType:"image",userId:ownerId,requestId,cloudinarySecureUrl:mediaUrl,createdAtMs:now});
-  console.log("AUTOMATED_STORY_DRAFT created storyId="+ref.key+" secureUrl="+mediaUrl);
+
+  const vitrineRecord={
+    storyId:ref.key,
+    userId:ownerId,
+    ownerName:story.fullName,
+    ownerAvatar:story.avatar,
+    title:story.title || "Story Feed",
+    caption:story.caption || "",
+    mediaType:"image",
+    mediaUrl,
+    thumbnailUrl:mediaUrl,
+    likesCount:0,
+    viewsCount:0,
+    commentsCount:0,
+    createdAtMs:now,
+    publishedAtMs:now,
+    updatedAtMs:now,
+    active:true,
+    public:true,
+    publicationStatus:"published"
+  };
+  const userKey=ownerId.replace(/[.#$\/\[\]]/g,"_");
+  await db.ref("/").update({
+    ["/storyVitrine/"+ref.key]:vitrineRecord,
+    ["/storyVitrineFeed/"+ref.key]:vitrineRecord,
+    ["/storyVitrineByUser/"+userKey+"/"+ref.key]:vitrineRecord
+  });
+
+  await idem.set({storyId:ref.key,status:"published",mediaType:"image",userId:ownerId,requestId,cloudinarySecureUrl:mediaUrl,createdAtMs:now});
+  console.log("AUTOMATED_STORY_PUBLISHED created storyId="+ref.key+" secureUrl="+mediaUrl);
 }
 try{ await run(); }catch(e){ console.error("AUTOMATED_STORY_DRAFT failed:",e?.message||e); }
 await import("./index.js");
