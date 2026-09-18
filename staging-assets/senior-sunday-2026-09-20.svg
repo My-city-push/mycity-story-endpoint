@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#0f172a"/>
+    <stop offset="100%" stop-color="#111827"/>
+  </linearGradient>
+</defs>
+<rect width="1080" height="1920" fill="url(#bg)"/>
+<circle cx="860" cy="240" r="220" fill="#f59e0b" opacity=".18"/>
+<circle cx="210" cy="1520" r="280" fill="#22c55e" opacity=".12"/>
+<text x="90" y="150" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700" fill="#f8fafc">MYCITY • LOUISVILLE</text>
+<text x="90" y="330" font-family="Arial, Helvetica, sans-serif" font-size="82" font-weight="800" fill="#ffffff">DOMINGO GRATIS</text>
+<text x="90" y="420" font-family="Arial, Helvetica, sans-serif" font-size="82" font-weight="800" fill="#fbbf24">PARA MAYORES DE 60</text>
+<text x="90" y="520" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="700" fill="#cbd5e1">Senior Sundays • Louisville Zoo</text>
+<rect x="90" y="650" width="900" height="560" rx="48" fill="#ffffff"/>
+<text x="150" y="780" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="800" fill="#111827">DOMINGO 20 DE SEPTIEMBRE</text>
+<text x="150" y="890" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="800" fill="#0f766e">10 A.M. – 5 P.M.</text>
+<text x="150" y="1010" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="700" fill="#334155">Louisville Zoo</text>
+<text x="150" y="1090" font-family="Arial, Helvetica, sans-serif" font-size="38" fill="#475569">Adultos de 60+ reciben entrada gratis</text>
+<text x="150" y="1150" font-family="Arial, Helvetica, sans-serif" font-size="38" fill="#475569">en las taquillas de admisión.</text>
+<text x="90" y="1380" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="800" fill="#ffffff">Plan familiar para este fin de semana</text>
+<text x="90" y="1480" font-family="Arial, Helvetica, sans-serif" font-size="42" fill="#cbd5e1">Comparte esto con mamá, papá,</text>
+<text x="90" y="1545" font-family="Arial, Helvetica, sans-serif" font-size="42" fill="#cbd5e1">los abuelos o alguien de 60+.</text>
+<rect x="90" y="1700" width="900" height="110" rx="55" fill="#fbbf24"/>
+<text x="540" y="1770" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="800" fill="#111827">¿A QUIÉN INVITARÍAS?</text>
+</svg>
