@@ -45,7 +45,10 @@ async function run(){
   }
 
   const up=await uploadRemote(sourceUrl);
-  const mediaUrl=safe(up.secure_url,4000);
+  const originalCloudinaryUrl=safe(up.secure_url,4000);
+  const mediaUrl=safe(up.format,50).toLowerCase()==="svg"
+    ? originalCloudinaryUrl.replace("/upload/","/upload/f_jpg,q_auto/")
+    : originalCloudinaryUrl;
   const now=Date.now();
   const ownerId=safe(process.env.MYCITY_USER_ID||"629388",100);
   const story={
