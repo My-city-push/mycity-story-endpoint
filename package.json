@@ -7,8 +7,8 @@
     "node": ">=20"
   },
   "scripts": {
-    "start": "node cloudinary-remote-story-test.js",
-    "check": "node --check index.js && node --check cloudinary-remote-story-test.js"
+    "start": "node index.js",
+    "check": "node --check index.js"
   },
   "dependencies": {
     "express": "^5.1.0",
