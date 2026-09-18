@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#0f172a"/>
+    <stop offset="55%" stop-color="#1e3a8a"/>
+    <stop offset="100%" stop-color="#0f766e"/>
+  </linearGradient>
+</defs>
+<rect width="1080" height="1920" fill="url(#bg)"/>
+<circle cx="880" cy="230" r="260" fill="#f59e0b" opacity=".22"/>
+<circle cx="160" cy="1620" r="310" fill="#22c55e" opacity=".15"/>
+<text x="88" y="150" font-family="Arial,Helvetica,sans-serif" font-size="42" font-weight="700" fill="#dbeafe">MYCITY • LOUISVILLE</text>
+<text x="88" y="330" font-family="Arial,Helvetica,sans-serif" font-size="82" font-weight="800" fill="#ffffff">PLAN GRATIS</text>
+<text x="88" y="425" font-family="Arial,Helvetica,sans-serif" font-size="82" font-weight="800" fill="#fbbf24">PARA ESTA NOCHE</text>
+<text x="88" y="530" font-family="Arial,Helvetica,sans-serif" font-size="46" font-weight="700" fill="#e2e8f0">Back-to-School Block Party</text>
+<rect x="88" y="660" width="904" height="610" rx="50" fill="#ffffff"/>
+<text x="148" y="795" font-family="Arial,Helvetica,sans-serif" font-size="52" font-weight="800" fill="#111827">VIERNES 18 DE SEPTIEMBRE</text>
+<text x="148" y="905" font-family="Arial,Helvetica,sans-serif" font-size="72" font-weight="800" fill="#1d4ed8">6 – 9 P.M.</text>
+<text x="148" y="1010" font-family="Arial,Helvetica,sans-serif" font-size="43" font-weight="700" fill="#334155">Mary T. Meagher Aquatic Center</text>
+<text x="148" y="1080" font-family="Arial,Helvetica,sans-serif" font-size="36" fill="#475569">201 Reservoir Avenue • Louisville</text>
+<text x="148" y="1170" font-family="Arial,Helvetica,sans-serif" font-size="40" font-weight="700" fill="#0f766e">Natación gratis • pizza • diversión familiar</text>
+<text x="88" y="1430" font-family="Arial,Helvetica,sans-serif" font-size="56" font-weight="800" fill="#ffffff">Un plan sencillo para compartir en familia</text>
+<text x="88" y="1530" font-family="Arial,Helvetica,sans-serif" font-size="40" fill="#dbeafe">Evento comunitario anunciado por Louisville Metro.</text>
+<rect x="88" y="1715" width="904" height="112" rx="56" fill="#fbbf24"/>
+<text x="540" y="1786" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="44" font-weight="800" fill="#111827">¿QUIÉN SE APUNTA?</text>
+</svg>
