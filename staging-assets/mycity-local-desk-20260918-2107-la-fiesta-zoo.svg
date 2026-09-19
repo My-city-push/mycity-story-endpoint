@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#121212"/>
+      <stop offset="1" stop-color="#2b1836"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffcf4a"/>
+      <stop offset="1" stop-color="#ff6b3d"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="20" flood-color="#000" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="865" cy="225" r="250" fill="url(#sun)" opacity="0.95"/>
+  <circle cx="215" cy="1615" r="320" fill="#19b8a4" opacity="0.22"/>
+
+  <!-- abstract papel-picado inspired bands -->
+  <g opacity="0.92">
+    <path d="M0 340 H1080 V430 H0 Z" fill="#d93478"/>
+    <path d="M0 430 H1080 V510 H0 Z" fill="#f36f32"/>
+    <path d="M0 510 H1080 V560 H0 Z" fill="#f6c846"/>
+  </g>
+  <g fill="#121212" opacity="0.8">
+    <circle cx="90" cy="385" r="18"/><circle cx="170" cy="385" r="18"/><circle cx="250" cy="385" r="18"/>
+    <circle cx="830" cy="385" r="18"/><circle cx="910" cy="385" r="18"/><circle cx="990" cy="385" r="18"/>
+  </g>
+
+  <!-- top label -->
+  <g transform="translate(70 82)">
+    <rect width="470" height="72" rx="36" fill="#ffffff" opacity="0.12"/>
+    <text x="28" y="47" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" letter-spacing="2">MYCITY · LOCAL DESK</text>
+  </g>
+
+  <!-- headline -->
+  <text x="70" y="710" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="800">
+    <tspan x="70" dy="0">MAÑANA</tspan>
+    <tspan x="70" dy="104">LOUISVILLE</tspan>
+    <tspan x="70" dy="104">CELEBRA</tspan>
+    <tspan x="70" dy="104" fill="#ffcf4a">LO LATINO</tspan>
+  </text>
+
+  <!-- event card -->
+  <g transform="translate(70 1170)" filter="url(#shadow)">
+    <rect width="940" height="430" rx="44" fill="#ffffff"/>
+    <text x="52" y="80" fill="#1c1c1c" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800">LA FIESTA AT THE ZOO</text>
+    <text x="52" y="145" fill="#4b4b4b" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="600">SÁBADO 19 DE SEPTIEMBRE · 10 AM–3 PM</text>
+    <line x1="52" y1="185" x2="888" y2="185" stroke="#dddddd" stroke-width="2"/>
+    <text x="52" y="245" fill="#202020" font-family="Arial, Helvetica, sans-serif" font-size="33">
+      <tspan x="52" dy="0">Música, baile, arte, recursos comunitarios</tspan>
+      <tspan x="52" dy="48">y actividades sobre animales de América Latina.</tspan>
+    </text>
+    <text x="52" y="370" fill="#8a285c" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700">Incluida con admisión o membresía del Zoo</text>
+  </g>
+
+  <!-- decorative leaves -->
+  <g transform="translate(760 760)" opacity="0.9">
+    <path d="M0 190 C40 70 110 20 180 0 C155 85 120 145 35 215 Z" fill="#19b8a4"/>
+    <path d="M80 250 C160 135 255 120 315 130 C270 205 215 250 105 275 Z" fill="#f6c846"/>
+    <path d="M25 300 C80 240 145 245 205 280 C150 325 90 345 20 330 Z" fill="#d93478"/>
+  </g>
+
+  <text x="70" y="1745" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">¿Qué tradición de tu país te gustaría</text>
+  <text x="70" y="1793" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">ver más en Louisville?</text>
+  <text x="70" y="1860" fill="#cfcfcf" font-family="Arial, Helvetica, sans-serif" font-size="27">Información verificada con Louisville Zoo · 18 SEP 2026</text>
+</svg>
