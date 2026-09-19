@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img" aria-labelledby="title desc">
+  <title id="title">Mañana: Noche Latina en Louisville</title>
+  <desc id="desc">Story vertical de alto impacto para el evento Latin Night en Historic Locust Grove, 20 de septiembre de 2026.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5B2BFF"/>
+      <stop offset="0.46" stop-color="#006BFF"/>
+      <stop offset="1" stop-color="#00CFC8"/>
+    </linearGradient>
+    <linearGradient id="hot" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FF3D7F"/>
+      <stop offset="1" stop-color="#FF8A34"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#0A1240" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="918" cy="210" r="245" fill="#FFCE3A" opacity="0.98"/>
+  <circle cx="155" cy="1660" r="290" fill="#FF3D7F" opacity="0.92"/>
+  <path d="M-40 510 C230 380 390 600 625 470 S1030 300 1130 420" fill="none" stroke="#FFFFFF" stroke-width="26" opacity="0.14"/>
+  <path d="M-90 1480 C210 1350 330 1540 610 1395 S965 1260 1160 1410" fill="none" stroke="#FFCE3A" stroke-width="18" opacity="0.34"/>
+
+  <g opacity="0.22" fill="#FFFFFF">
+    <rect x="74" y="840" width="90" height="210" rx="18"/>
+    <rect x="184" y="780" width="114" height="270" rx="18"/>
+    <rect x="318" y="865" width="76" height="185" rx="18"/>
+    <rect x="414" y="730" width="132" height="320" rx="18"/>
+    <rect x="566" y="815" width="88" height="235" rx="18"/>
+    <rect x="674" y="755" width="120" height="295" rx="18"/>
+    <rect x="814" y="830" width="92" height="220" rx="18"/>
+    <rect x="926" y="790" width="88" height="260" rx="18"/>
+  </g>
+
+  <g transform="translate(78 116)" filter="url(#shadow)">
+    <rect width="430" height="92" rx="46" fill="#101433" opacity="0.92"/>
+    <circle cx="53" cy="46" r="20" fill="#00E8D7"/>
+    <text x="91" y="59" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700" fill="#FFFFFF" letter-spacing="2">MYCITY TE CUENTA</text>
+  </g>
+
+  <g transform="translate(78 320)">
+    <text x="0" y="0" font-family="Arial, Helvetica, sans-serif" font-size="76" font-weight="800" fill="#FFFFFF">MAÑANA</text>
+    <text x="0" y="108" font-family="Arial, Helvetica, sans-serif" font-size="146" font-weight="900" fill="#FFFFFF">NOCHE</text>
+    <text x="0" y="248" font-family="Arial, Helvetica, sans-serif" font-size="146" font-weight="900" fill="#FFCE3A">LATINA</text>
+    <rect x="0" y="298" width="706" height="18" rx="9" fill="url(#hot)"/>
+  </g>
+
+  <g transform="translate(78 1050)" filter="url(#shadow)">
+    <rect width="924" height="448" rx="54" fill="#101433" opacity="0.92"/>
+    <text x="52" y="82" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="800" fill="#00E8D7">DOMINGO · 20 SEP</text>
+    <text x="52" y="152" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="800" fill="#FFFFFF">5:30–9:00 PM</text>
+    <text x="52" y="220" font-family="Arial, Helvetica, sans-serif" font-size="39" font-weight="600" fill="#FFFFFF">DJ Xavi · salsa · música en vivo</text>
+    <text x="52" y="274" font-family="Arial, Helvetica, sans-serif" font-size="39" font-weight="600" fill="#FFFFFF">La Culebra · Henry Miles · Leo JM</text>
+    <line x1="52" y1="314" x2="872" y2="314" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="2"/>
+    <text x="52" y="374" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700" fill="#FFCE3A">Historic Locust Grove · 561 Blankenbaker Ln</text>
+    <text x="52" y="420" font-family="Arial, Helvetica, sans-serif" font-size="35" font-weight="700" fill="#FFFFFF">Entrada: $10 · Puertas: 5:00 PM</text>
+  </g>
+
+  <g transform="translate(78 1600)">
+    <rect width="924" height="166" rx="42" fill="#FFFFFF"/>
+    <text x="52" y="68" font-family="Arial, Helvetica, sans-serif" font-size="43" font-weight="900" fill="#101433">BAILA · CONECTA · DISFRUTA LOUISVILLE</text>
+    <text x="52" y="120" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#5B2BFF">¿Con quién irías?  →</text>
+  </g>
+
+  <g transform="translate(802 518) rotate(11)">
+    <circle cx="0" cy="0" r="104" fill="#FF3D7F"/>
+    <text x="-58" y="22" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="900" fill="#FFFFFF">♫</text>
+  </g>
+</svg>
