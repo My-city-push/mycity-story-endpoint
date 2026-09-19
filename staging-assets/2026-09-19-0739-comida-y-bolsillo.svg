@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img" aria-labelledby="title desc">
+  <title id="title">Comida y bolsillo — MyCity Local Desk</title>
+  <desc id="desc">Story vertical sobre una sesión de nutrición, compras de alimentos y planificación del presupuesto en la sucursal Shawnee de Louisville Free Public Library, el 19 de septiembre de 2026.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0d1b1e"/>
+      <stop offset="1" stop-color="#132b2f"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#000000" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="930" cy="190" r="240" fill="#173a3f"/>
+  <circle cx="120" cy="1700" r="290" fill="#102529"/>
+
+  <g opacity="0.18" fill="none" stroke="#b7f27c" stroke-width="3">
+    <path d="M810 330c60-68 145-91 214-55"/>
+    <path d="M790 370c77-74 166-91 236-38"/>
+    <path d="M74 1480c103-62 220-54 305 18"/>
+  </g>
+
+  <g transform="translate(72 78)">
+    <rect x="0" y="0" width="326" height="54" rx="27" fill="#b7f27c"/>
+    <text x="163" y="36" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#0d1b1e" letter-spacing="1.7">MYCITY • LOUISVILLE</text>
+  </g>
+
+  <g transform="translate(72 230)">
+    <text x="0" y="0" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="800" fill="#f4f0e8">COMIDA</text>
+    <text x="0" y="104" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="800" fill="#f4f0e8">Y BOLSILLO</text>
+    <rect x="0" y="144" width="194" height="10" rx="5" fill="#b7f27c"/>
+    <text x="0" y="210" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="500" fill="#c9d8d3">Una hora para organizar mejor tus compras.</text>
+  </g>
+
+  <g transform="translate(72 570)" filter="url(#shadow)">
+    <rect x="0" y="0" width="936" height="520" rx="44" fill="#f4f0e8"/>
+
+    <g transform="translate(54 55)">
+      <rect x="0" y="0" width="304" height="118" rx="28" fill="#0d1b1e"/>
+      <text x="28" y="43" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#b7f27c" letter-spacing="1.5">HOY • SÁBADO</text>
+      <text x="28" y="87" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800" fill="#ffffff">19 SEP</text>
+
+      <rect x="330" y="0" width="254" height="118" rx="28" fill="#dce9e2"/>
+      <text x="356" y="42" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#315258" letter-spacing="1.5">HORARIO</text>
+      <text x="356" y="87" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="800" fill="#0d1b1e">1–2 PM</text>
+
+      <g transform="translate(0 165)">
+        <circle cx="22" cy="22" r="22" fill="#b7f27c"/>
+        <path d="M13 22h18M22 13v18" stroke="#0d1b1e" stroke-width="4" stroke-linecap="round"/>
+        <text x="62" y="31" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" fill="#0d1b1e">Nutrición</text>
+      </g>
+
+      <g transform="translate(0 235)">
+        <circle cx="22" cy="22" r="22" fill="#b7f27c"/>
+        <path d="M12 18h20l-3 15H16zM15 18l3-7h8l3 7" fill="none" stroke="#0d1b1e" stroke-width="3.5" stroke-linejoin="round"/>
+        <text x="62" y="31" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" fill="#0d1b1e">Compras de alimentos</text>
+      </g>
+
+      <g transform="translate(0 305)">
+        <circle cx="22" cy="22" r="22" fill="#b7f27c"/>
+        <path d="M12 14h20v16H12zM16 10h12" fill="none" stroke="#0d1b1e" stroke-width="3.5" stroke-linejoin="round"/>
+        <text x="62" y="31" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" fill="#0d1b1e">Planificación del presupuesto</text>
+      </g>
+
+      <line x1="0" y1="382" x2="828" y2="382" stroke="#c3cec9" stroke-width="2"/>
+      <text x="0" y="432" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#315258">PARA ADULTOS • SHAWNEE BRANCH</text>
+    </g>
+  </g>
+
+  <g transform="translate(72 1160)">
+    <text x="0" y="0" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#b7f27c" letter-spacing="1.8">DÓNDE</text>
+    <text x="0" y="58" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="800" fill="#f4f0e8">3912 W Broadway</text>
+    <text x="0" y="110" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="500" fill="#c9d8d3">Louisville, KY 40211</text>
+  </g>
+
+  <g transform="translate(72 1375)">
+    <rect x="0" y="0" width="936" height="260" rx="38" fill="#173a3f" stroke="#315258" stroke-width="2"/>
+    <text x="44" y="70" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#b7f27c" letter-spacing="1.7">MYCITY TE CUENTA</text>
+    <text x="44" y="126" font-family="Arial, Helvetica, sans-serif" font-size="35" font-weight="700" fill="#ffffff">Lleva tus preguntas.</text>
+    <text x="44" y="178" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="500" fill="#c9d8d3">Revisa el calendario de LFPL antes de salir.</text>
+    <text x="44" y="222" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="500" fill="#94aaa4">Fuente: Louisville Free Public Library • 19 SEP 2026</text>
+  </g>
+
+  <g transform="translate(72 1770)">
+    <line x1="0" y1="0" x2="936" y2="0" stroke="#315258" stroke-width="2"/>
+    <text x="0" y="58" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#f4f0e8">LOCAL DESK</text>
+    <text x="936" y="58" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="500" fill="#94aaa4">LOUISVILLE / KENTUCKIANA</text>
+  </g>
+</svg>
