@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img" aria-labelledby="title desc">
+  <title id="title">Tu negocio puede crecer</title>
+  <desc id="desc">Visual informativo sobre REACH Small Business Growth y la sesión Business Health Check del 3 de octubre de 2026 en Louisville.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1718"/>
+      <stop offset="1" stop-color="#183233"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f0a44b"/>
+      <stop offset="1" stop-color="#ffd27a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="935" cy="210" r="240" fill="#244c4e" opacity="0.75"/>
+  <circle cx="980" cy="260" r="150" fill="#316366" opacity="0.45"/>
+  <path d="M0 1510 C260 1400 390 1580 620 1490 C820 1410 940 1420 1080 1490 L1080 1920 L0 1920 Z" fill="#102526"/>
+  <rect x="72" y="92" width="320" height="58" rx="29" fill="#ffffff" opacity="0.10"/>
+  <text x="104" y="131" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" letter-spacing="2">MYCITY TE CUENTA</text>
+
+  <text x="72" y="360" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="800">
+    <tspan x="72" dy="0">Tu negocio</tspan>
+    <tspan x="72" dy="104">puede crecer</tspan>
+  </text>
+  <rect x="72" y="520" width="520" height="10" rx="5" fill="url(#accent)"/>
+
+  <text x="72" y="650" fill="#d8e7e7" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="600">
+    <tspan x="72" dy="0">REACH ofrece apoyo sin costo</tspan>
+    <tspan x="72" dy="57">a pequeños negocios de distintos</tspan>
+    <tspan x="72" dy="57">orígenes culturales y lingüísticos.</tspan>
+  </text>
+
+  <rect x="72" y="875" width="936" height="340" rx="44" fill="#ffffff" opacity="0.08" stroke="#ffffff" stroke-opacity="0.15" stroke-width="2"/>
+  <text x="116" y="950" fill="#ffd27a" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="800" letter-spacing="1.5">PRÓXIMA SESIÓN</text>
+  <text x="116" y="1035" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="800">3 DE OCTUBRE</text>
+  <text x="116" y="1110" fill="#d8e7e7" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="600">Business Health Check</text>
+  <text x="116" y="1165" fill="#a8c0c1" font-family="Arial, Helvetica, sans-serif" font-size="29">Formación • licencias • permisos • bases del negocio</text>
+
+  <g transform="translate(72,1310)">
+    <rect x="0" y="0" width="936" height="116" rx="30" fill="#f0a44b"/>
+    <text x="44" y="72" fill="#132223" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800">Apoyo multilingüe disponible</text>
+    <circle cx="860" cy="58" r="28" fill="#132223" opacity="0.15"/>
+    <path d="M848 58h24M860 46v24" stroke="#132223" stroke-width="5" stroke-linecap="round"/>
+  </g>
+
+  <text x="72" y="1575" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700">
+    <tspan x="72" dy="0">Si ya tienes un negocio —o estás</tspan>
+    <tspan x="72" dy="52">poniendo uno en orden— esta ruta</tspan>
+    <tspan x="72" dy="52">puede ayudarte a dar el próximo paso.</tspan>
+  </text>
+
+  <text x="72" y="1778" fill="#9eb5b6" font-family="Arial, Helvetica, sans-serif" font-size="24">Fuente: Louisville Metro • Office for Immigrant Affairs</text>
+  <text x="72" y="1820" fill="#9eb5b6" font-family="Arial, Helvetica, sans-serif" font-size="24">REACH Small Business Growth • información verificada 18 SEP 2026</text>
+  <rect x="72" y="1865" width="936" height="2" fill="#ffffff" opacity="0.16"/>
+</svg>
