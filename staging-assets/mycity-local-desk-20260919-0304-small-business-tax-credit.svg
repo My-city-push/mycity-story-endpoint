@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img" aria-labelledby="title desc">
+  <title id="title">Crédito para pequeños negocios de Kentucky</title>
+  <desc id="desc">Visual editorial de MyCity sobre el Kentucky Small Business Tax Credit, con fecha límite práctica del 1 de noviembre de 2026.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071722"/>
+      <stop offset="0.58" stop-color="#0B2A34"/>
+      <stop offset="1" stop-color="#123F43"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#000000" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="930" cy="180" r="250" fill="#2E7D76" opacity="0.20"/>
+  <circle cx="96" cy="1720" r="290" fill="#D89B4A" opacity="0.12"/>
+
+  <g transform="translate(88 92)">
+    <rect width="318" height="58" rx="29" fill="#FFFFFF" opacity="0.10"/>
+    <text x="28" y="39" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#F4F8F7" letter-spacing="1.2">MYCITY • LOCAL DESK</text>
+  </g>
+
+  <g transform="translate(88 250)">
+    <text x="0" y="0" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="800" fill="#FFFFFF">
+      <tspan x="0" dy="0">¿Tu negocio</tspan>
+      <tspan x="0" dy="108">creció?</tspan>
+    </text>
+    <text x="0" y="266" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="500" fill="#CFE3DF">
+      <tspan x="0" dy="0">Kentucky tiene un crédito fiscal</tspan>
+      <tspan x="0" dy="58">para pequeños negocios elegibles.</tspan>
+    </text>
+  </g>
+
+  <g transform="translate(88 695)" filter="url(#shadow)">
+    <rect width="904" height="560" rx="44" fill="#F7F4EC"/>
+    <g transform="translate(64 60)">
+      <rect x="0" y="0" width="212" height="212" rx="42" fill="#143B40"/>
+      <path d="M48 91h116l-12-40H60L48 91Zm13 18v70h90v-70" fill="none" stroke="#F7F4EC" stroke-width="13" stroke-linejoin="round"/>
+      <path d="M88 179v-42h36v42" fill="none" stroke="#D89B4A" stroke-width="12" stroke-linejoin="round"/>
+      <circle cx="164" cy="48" r="42" fill="#D89B4A"/>
+      <text x="164" y="60" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="800" fill="#102B2F">$</text>
+    </g>
+
+    <text x="332" y="122" font-family="Arial, Helvetica, sans-serif" font-size="68" font-weight="800" fill="#102B2F">$3,500–$25,000</text>
+    <text x="332" y="176" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#4A625F">crédito estatal posible</text>
+
+    <line x1="64" y1="308" x2="840" y2="308" stroke="#D4D8D1" stroke-width="2"/>
+
+    <text x="64" y="372" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#102B2F">Puede aplicar si, en los últimos 24 meses:</text>
+    <g font-family="Arial, Helvetica, sans-serif" font-size="31" fill="#334C49">
+      <circle cx="80" cy="432" r="7" fill="#D89B4A"/>
+      <text x="106" y="443">sumaste al menos 1 empleo neto de tiempo completo</text>
+      <circle cx="80" cy="492" r="7" fill="#D89B4A"/>
+      <text x="106" y="503">invertiste $5,000+ en equipo o tecnología elegible</text>
+    </g>
+  </g>
+
+  <g transform="translate(88 1322)">
+    <rect width="904" height="230" rx="40" fill="#FFFFFF" opacity="0.08" stroke="#FFFFFF" stroke-opacity="0.14"/>
+    <text x="48" y="70" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#D2E4E0" letter-spacing="1.1">FECHA PRÁCTICA</text>
+    <text x="48" y="132" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="800" fill="#FFFFFF">1 NOV 2026</text>
+    <text x="48" y="182" font-family="Arial, Helvetica, sans-serif" font-size="29" fill="#CFE3DF">Solicitudes completas recibidas para esa fecha serán revisadas para 2026.</text>
+  </g>
+
+  <g transform="translate(88 1615)">
+    <text x="0" y="0" font-family="Arial, Helvetica, sans-serif" font-size="35" font-weight="700" fill="#F5D9A8">MyCity te cuenta:</text>
+    <text x="0" y="56" font-family="Arial, Helvetica, sans-serif" font-size="34" fill="#EEF4F2">
+      <tspan x="0" dy="0">si contrataste y reinvertiste en tu negocio,</tspan>
+      <tspan x="0" dy="48">vale la pena revisar si calificas.</tspan>
+    </text>
+    <text x="0" y="164" font-family="Arial, Helvetica, sans-serif" font-size="27" fill="#AFC5C1">Fuente: Kentucky Cabinet for Economic Development • 3 sep 2026</text>
+  </g>
+</svg>
