@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img" aria-labelledby="title desc">
+  <title id="title">Raíces que abren camino</title>
+  <desc id="desc">Visual editorial original de MyCity Local Desk sobre liderazgo latino en Louisville.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0D2238"/>
+      <stop offset="0.58" stop-color="#123A4A"/>
+      <stop offset="1" stop-color="#155B5E"/>
+    </linearGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="34"/>
+    </filter>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="880" cy="250" r="250" fill="#F4A261" opacity="0.18" filter="url(#soft)"/>
+  <circle cx="180" cy="1590" r="300" fill="#2A9D8F" opacity="0.20" filter="url(#soft)"/>
+  <path d="M0 1460 C210 1320 380 1530 600 1435 C790 1350 920 1215 1080 1250 L1080 1920 L0 1920 Z" fill="#071724" opacity="0.72"/>
+
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="82" y="124" font-size="34" font-weight="700" letter-spacing="5" fill="#DDEAF0">MYCITY LOCAL DESK</text>
+    <text x="82" y="176" font-size="24" font-weight="600" letter-spacing="3" fill="#91B8C6">LOUISVILLE • COMUNIDAD</text>
+
+    <rect x="82" y="292" width="188" height="58" rx="29" fill="#F4A261"/>
+    <text x="176" y="331" text-anchor="middle" font-size="25" font-weight="800" fill="#152A36">PERFIL 2026</text>
+
+    <text x="82" y="505" font-size="92" font-weight="800" fill="#FFFFFF">RAÍCES QUE</text>
+    <text x="82" y="608" font-size="92" font-weight="800" fill="#FFFFFF">ABREN CAMINO</text>
+
+    <text x="82" y="706" font-size="36" font-weight="500" fill="#D7E4E9">David Lopez llegó a Louisville en 2018.</text>
+    <text x="82" y="758" font-size="36" font-weight="500" fill="#D7E4E9">Educación, redes y emprendimiento</text>
+    <text x="82" y="810" font-size="36" font-weight="500" fill="#D7E4E9">marcaron su trayectoria local.</text>
+
+    <g transform="translate(82 940)">
+      <rect width="916" height="350" rx="34" fill="#FFFFFF" opacity="0.94"/>
+      <text x="48" y="72" font-size="28" font-weight="800" fill="#155B5E">UNA HISTORIA LATINA EN LOUISVILLE</text>
+      <text x="48" y="138" font-size="31" font-weight="600" fill="#173244">• Hijo de padres de Michoacán y Sinaloa</text>
+      <text x="48" y="196" font-size="31" font-weight="600" fill="#173244">• Experiencia en Metro United Way</text>
+      <text x="48" y="254" font-size="31" font-weight="600" fill="#173244">• Cofundador de Valor Insights</text>
+      <text x="48" y="312" font-size="31" font-weight="600" fill="#173244">• Exlíder de la Cámara Hispana local</text>
+    </g>
+
+    <text x="82" y="1510" font-size="39" font-weight="800" fill="#FFFFFF">¿QUIÉN TE AYUDÓ A AVANZAR AQUÍ?</text>
+    <text x="82" y="1570" font-size="31" font-weight="500" fill="#D7E4E9">Cuéntanos qué mentor, conexión o comunidad</text>
+    <text x="82" y="1616" font-size="31" font-weight="500" fill="#D7E4E9">hizo una diferencia en tu camino.</text>
+
+    <line x1="82" y1="1700" x2="998" y2="1700" stroke="#F4A261" stroke-width="5"/>
+    <text x="82" y="1774" font-size="25" font-weight="700" letter-spacing="2" fill="#91B8C6">FUENTE: LOUISVILLE METRO • OFFICE FOR IMMIGRANT AFFAIRS</text>
+    <text x="82" y="1830" font-size="28" font-weight="700" fill="#FFFFFF">MyCity te cuenta • Louisville/Kentuckiana</text>
+  </g>
+</svg>
