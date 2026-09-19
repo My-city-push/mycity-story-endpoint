@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5A23FF"/>
+      <stop offset="42%" stop-color="#1268FF"/>
+      <stop offset="100%" stop-color="#00C7B7"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFE36E"/>
+      <stop offset="100%" stop-color="#FF9B42"/>
+    </linearGradient>
+    <linearGradient id="bookL" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FF4F8B"/>
+      <stop offset="100%" stop-color="#FF7A45"/>
+    </linearGradient>
+    <linearGradient id="bookR" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#10D5C2"/>
+      <stop offset="100%" stop-color="#77F0A8"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="22" stdDeviation="24" flood-color="#08103A" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+
+  <circle cx="965" cy="190" r="280" fill="#FF4F8B" opacity="0.30"/>
+  <circle cx="80" cy="1550" r="330" fill="#00E0C7" opacity="0.20"/>
+  <path d="M0 1280 C260 1160 420 1370 650 1280 C840 1205 950 1035 1080 1060 L1080 1920 L0 1920 Z" fill="#08123F" opacity="0.30"/>
+  <path d="M0 1430 C260 1320 470 1530 700 1430 C865 1358 950 1230 1080 1250 L1080 1920 L0 1920 Z" fill="#061034" opacity="0.70"/>
+
+  <g opacity="0.96">
+    <circle cx="118" cy="170" r="50" fill="url(#sun)"/>
+    <circle cx="905" cy="480" r="18" fill="#FFE36E"/>
+    <circle cx="936" cy="520" r="9" fill="#FFFFFF"/>
+    <circle cx="146" cy="1000" r="16" fill="#FFCF5C"/>
+    <path d="M847 220 l16 34 36 6-26 25 6 36-32-17-32 17 6-36-26-25 36-6z" fill="#FFFFFF" opacity="0.92"/>
+    <path d="M196 770 l11 24 26 4-19 18 5 26-23-12-23 12 5-26-19-18 26-4z" fill="#FFE36E"/>
+  </g>
+
+  <g transform="translate(74 88)">
+    <rect x="0" y="0" rx="28" ry="28" width="280" height="62" fill="#FFFFFF" opacity="0.16"/>
+    <text x="30" y="41" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" letter-spacing="2">MYCITY TE CUENTA</text>
+  </g>
+
+  <g transform="translate(76 310)">
+    <text x="0" y="0" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="126" font-weight="900" letter-spacing="-5">
+      <tspan x="0" dy="0">LEE.</tspan>
+      <tspan x="0" dy="126">CREA.</tspan>
+      <tspan x="0" dy="126">IMAGINA.</tspan>
+    </text>
+    <rect x="0" y="390" width="705" height="18" rx="9" fill="#FFE36E"/>
+    <text x="2" y="476" fill="#DFFAFF" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="700">Una tarde gratis para familias</text>
+  </g>
+
+  <g transform="translate(108 860)" filter="url(#shadow)">
+    <path d="M0 170 C120 95 220 95 370 156 L370 520 C225 458 118 452 0 522 Z" fill="url(#bookL)"/>
+    <path d="M370 156 C520 95 620 95 740 170 L740 522 C622 452 515 458 370 520 Z" fill="url(#bookR)"/>
+    <path d="M370 158 L370 520" stroke="#FFFFFF" stroke-width="12" opacity="0.82"/>
+    <path d="M76 238 C150 207 212 206 302 236" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" opacity="0.86"/>
+    <path d="M76 288 C148 258 220 258 302 288" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" opacity="0.60"/>
+    <path d="M438 238 C518 206 588 207 664 238" stroke="#06395F" stroke-width="12" stroke-linecap="round" opacity="0.55"/>
+    <path d="M438 288 C518 258 588 258 664 288" stroke="#06395F" stroke-width="12" stroke-linecap="round" opacity="0.35"/>
+    <circle cx="370" cy="80" r="58" fill="#FFE36E"/>
+    <path d="M370 8 l18 45 48 7-36 31 10 48-40-24-41 24 11-48-36-31 48-7z" fill="#FFFFFF"/>
+  </g>
+
+  <g transform="translate(78 1456)">
+    <rect x="0" y="0" width="924" height="300" rx="48" fill="#FFFFFF"/>
+    <rect x="42" y="38" width="244" height="72" rx="36" fill="#FF4F8B"/>
+    <text x="164" y="86" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="900">HOY • GRATIS</text>
+    <text x="42" y="166" fill="#08123F" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="900">1–3 PM</text>
+    <text x="286" y="166" fill="#08123F" font-family="Arial, Helvetica, sans-serif" font-size="35" font-weight="800">Douglass Community Center</text>
+    <text x="42" y="220" fill="#3A466D" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700">Autores locales • lecturas • juegos • actividades</text>
+    <text x="42" y="265" fill="#3A466D" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700">2305 Douglass Blvd. • Louisville</text>
+  </g>
+
+  <g transform="translate(78 1818)">
+    <circle cx="20" cy="20" r="20" fill="#FFE36E"/>
+    <text x="56" y="30" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800">¿Qué historia inventaría tu familia hoy?</text>
+  </g>
+</svg>
