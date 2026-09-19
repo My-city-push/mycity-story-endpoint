@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <rect width="1080" height="1920" fill="#F5F1E8"/>
+  <rect x="64" y="64" width="952" height="1792" rx="48" fill="#111111"/>
+
+  <text x="112" y="150" fill="#F5F1E8" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" letter-spacing="5">MYCITY · LOCAL DESK</text>
+  <text x="112" y="205" fill="#B9B9B9" font-family="Arial, Helvetica, sans-serif" font-size="24">Louisville / Kentucky · información útil</text>
+
+  <circle cx="855" cy="335" r="108" fill="#F5F1E8"/>
+  <path d="M790 350h130v28H790z" fill="#111111"/>
+  <path d="M816 299h78l22 51H794z" fill="none" stroke="#111111" stroke-width="20" stroke-linejoin="round"/>
+  <path d="M855 285v-42" stroke="#111111" stroke-width="20" stroke-linecap="round"/>
+
+  <text x="112" y="370" fill="#F5F1E8" font-family="Arial, Helvetica, sans-serif" font-size="96" font-weight="800">CAPACÍTATE</text>
+  <text x="112" y="472" fill="#F5F1E8" font-family="Arial, Helvetica, sans-serif" font-size="96" font-weight="800">CON AYUDA</text>
+
+  <text x="112" y="555" fill="#C7C7C7" font-family="Arial, Helvetica, sans-serif" font-size="34">Work Ready Kentucky Scholarship · 2026–27</text>
+
+  <rect x="112" y="635" width="856" height="108" rx="28" fill="#F5F1E8"/>
+  <text x="152" y="704" fill="#111111" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">5 áreas de alta demanda</text>
+
+  <g font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700" fill="#F5F1E8">
+    <text x="155" y="845">CONSTRUCCIÓN</text>
+    <text x="155" y="955">SALUD</text>
+    <text x="155" y="1065">EDUCACIÓN</text>
+    <text x="155" y="1175">MANUFACTURA + LOGÍSTICA</text>
+    <text x="155" y="1285">SERVICIOS PROFESIONALES / TÉCNICOS</text>
+  </g>
+
+  <g fill="#F5F1E8">
+    <circle cx="120" cy="829" r="8"/>
+    <circle cx="120" cy="939" r="8"/>
+    <circle cx="120" cy="1049" r="8"/>
+    <circle cx="120" cy="1159" r="8"/>
+    <circle cx="120" cy="1269" r="8"/>
+  </g>
+
+  <line x1="112" y1="1380" x2="968" y2="1380" stroke="#3A3A3A" stroke-width="2"/>
+
+  <text x="112" y="1468" fill="#F5F1E8" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700">FAFSA + solicitud WRKS</text>
+  <text x="112" y="1528" fill="#B9B9B9" font-family="Arial, Helvetica, sans-serif" font-size="30">Fondos sujetos a disponibilidad y elegibilidad.</text>
+  <text x="112" y="1590" fill="#B9B9B9" font-family="Arial, Helvetica, sans-serif" font-size="30">Jefferson Community &amp; Technical College participa.</text>
+
+  <rect x="112" y="1660" width="856" height="112" rx="28" fill="#F5F1E8"/>
+  <text x="540" y="1731" text-anchor="middle" fill="#111111" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">Revisa tu programa en KHEAA</text>
+
+  <text x="112" y="1822" fill="#7E7E7E" font-family="Arial, Helvetica, sans-serif" font-size="22">MyCity no es una app oficial del gobierno.</text>
+</svg>
