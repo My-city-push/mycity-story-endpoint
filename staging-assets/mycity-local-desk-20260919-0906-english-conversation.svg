@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img" aria-labelledby="title desc">
+  <title id="title">Inglés para conversar</title>
+  <desc id="desc">Story vertical de MyCity sobre el English Conversation Club de la Biblioteca Iroquois en Louisville el 19 de septiembre de 2026.</desc>
+  <rect width="1080" height="1920" fill="#F6F3EC"/>
+  <rect x="0" y="0" width="1080" height="260" fill="#111315"/>
+  <rect x="70" y="76" width="192" height="54" rx="27" fill="#F6F3EC"/>
+  <text x="166" y="112" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#111315" letter-spacing="2">MYCITY</text>
+  <text x="70" y="190" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#D9D4C9">LOCAL DESK · LOUISVILLE</text>
+
+  <g transform="translate(70 340)">
+    <text x="0" y="0" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="800" fill="#111315">Inglés para</text>
+    <text x="0" y="104" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="800" fill="#111315">conversar</text>
+    <rect x="0" y="150" width="210" height="10" rx="5" fill="#B04A3F"/>
+  </g>
+
+  <g transform="translate(70 650)">
+    <rect x="0" y="0" width="940" height="350" rx="44" fill="#FFFFFF" stroke="#D8D3C8" stroke-width="3"/>
+    <circle cx="120" cy="108" r="58" fill="#B04A3F"/>
+    <path d="M88 93 h64 a18 18 0 0 1 18 18 v30 a18 18 0 0 1-18 18 h-18 l-18 20 v-20 h-28 a18 18 0 0 1-18-18 v-30 a18 18 0 0 1 18-18z" fill="#FFFFFF"/>
+    <text x="225" y="88" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#6A635A">HOY · SÁBADO 19 SEP</text>
+    <text x="225" y="146" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="800" fill="#111315">3:00–4:00 p.m.</text>
+    <text x="225" y="208" font-family="Arial, Helvetica, sans-serif" font-size="34" fill="#35383A">Iroquois Library</text>
+    <text x="225" y="258" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#6A635A">601 W. Woodlawn Ave · Louisville</text>
+    <rect x="225" y="282" width="330" height="44" rx="22" fill="#EEE9DF"/>
+    <text x="390" y="312" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#111315">REGISTRO REQUERIDO</text>
+  </g>
+
+  <g transform="translate(70 1080)">
+    <text x="0" y="0" font-family="Arial, Helvetica, sans-serif" font-size="39" font-weight="700" fill="#111315">Un espacio para adultos que quieren</text>
+    <text x="0" y="58" font-family="Arial, Helvetica, sans-serif" font-size="39" font-weight="700" fill="#111315">fortalecer su conversación en inglés.</text>
+    <text x="0" y="130" font-family="Arial, Helvetica, sans-serif" font-size="31" fill="#4F514F">La biblioteca lo describe como un ambiente</text>
+    <text x="0" y="176" font-family="Arial, Helvetica, sans-serif" font-size="31" fill="#4F514F">amistoso y acogedor para practicar hablando.</text>
+  </g>
+
+  <g transform="translate(70 1400)">
+    <rect x="0" y="0" width="940" height="220" rx="36" fill="#111315"/>
+    <text x="46" y="64" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#D9D4C9" letter-spacing="1">TAMBIÉN SE REPITE</text>
+    <text x="46" y="118" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="800" fill="#FFFFFF">Los sábados hasta el 31 de octubre</text>
+    <text x="46" y="166" font-family="Arial, Helvetica, sans-serif" font-size="27" fill="#D9D4C9">El registro de hoy cierra a las 3:00 p.m.</text>
+  </g>
+
+  <g transform="translate(70 1710)">
+    <text x="0" y="0" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#B04A3F">MYCITY TE CUENTA</text>
+    <text x="0" y="48" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#35383A">Practicar el idioma puede ayudar en trabajo,</text>
+    <text x="0" y="88" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#35383A">trámites y la vida diaria. Regístrate con LFPL.</text>
+    <text x="0" y="150" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#7B766E">Fuente: Louisville Free Public Library · 19 Sep 2026</text>
+  </g>
+</svg>
