@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#050711"/>
+      <stop offset="0.36" stop-color="#0a1840"/>
+      <stop offset="0.72" stop-color="#092d3b"/>
+      <stop offset="1" stop-color="#120817"/>
+    </linearGradient>
+    <linearGradient id="money" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#00e7ff"/>
+      <stop offset="0.45" stop-color="#7dffcf"/>
+      <stop offset="1" stop-color="#ffe04b"/>
+    </linearGradient>
+    <linearGradient id="hot" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff3ba7"/>
+      <stop offset="1" stop-color="#ff6b35"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="16" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="918" cy="210" r="290" fill="#ff3ba7" opacity="0.15"/>
+  <circle cx="110" cy="1600" r="330" fill="#00e7ff" opacity="0.12"/>
+  <path d="M-120 520 C180 390 390 620 690 500 C900 415 1080 430 1210 520" fill="none" stroke="#00e7ff" stroke-width="11" opacity="0.28"/>
+  <path d="M-100 575 C210 440 410 690 720 555 C930 465 1090 480 1200 570" fill="none" stroke="#ff3ba7" stroke-width="7" opacity="0.26"/>
+
+  <rect x="70" y="86" width="386" height="72" rx="34" fill="#ffffff" opacity="0.09" stroke="#ffffff" stroke-opacity="0.18"/>
+  <text x="104" y="134" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="800" letter-spacing="2">TRABAJO • LOUISVILLE</text>
+
+  <g transform="translate(70 245)">
+    <text x="0" y="0" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="102" font-weight="900">5 CARRERAS</text>
+    <text x="0" y="112" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="102" font-weight="900">LOCALES</text>
+    <text x="0" y="244" fill="url(#money)" font-family="Arial, Helvetica, sans-serif" font-size="148" font-weight="900">$70K+</text>
+    <text x="520" y="230" fill="#d9e7ff" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="800">SALARIO MEDIANO</text>
+    <text x="520" y="278" fill="#9fc4d8" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">al año • área de Louisville</text>
+  </g>
+
+  <g transform="translate(70 650)" font-family="Arial, Helvetica, sans-serif">
+    <rect x="0" y="0" width="940" height="715" rx="58" fill="#07131f" opacity="0.82" stroke="#29efff" stroke-opacity="0.40" stroke-width="2"/>
+    <circle cx="800" cy="80" r="180" fill="#7dffcf" opacity="0.06"/>
+
+    <g font-size="38" font-weight="800" fill="#f5fbff">
+      <circle cx="68" cy="105" r="24" fill="#00e7ff"/><text x="118" y="118">Analistas de gestión</text>
+      <line x1="118" y1="150" x2="855" y2="150" stroke="#ffffff" stroke-opacity="0.10"/>
+
+      <circle cx="68" cy="228" r="24" fill="#7dffcf"/><text x="118" y="241">Contadores y auditores</text>
+      <line x1="118" y1="273" x2="855" y2="273" stroke="#ffffff" stroke-opacity="0.10"/>
+
+      <circle cx="68" cy="351" r="24" fill="#ffe04b"/><text x="118" y="364">Especialistas de RR. HH.</text>
+      <line x1="118" y1="396" x2="855" y2="396" stroke="#ffffff" stroke-opacity="0.10"/>
+
+      <circle cx="68" cy="474" r="24" fill="#ff6b35"/><text x="118" y="487">Agentes de seguros</text>
+      <line x1="118" y1="519" x2="855" y2="519" stroke="#ffffff" stroke-opacity="0.10"/>
+
+      <circle cx="68" cy="597" r="24" fill="#ff3ba7"/><text x="118" y="610">Especialistas en gestión</text>
+      <text x="118" y="658" fill="#b8d2df" font-size="32" font-weight="700">de proyectos</text>
+    </g>
+  </g>
+
+  <g transform="translate(70 1435)">
+    <rect x="0" y="0" width="940" height="245" rx="52" fill="url(#hot)"/>
+    <text x="54" y="78" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="39" font-weight="900">NO ES SUELDO INICIAL</text>
+    <text x="54" y="132" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700">La mediana cambia según experiencia,</text>
+    <text x="54" y="174" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700">credenciales y puesto.</text>
+    <text x="54" y="219" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="900">EXPLORA REQUISITOS + RUTAS DE FORMACIÓN →</text>
+  </g>
+
+  <text x="70" y="1825" fill="#a9bed0" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="800">MYCITY LOCAL DESK • FUENTE: KENTUCKIANAWORKS • SEP 3, 2026</text>
+</svg>
