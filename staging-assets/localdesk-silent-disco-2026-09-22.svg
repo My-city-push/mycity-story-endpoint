@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#09111f"/>
+      <stop offset="0.45" stop-color="#1238ff"/>
+      <stop offset="1" stop-color="#ff2f92"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#00f5d4"/>
+      <stop offset="1" stop-color="#ffd84d"/>
+    </linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="18" stdDeviation="24" flood-opacity="0.28"/></filter>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="910" cy="210" r="250" fill="#ff8a00" opacity="0.28"/>
+  <circle cx="120" cy="1520" r="300" fill="#00f5d4" opacity="0.18"/>
+  <path d="M0 1110 C260 980 430 1200 660 1080 C830 990 920 920 1080 980 L1080 1920 L0 1920 Z" fill="#08101b" opacity="0.38"/>
+
+  <g transform="translate(95 115)">
+    <rect x="0" y="0" width="365" height="74" rx="37" fill="#ffffff" opacity="0.14"/>
+    <text x="34" y="49" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" fill="#ffffff">LOUISVILLE · GRATIS</text>
+  </g>
+
+  <g transform="translate(130 320)" filter="url(#shadow)">
+    <path d="M150 330 C150 145 275 40 410 40 C545 40 670 145 670 330" fill="none" stroke="#ffffff" stroke-width="42" stroke-linecap="round"/>
+    <rect x="94" y="300" width="150" height="260" rx="72" fill="url(#card)"/>
+    <rect x="576" y="300" width="150" height="260" rx="72" fill="url(#card)"/>
+    <circle cx="410" cy="345" r="44" fill="#ffffff" opacity="0.9"/>
+    <circle cx="410" cy="345" r="18" fill="#ff2f92"/>
+  </g>
+
+  <text x="90" y="1010" font-family="Arial,Helvetica,sans-serif" font-size="108" font-weight="900" fill="#ffffff">SILENT</text>
+  <text x="90" y="1125" font-family="Arial,Helvetica,sans-serif" font-size="108" font-weight="900" fill="#ffffff">DISCO</text>
+  <text x="90" y="1210" font-family="Arial,Helvetica,sans-serif" font-size="46" font-weight="700" fill="#bffef5">BAILA EN EL PARQUE · TODAS LAS EDADES</text>
+
+  <g transform="translate(90 1305)">
+    <rect width="900" height="390" rx="52" fill="#ffffff" opacity="0.96"/>
+    <text x="58" y="92" font-family="Arial,Helvetica,sans-serif" font-size="42" font-weight="800" fill="#09111f">MARTES · 22 DE SEPTIEMBRE</text>
+    <text x="58" y="160" font-family="Arial,Helvetica,sans-serif" font-size="38" font-weight="700" fill="#1238ff">5:30–7:30 PM · JOE CREASON PARK</text>
+    <text x="58" y="246" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" fill="#09111f">🎧 Audífonos inalámbricos</text>
+    <text x="58" y="302" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" fill="#09111f">🍂 Música + food trucks</text>
+    <text x="58" y="358" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#ff2f92">Entrada gratis · lleva a tu familia</text>
+  </g>
+
+  <text x="90" y="1815" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" fill="#ffffff" opacity="0.88">MyCity · Louisville/Kentuckiana</text>
+</svg>
