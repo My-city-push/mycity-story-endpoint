@@ -382,6 +382,145 @@ app.post("/ai/story", requireApiKey, async (req, res) => {
   }
 });
 
+
+function analyticsKey(value) {
+  return safeString(value, 300).replace(/[.#$\\/\\[\\]]/g, "_");
+}
+
+function hashViewer(value) {
+  const raw = safeString(value, 500);
+  if (!raw) return "";
+  return crypto.createHash("sha256").update(raw).digest("hex").slice(0, 24);
+}
+
+function clampNumber(value, min, max) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return min;
+  return Math.min(max, Math.max(min, n));
+}
+
+function interestWeight(input) {
+  const seconds = clampNumber(input.viewSeconds, 0, 600);
+  let score = 0;
+  if (seconds >= 3) score += 1;
+  if (seconds >= 6) score += 1;
+  if (input.completed === true) score += 2;
+  if (input.rewatched === true) score += 2;
+  if (input.interested === true) score += 3;
+  if (input.commented === true) score += 3;
+  if (input.shared === true) score += 4;
+  return score;
+}
+
+async function createInterestEvent(event) {
+  if (firebaseMode === "admin") {
+    const ref = db.ref("storyInterestEvents").push();
+    await ref.set(event);
+    return ref.key;
+  }
+  if (firebaseMode === "rest-public") {
+    const data = await restRequest("storyInterestEvents", "POST", event);
+    return data?.name;
+  }
+  throw new Error("Firebase is not configured");
+}
+
+async function recentInterestEvents(sinceMs, limit = 1000) {
+  if (firebaseMode === "admin") {
+    const snap = await db.ref("storyInterestEvents")
+      .orderByChild("timestamp")
+      .startAt(sinceMs)
+      .limitToLast(limit)
+      .get();
+    return snap.exists() ? Object.values(snap.val() || {}) : [];
+  }
+  const all = await firebaseGet("storyInterestEvents");
+  return Object.values(all || {})
+    .filter((x) => Number(x?.timestamp || 0) >= sinceMs)
+    .sort((a, b) => Number(b?.timestamp || 0) - Number(a?.timestamp || 0))
+    .slice(0, limit);
+}
+
+app.post("/analytics/view", requireApiKey, async (req, res) => {
+  try {
+    const input = req.body || {};
+    const storyId = analyticsKey(input.storyId);
+    const viewerHash = hashViewer(input.userId || input.viewerId || input.sessionId);
+    if (!storyId) return res.status(400).json({ ok: false, error: "storyId is required" });
+    if (!viewerHash) return res.status(400).json({ ok: false, error: "userId, viewerId or sessionId is required" });
+
+    const event = {
+      storyId,
+      viewerHash,
+      category: analyticsKey(input.category || "uncategorized"),
+      topic: analyticsKey(input.topic || input.category || "uncategorized"),
+      source: analyticsKey(input.source || "story_feed"),
+      viewSeconds: clampNumber(input.viewSeconds, 0, 600),
+      completed: input.completed === true,
+      rewatched: input.rewatched === true,
+      interested: input.interested === true,
+      commented: input.commented === true,
+      shared: input.shared === true,
+      weight: interestWeight(input),
+      timestamp: Date.now()
+    };
+
+    // Privacy: intentionally do not persist email or display name in editorial analytics.
+    const eventId = await createInterestEvent(event);
+    res.status(201).json({ ok: true, eventId, weight: event.weight });
+  } catch (error) {
+    console.error("POST /analytics/view failed:", error);
+    res.status(500).json({ ok: false, error: safeString(error?.message || error, 500) });
+  }
+});
+
+app.get("/analytics/interests", requireApiKey, async (req, res) => {
+  try {
+    const hours = clampNumber(req.query.hours || 24, 1, 168);
+    const limit = Math.round(clampNumber(req.query.limit || 1000, 10, 5000));
+    const sinceMs = Date.now() - hours * 60 * 60 * 1000;
+    const events = await recentInterestEvents(sinceMs, limit);
+
+    const categories = new Map();
+    const topics = new Map();
+    const viewers = new Set();
+
+    for (const event of events) {
+      const weight = Number(event?.weight || 0);
+      const category = safeString(event?.category || "uncategorized", 120);
+      const topic = safeString(event?.topic || category, 160);
+      viewers.add(safeString(event?.viewerHash, 100));
+
+      const c = categories.get(category) || { category, views: 0, weightedScore: 0, completed: 0, interested: 0, shared: 0 };
+      c.views += 1;
+      c.weightedScore += weight;
+      c.completed += event?.completed ? 1 : 0;
+      c.interested += event?.interested ? 1 : 0;
+      c.shared += event?.shared ? 1 : 0;
+      categories.set(category, c);
+
+      const t = topics.get(topic) || { topic, views: 0, weightedScore: 0 };
+      t.views += 1;
+      t.weightedScore += weight;
+      topics.set(topic, t);
+    }
+
+    const byScore = (a, b) => b.weightedScore - a.weightedScore || b.views - a.views;
+    res.json({
+      ok: true,
+      hours,
+      sinceMs,
+      eventCount: events.length,
+      uniqueViewers: [...viewers].filter(Boolean).length,
+      categories: [...categories.values()].sort(byScore).slice(0, 25),
+      topics: [...topics.values()].sort(byScore).slice(0, 50)
+    });
+  } catch (error) {
+    console.error("GET /analytics/interests failed:", error);
+    res.status(500).json({ ok: false, error: safeString(error?.message || error, 500) });
+  }
+});
+
 app.use((_req, res) => res.status(404).json({ ok: false, error: "Not found" }));
 
 app.listen(PORT, "0.0.0.0", () => {
