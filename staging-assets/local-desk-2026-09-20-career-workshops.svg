@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#061A40"/>
+      <stop offset="0.42" stop-color="#0A48FF"/>
+      <stop offset="1" stop-color="#00D9C0"/>
+    </linearGradient>
+    <linearGradient id="hot" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FF3B7A"/>
+      <stop offset="1" stop-color="#FF8A00"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#00142A" flood-opacity="0.30"/>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="1010" cy="180" r="255" fill="#FF3B7A" opacity="0.23"/>
+  <circle cx="92" cy="1650" r="270" fill="#FFD447" opacity="0.18"/>
+  <path d="M-120 470 C180 280 350 650 660 470 S1120 300 1220 470" fill="none" stroke="#FFFFFF" stroke-opacity="0.10" stroke-width="34"/>
+  <path d="M850 0 L1080 0 L1080 460 Z" fill="#FFD447" opacity="0.96"/>
+
+  <g font-family="Arial, Helvetica, sans-serif">
+    <rect x="70" y="80" width="365" height="64" rx="32" fill="#FFFFFF" opacity="0.16"/>
+    <text x="98" y="122" fill="#FFFFFF" font-size="31" font-weight="700" letter-spacing="2">MYCITY · TRABAJO</text>
+
+    <text x="70" y="270" fill="#FFFFFF" font-size="92" font-weight="900">¿BUSCAS</text>
+    <text x="70" y="370" fill="#FFD447" font-size="106" font-weight="900">TRABAJO?</text>
+    <text x="70" y="440" fill="#FFFFFF" font-size="40" font-weight="700">Talleres virtuales cada semana</text>
+
+    <g transform="translate(70 525)" filter="url(#shadow)">
+      <rect width="940" height="865" rx="48" fill="#FFFFFF"/>
+      <rect x="0" y="0" width="940" height="120" rx="48" fill="url(#hot)"/>
+      <rect x="0" y="72" width="940" height="48" fill="url(#hot)"/>
+      <text x="46" y="76" fill="#FFFFFF" font-size="44" font-weight="900">LUNES → VIERNES</text>
+      <text x="700" y="76" fill="#FFFFFF" font-size="32" font-weight="800">GRATIS</text>
+
+      <g font-size="34" fill="#0B1730">
+        <g transform="translate(42 165)">
+          <rect width="856" height="112" rx="28" fill="#EEF4FF"/>
+          <circle cx="56" cy="56" r="34" fill="#0A48FF"/>
+          <text x="44" y="68" fill="#FFFFFF" font-size="28" font-weight="900">L</text>
+          <text x="112" y="48" font-weight="900">LinkedIn + carrera</text>
+          <text x="112" y="86" fill="#52627A" font-size="27">10 AM · 1 PM</text>
+        </g>
+        <g transform="translate(42 294)">
+          <rect width="856" height="112" rx="28" fill="#F0FFFB"/>
+          <circle cx="56" cy="56" r="34" fill="#00A98F"/>
+          <text x="43" y="68" fill="#FFFFFF" font-size="28" font-weight="900">M</text>
+          <text x="112" y="48" font-weight="900">Búsqueda de empleo</text>
+          <text x="112" y="86" fill="#52627A" font-size="27">1 PM</text>
+        </g>
+        <g transform="translate(42 423)">
+          <rect width="856" height="112" rx="28" fill="#FFF8E2"/>
+          <circle cx="56" cy="56" r="34" fill="#F2A900"/>
+          <text x="43" y="68" fill="#FFFFFF" font-size="28" font-weight="900">X</text>
+          <text x="112" y="48" font-weight="900">Resume + ATS + IA</text>
+          <text x="112" y="86" fill="#52627A" font-size="27">10 AM · 1 PM</text>
+        </g>
+        <g transform="translate(42 552)">
+          <rect width="856" height="112" rx="28" fill="#FFF0F5"/>
+          <circle cx="56" cy="56" r="34" fill="#FF3B7A"/>
+          <text x="43" y="68" fill="#FFFFFF" font-size="28" font-weight="900">J</text>
+          <text x="112" y="48" font-weight="900">Entrevista + salario</text>
+          <text x="112" y="86" fill="#52627A" font-size="27">10 AM · 1 PM</text>
+        </g>
+        <g transform="translate(42 681)">
+          <rect width="856" height="112" rx="28" fill="#F4F0FF"/>
+          <circle cx="56" cy="56" r="34" fill="#7D3CFF"/>
+          <text x="43" y="68" fill="#FFFFFF" font-size="28" font-weight="900">V</text>
+          <text x="112" y="48" font-weight="900">Hire Ground</text>
+          <text x="112" y="86" fill="#52627A" font-size="27">10 AM · apoyo + tips prácticos</text>
+        </g>
+      </g>
+    </g>
+
+    <g transform="translate(70 1460)">
+      <rect width="940" height="270" rx="44" fill="#08162C" opacity="0.88"/>
+      <text x="45" y="68" fill="#00E7CD" font-size="31" font-weight="900">KENTUCKY CAREER CENTER · KENTUCKIANAWORKS</text>
+      <text x="45" y="121" fill="#FFFFFF" font-size="38" font-weight="800">Regístrate con tiempo.</text>
+      <text x="45" y="168" fill="#D7E4FF" font-size="28">La invitación puede tardar hasta 3 días hábiles.</text>
+      <rect x="45" y="198" width="440" height="48" rx="24" fill="#FFD447"/>
+      <text x="68" y="231" fill="#0A1830" font-size="24" font-weight="900">GUÁRDALO · COMPÁRTELO</text>
+    </g>
+
+    <text x="70" y="1838" fill="#FFFFFF" font-size="25" opacity="0.82">Fuente: KentuckianaWorks / Kentucky Career Center · 20 SEP 2026</text>
+  </g>
+</svg>
