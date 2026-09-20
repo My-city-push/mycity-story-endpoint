@@ -316,6 +316,43 @@ async function resolveStoryMediaInput(input) {
   };
 }
 
+
+function cleanKey(value, max = 120) {
+  return safeString(value, max).toLowerCase().replace(/[^a-z0-9_\-]+/g, "_").replace(/^_+|_+$/g, "");
+}
+
+function pseudonymizeUserId(userId) {
+  const raw = safeString(userId, 300);
+  if (!raw) return "anon";
+  return crypto.createHash("sha256").update(raw).digest("hex").slice(0, 24);
+}
+
+function interestEventWeight(input) {
+  let score = 0;
+  const viewSeconds = Math.max(0, Number(input.viewSeconds || 0) || 0);
+  if (viewSeconds >= 3) score += 1;
+  if (viewSeconds >= 6) score += 1;
+  if (input.completed === true) score += 2;
+  if (input.rewatched === true) score += 2;
+  if (input.interested === true) score += 4;
+  if (input.commented === true) score += 5;
+  if (input.shared === true) score += 6;
+  return Math.max(1, score);
+}
+
+async function pushAnalyticsEvent(event) {
+  if (firebaseMode === "admin") {
+    const ref = db.ref("storyInterestEvents").push();
+    await ref.set(event);
+    return ref.key;
+  }
+  if (firebaseMode === "rest-public") {
+    const data = await restRequest("storyInterestEvents", "POST", event);
+    return data?.name;
+  }
+  throw new Error("Firebase is not configured");
+}
+
 function idempotencyPath(requestId) {
   return `aiStoryRequests/${requestId.replace(/[.#$\/\[\]]/g, "_")}`;
 }
@@ -515,6 +552,115 @@ app.get("/analytics/interests", requireApiKey, async (req, res) => {
       categories: [...categories.values()].sort(byScore).slice(0, 25),
       topics: [...topics.values()].sort(byScore).slice(0, 50)
     });
+  } catch (error) {
+    console.error("GET /analytics/interests failed:", error);
+    res.status(500).json({ ok: false, error: safeString(error?.message || error, 500) });
+  }
+});
+
+
+app.post("/analytics/view", requireApiKey, async (req, res) => {
+  try {
+    const input = req.body || {};
+    const storyId = safeString(input.storyId, 300);
+    if (!storyId) return res.status(400).json({ ok: false, error: "storyId is required" });
+
+    const event = {
+      type: "view",
+      storyId,
+      userKey: pseudonymizeUserId(input.userId || input.viewerId || input.gb_user_id),
+      category: cleanKey(input.category || "general", 100) || "general",
+      topic: cleanKey(input.topic || input.storyTitle || input.title || "general", 160) || "general",
+      viewSeconds: Math.max(0, Number(input.viewSeconds || 0) || 0),
+      completed: input.completed === true,
+      rewatched: input.rewatched === true,
+      interested: input.interested === true,
+      commented: input.commented === true,
+      shared: input.shared === true,
+      source: cleanKey(input.source || "story_feed", 80) || "story_feed",
+      weightedScore: interestEventWeight(input),
+      createdAtMs: Date.now()
+    };
+
+    const eventId = await pushAnalyticsEvent(event);
+    res.status(201).json({ ok: true, eventId, weightedScore: event.weightedScore });
+  } catch (error) {
+    console.error("POST /analytics/view failed:", error);
+    res.status(500).json({ ok: false, error: safeString(error?.message || error, 500) });
+  }
+});
+
+app.post("/analytics/interest", requireApiKey, async (req, res) => {
+  try {
+    const input = req.body || {};
+    const storyId = safeString(input.storyId, 300);
+    if (!storyId) return res.status(400).json({ ok: false, error: "storyId is required" });
+
+    const event = {
+      type: "interest",
+      storyId,
+      userKey: pseudonymizeUserId(input.userId || input.viewerId || input.gb_user_id),
+      category: cleanKey(input.category || "general", 100) || "general",
+      topic: cleanKey(input.topic || input.storyTitle || input.title || "general", 160) || "general",
+      viewSeconds: Math.max(0, Number(input.viewSeconds || 0) || 0),
+      completed: input.completed === true,
+      rewatched: input.rewatched === true,
+      interested: true,
+      commented: input.commented === true,
+      shared: input.shared === true,
+      source: cleanKey(input.source || "interest_button", 80) || "interest_button",
+      weightedScore: interestEventWeight({ ...input, interested: true }),
+      createdAtMs: Date.now()
+    };
+
+    const eventId = await pushAnalyticsEvent(event);
+    res.status(201).json({ ok: true, eventId, weightedScore: event.weightedScore });
+  } catch (error) {
+    console.error("POST /analytics/interest failed:", error);
+    res.status(500).json({ ok: false, error: safeString(error?.message || error, 500) });
+  }
+});
+
+app.get("/analytics/interests", requireApiKey, async (req, res) => {
+  try {
+    const hours = Math.min(168, Math.max(1, Number(req.query.hours || 24) || 24));
+    const cutoff = Date.now() - hours * 60 * 60 * 1000;
+    const raw = await firebaseGet("storyInterestEvents");
+    const rows = raw && typeof raw === "object" ? Object.values(raw) : [];
+
+    const categories = new Map();
+    const topics = new Map();
+
+    for (const row of rows) {
+      if (!row || Number(row.createdAtMs || 0) < cutoff) continue;
+      const score = Number(row.weightedScore || 1) || 1;
+      const category = safeString(row.category || "general", 100) || "general";
+      const topic = safeString(row.topic || "general", 160) || "general";
+
+      const c = categories.get(category) || { category, weightedScore: 0, events: 0, uniqueUsers: new Set() };
+      c.weightedScore += score;
+      c.events += 1;
+      if (row.userKey) c.uniqueUsers.add(row.userKey);
+      categories.set(category, c);
+
+      const t = topics.get(topic) || { topic, weightedScore: 0, events: 0, uniqueUsers: new Set() };
+      t.weightedScore += score;
+      t.events += 1;
+      if (row.userKey) t.uniqueUsers.add(row.userKey);
+      topics.set(topic, t);
+    }
+
+    const categoryResults = [...categories.values()]
+      .map(x => ({ category: x.category, weightedScore: x.weightedScore, events: x.events, uniqueUsers: x.uniqueUsers.size }))
+      .sort((a, b) => b.weightedScore - a.weightedScore)
+      .slice(0, 25);
+
+    const topicResults = [...topics.values()]
+      .map(x => ({ topic: x.topic, weightedScore: x.weightedScore, events: x.events, uniqueUsers: x.uniqueUsers.size }))
+      .sort((a, b) => b.weightedScore - a.weightedScore)
+      .slice(0, 50);
+
+    res.json({ ok: true, hours, categories: categoryResults, topics: topicResults });
   } catch (error) {
     console.error("GET /analytics/interests failed:", error);
     res.status(500).json({ ok: false, error: safeString(error?.message || error, 500) });
