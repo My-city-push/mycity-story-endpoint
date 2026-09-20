@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#08142b"/>
+      <stop offset="0.42" stop-color="#0067ff"/>
+      <stop offset="1" stop-color="#00d6c8"/>
+    </linearGradient>
+    <linearGradient id="hot" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff3f8e"/>
+      <stop offset="1" stop-color="#ff7a2f"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="20" stdDeviation="28" flood-color="#00152f" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="930" cy="150" r="240" fill="#ffcf3c" opacity="0.96"/>
+  <circle cx="95" cy="1660" r="300" fill="#ff3f8e" opacity="0.22"/>
+  <path d="M0 1180 C260 1060 430 1220 680 1110 C860 1030 970 990 1080 1030 L1080 1510 C850 1470 730 1600 500 1570 C260 1540 150 1450 0 1510Z" fill="#ffffff" opacity="0.10"/>
+  <path d="M770 0 L1080 0 L1080 520 C955 450 860 365 770 250Z" fill="#ffcf3c" opacity="0.22"/>
+
+  <g transform="translate(82 100)">
+    <rect x="0" y="0" width="360" height="64" rx="32" fill="#ffffff" opacity="0.16"/>
+    <text x="30" y="43" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" letter-spacing="2">KENTUCKIANA • COMUNIDAD</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="70" y="240" width="940" height="620" rx="56" fill="#07101f" opacity="0.92"/>
+  </g>
+
+  <text x="110" y="410" fill="#ffcf3c" font-family="Arial, Helvetica, sans-serif" font-size="210" font-weight="900">500+</text>
+  <text x="110" y="535" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="77" font-weight="900">JÓVENES</text>
+  <text x="110" y="625" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="77" font-weight="900">ESPERAN UN</text>
+  <text x="110" y="715" fill="#5ff2e6" font-family="Arial, Helvetica, sans-serif" font-size="86" font-weight="900">MENTOR</text>
+  <rect x="110" y="760" width="540" height="14" rx="7" fill="url(#hot)"/>
+
+  <g transform="translate(735 545)">
+    <circle cx="0" cy="0" r="70" fill="#ffcf3c"/>
+    <rect x="-72" y="78" width="144" height="190" rx="72" fill="#ffcf3c"/>
+    <circle cx="150" cy="55" r="54" fill="#ff6f61"/>
+    <rect x="95" y="118" width="110" height="150" rx="55" fill="#ff6f61"/>
+    <path d="M38 115 C72 95 99 92 122 105" fill="none" stroke="#ffffff" stroke-width="18" stroke-linecap="round"/>
+  </g>
+
+  <text x="88" y="980" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="800">Ser mentor no exige una carrera especial.</text>
+  <text x="88" y="1045" fill="#dffcff" font-family="Arial, Helvetica, sans-serif" font-size="39">Big Brothers Big Sisters of Kentuckiana</text>
+  <text x="88" y="1100" fill="#dffcff" font-family="Arial, Helvetica, sans-serif" font-size="39">busca adultos que puedan mostrar constancia,</text>
+  <text x="88" y="1155" fill="#dffcff" font-family="Arial, Helvetica, sans-serif" font-size="39">escuchar y compartir tiempo de calidad.</text>
+
+  <g transform="translate(74 1260)">
+    <rect x="0" y="0" width="932" height="360" rx="50" fill="#ffffff" opacity="0.96" filter="url(#shadow)"/>
+    <text x="58" y="92" fill="#0a2144" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="900">¿CÓMO SE VE EL COMPROMISO?</text>
+    <circle cx="75" cy="160" r="15" fill="#0067ff"/>
+    <text x="112" y="174" fill="#16243b" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">2–3 salidas al mes</text>
+    <circle cx="75" cy="230" r="15" fill="#00bcae"/>
+    <text x="112" y="244" fill="#16243b" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">~2 horas por salida</text>
+    <circle cx="75" cy="300" r="15" fill="#ff3f8e"/>
+    <text x="112" y="314" fill="#16243b" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">Compromiso mínimo: 1 año</text>
+  </g>
+
+  <g transform="translate(76 1685)">
+    <rect x="0" y="0" width="928" height="142" rx="40" fill="#ffcf3c"/>
+    <text x="44" y="58" fill="#08142b" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="800">¿TE INTERESA AYUDAR?</text>
+    <text x="44" y="106" fill="#08142b" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="900">bbbsky.org/be-a-big  →</text>
+  </g>
+
+  <text x="82" y="1880" fill="#ffffff" opacity="0.82" font-family="Arial, Helvetica, sans-serif" font-size="27">MyCity Local Desk • Louisville / Kentuckiana</text>
+</svg>
