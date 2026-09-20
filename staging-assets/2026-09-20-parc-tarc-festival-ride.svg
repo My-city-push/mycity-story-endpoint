@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#080B24"/>
+      <stop offset="0.48" stop-color="#22207A"/>
+      <stop offset="1" stop-color="#FF3D81"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#00E7FF"/>
+      <stop offset="1" stop-color="#6DFFB2"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#000000" flood-opacity="0.30"/>
+    </filter>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="890" cy="210" r="260" fill="#FFB800" opacity="0.20"/>
+  <circle cx="140" cy="1560" r="340" fill="#00E7FF" opacity="0.13"/>
+  <path d="M-60 760 C180 610 360 900 650 700 C850 560 980 650 1140 540" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-opacity="0.16"/>
+  <path d="M-40 820 C220 680 420 980 720 770 C890 650 1010 710 1130 650" fill="none" stroke="#00E7FF" stroke-width="18" stroke-linecap="round" stroke-opacity="0.45"/>
+
+  <text x="82" y="140" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" letter-spacing="5">MYCITY · LOUISVILLE</text>
+  <rect x="80" y="190" width="285" height="62" rx="31" fill="#FFB800"/>
+  <text x="222" y="232" text-anchor="middle" fill="#10121C" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="900">HOY · 20 SEP</text>
+
+  <text x="78" y="410" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="900">¿VAS AL</text>
+  <text x="78" y="505" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="900">FESTIVAL?</text>
+  <text x="82" y="575" fill="#CFE5FF" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">Hay una opción simple desde Downtown.</text>
+
+  <g filter="url(#shadow)">
+    <rect x="70" y="660" width="940" height="420" rx="58" fill="#0B1027" fill-opacity="0.94" stroke="#FFFFFF" stroke-opacity="0.22" stroke-width="2"/>
+    <rect x="100" y="700" width="290" height="290" rx="54" fill="url(#card)"/>
+    <text x="245" y="815" text-anchor="middle" fill="#07101B" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="900">$20</text>
+    <text x="245" y="873" text-anchor="middle" fill="#07101B" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="900">PARKING</text>
+    <text x="245" y="915" text-anchor="middle" fill="#07101B" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="900">+ TARC</text>
+    <text x="245" y="960" text-anchor="middle" fill="#07101B" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">ida y vuelta</text>
+
+    <text x="440" y="760" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="900">PARA TODOS</text>
+    <text x="440" y="808" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="900">EN TU VEHÍCULO</text>
+    <text x="440" y="878" fill="#BCEBFF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">PARC · 115 W Jefferson</text>
+    <text x="440" y="925" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="27">Bus #4 desde 1st &amp; Liberty</text>
+    <text x="440" y="970" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="27">aprox. cada 15 min</text>
+    <text x="440" y="1015" fill="#6DFFB2" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="800">10 AM → 7 PM hacia el Expo Center</text>
+  </g>
+
+  <g transform="translate(90,1165)">
+    <rect width="900" height="250" rx="48" fill="#FFFFFF" fill-opacity="0.10" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="2"/>
+    <text x="44" y="70" fill="#FFDB6E" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="900">REGRESO</text>
+    <text x="44" y="120" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="800">Crittenden · cerca de Gate 3</text>
+    <text x="44" y="168" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="29">servicio hasta al menos medianoche</text>
+    <text x="44" y="214" fill="#CFE5FF" font-family="Arial, Helvetica, sans-serif" font-size="23">Entrada al festival se compra aparte.</text>
+  </g>
+
+  <rect x="85" y="1495" width="910" height="190" rx="48" fill="#FFB800"/>
+  <text x="540" y="1560" text-anchor="middle" fill="#10121C" font-family="Arial, Helvetica, sans-serif" font-size="33" font-weight="900">TAMBIÉN PARA BOURBON &amp; BEYOND</text>
+  <text x="540" y="1612" text-anchor="middle" fill="#10121C" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="900">24–27 SEPTIEMBRE</text>
+  <text x="540" y="1652" text-anchor="middle" fill="#10121C" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700">Mismo esquema PARC + TARC</text>
+
+  <text x="82" y="1780" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="900">GUÁRDALO · COMPÁRTELO · PLANEA TU RUTA</text>
+  <text x="82" y="1832" fill="#CFE5FF" font-family="Arial, Helvetica, sans-serif" font-size="23">Fuente: TARC · ridetarc.org</text>
+</svg>
