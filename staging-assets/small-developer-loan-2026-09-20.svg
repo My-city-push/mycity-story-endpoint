@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1020"/>
+      <stop offset="0.45" stop-color="#073b4c"/>
+      <stop offset="1" stop-color="#3a0ca3"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#00f5d4"/>
+      <stop offset="0.52" stop-color="#ffd166"/>
+      <stop offset="1" stop-color="#ff4d8d"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="20" stdDeviation="26" flood-color="#000" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="930" cy="210" r="260" fill="#00f5d4" opacity="0.11"/>
+  <circle cx="110" cy="1570" r="300" fill="#ff4d8d" opacity="0.12"/>
+  <path d="M0 1320 C260 1220 420 1440 700 1310 C860 1235 970 1215 1080 1260 L1080 1920 L0 1920Z" fill="#ffffff" opacity="0.06"/>
+
+  <g transform="translate(80 110)">
+    <rect x="0" y="0" width="390" height="62" rx="31" fill="#ffffff" opacity="0.12"/>
+    <text x="30" y="41" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" letter-spacing="2">MYCITY • LOUISVILLE</text>
+  </g>
+
+  <g transform="translate(80 255)">
+    <text x="0" y="0" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="74" font-weight="800">
+      <tspan x="0" dy="0">¿REHABILITAS</tspan>
+      <tspan x="0" dy="92">CASAS VACÍAS?</tspan>
+    </text>
+    <rect x="0" y="210" width="870" height="8" rx="4" fill="url(#accent)"/>
+  </g>
+
+  <g transform="translate(80 585)" filter="url(#shadow)">
+    <rect width="920" height="460" rx="42" fill="#ffffff" opacity="0.96"/>
+    <text x="54" y="95" fill="#101828" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">SMALL DEVELOPER LOAN PROGRAM</text>
+    <text x="54" y="205" fill="#101828" font-family="Arial, Helvetica, sans-serif" font-size="112" font-weight="900">$75K</text>
+    <text x="476" y="204" fill="#394150" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">por unidad</text>
+    <text x="54" y="296" fill="#0f766e" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="900">50% PERDONABLE</text>
+    <text x="54" y="370" fill="#8b1d5b" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="900">0% INTERÉS</text>
+    <text x="54" y="422" fill="#667085" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="600">Hasta 4 unidades • rehabilitación • Jefferson County</text>
+  </g>
+
+  <g transform="translate(80 1115)">
+    <text x="0" y="0" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800">¿QUIÉN PUEDE APLICAR?</text>
+    <g transform="translate(0 64)">
+      <rect width="920" height="92" rx="26" fill="#ffffff" opacity="0.10"/>
+      <circle cx="46" cy="46" r="18" fill="#00f5d4"/>
+      <text x="84" y="57" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Desarrolladores pequeños de Jefferson County</text>
+    </g>
+    <g transform="translate(0 178)">
+      <rect width="920" height="92" rx="26" fill="#ffffff" opacity="0.10"/>
+      <circle cx="46" cy="46" r="18" fill="#ffd166"/>
+      <text x="84" y="57" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Propiedades vacías para rehabilitar</text>
+    </g>
+    <g transform="translate(0 292)">
+      <rect width="920" height="92" rx="26" fill="#ffffff" opacity="0.10"/>
+      <circle cx="46" cy="46" r="18" fill="#ff4d8d"/>
+      <text x="84" y="57" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Vivienda asequible al 80% AMI o menos</text>
+    </g>
+  </g>
+
+  <g transform="translate(80 1615)">
+    <rect width="920" height="160" rx="34" fill="url(#accent)"/>
+    <text x="460" y="68" text-anchor="middle" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="900">LAS APLICACIONES ESTÁN ABIERTAS</text>
+    <text x="460" y="116" text-anchor="middle" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700">Fondos disponibles hasta agotarse • Louisville Metro</text>
+  </g>
+
+  <text x="80" y="1855" fill="#dbeafe" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="600">Fuente: Louisville Metro Office of Housing &amp; Community Development • 2026</text>
+</svg>
