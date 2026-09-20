@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B0B12"/>
+      <stop offset="0.52" stop-color="#163BFF"/>
+      <stop offset="1" stop-color="#FF3D8D"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.98"/>
+      <stop offset="1" stop-color="#EFFFFF" stop-opacity="0.93"/>
+    </linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000" flood-opacity="0.28"/></filter>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="930" cy="210" r="260" fill="#19F5C5" opacity="0.28"/>
+  <circle cx="120" cy="1610" r="340" fill="#FFD84A" opacity="0.26"/>
+  <path d="M-40 520 C220 420 410 610 690 490 S1120 320 1160 510" fill="none" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="28"/>
+  <path d="M-20 1410 C220 1260 420 1480 650 1370 S1050 1210 1120 1340" fill="none" stroke="#19F5C5" stroke-opacity="0.25" stroke-width="24"/>
+
+  <g transform="translate(70,110)">
+    <rect x="0" y="0" width="290" height="58" rx="29" fill="#FFD84A"/>
+    <text x="145" y="39" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="800" fill="#111">LOUISVILLE LOCAL</text>
+  </g>
+
+  <g transform="translate(70,245)">
+    <text x="0" y="0" font-family="Arial,Helvetica,sans-serif" font-size="88" font-weight="900" fill="#FFF">DESCUBRE</text>
+    <text x="0" y="98" font-family="Arial,Helvetica,sans-serif" font-size="88" font-weight="900" fill="#FFF">LA VILLA LOU</text>
+    <text x="0" y="164" font-family="Arial,Helvetica,sans-serif" font-size="38" font-weight="700" fill="#DFFAFF">y apoya negocios del corredor de Preston</text>
+  </g>
+
+  <g filter="url(#shadow)" transform="translate(70,560)">
+    <rect x="0" y="0" width="940" height="710" rx="44" fill="url(#card)"/>
+    <g transform="translate(62,68)">
+      <circle cx="68" cy="68" r="68" fill="#163BFF"/>
+      <path d="M68 25c-25 0-45 20-45 45 0 33 45 78 45 78s45-45 45-78c0-25-20-45-45-45zm0 62a19 19 0 1 1 0-38 19 19 0 0 1 0 38z" fill="#FFF"/>
+      <text x="170" y="54" font-family="Arial,Helvetica,sans-serif" font-size="38" font-weight="900" fill="#101018">PASSPORT CHALLENGE</text>
+      <text x="170" y="103" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="700" fill="#4A4A57">Explora • escanea • acumula puntos</text>
+    </g>
+
+    <g transform="translate(62,235)">
+      <rect x="0" y="0" width="816" height="120" rx="26" fill="#EDF3FF"/>
+      <text x="34" y="48" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="800" fill="#163BFF">1</text>
+      <text x="86" y="48" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="800" fill="#15151C">Visita comercios participantes</text>
+      <text x="86" y="88" font-family="Arial,Helvetica,sans-serif" font-size="26" fill="#4C4C59">en el corredor sur de Preston Highway</text>
+    </g>
+    <g transform="translate(62,380)">
+      <rect x="0" y="0" width="816" height="120" rx="26" fill="#F2FFF9"/>
+      <text x="34" y="48" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="800" fill="#00A97B">2</text>
+      <text x="86" y="48" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="800" fill="#15151C">Escanea el QR y registra tu visita</text>
+      <text x="86" y="88" font-family="Arial,Helvetica,sans-serif" font-size="26" fill="#4C4C59">para sumar puntos en el pasaporte digital</text>
+    </g>
+    <g transform="translate(62,525)">
+      <rect x="0" y="0" width="816" height="120" rx="26" fill="#FFF6E0"/>
+      <text x="34" y="48" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="800" fill="#E08A00">3</text>
+      <text x="86" y="48" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="800" fill="#15151C">Canjea puntos por artículos</text>
+      <text x="86" y="88" font-family="Arial,Helvetica,sans-serif" font-size="26" fill="#4C4C59">y encuentra descuentos en algunos negocios</text>
+    </g>
+  </g>
+
+  <g transform="translate(70,1325)">
+    <rect x="0" y="0" width="940" height="260" rx="42" fill="#11121A" fill-opacity="0.88" stroke="#FFFFFF" stroke-opacity="0.16"/>
+    <text x="48" y="72" font-family="Arial,Helvetica,sans-serif" font-size="35" font-weight="900" fill="#19F5C5">MARCA LA FECHA</text>
+    <text x="48" y="132" font-family="Arial,Helvetica,sans-serif" font-size="45" font-weight="900" fill="#FFF">11 OCT • 12 PM–9 PM</text>
+    <text x="48" y="181" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="700" fill="#FFD84A">Primer Festival La Villa Lou • Preston Plaza</text>
+    <text x="48" y="224" font-family="Arial,Helvetica,sans-serif" font-size="27" fill="#FFF">Gratis • familiar • música • comida • arte • comunidad</text>
+  </g>
+
+  <g transform="translate(70,1650)">
+    <rect x="0" y="0" width="940" height="150" rx="34" fill="#FFFFFF"/>
+    <text x="470" y="58" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="900" fill="#15151C">¿QUÉ NEGOCIO LATINO DE PRESTON</text>
+    <text x="470" y="104" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="900" fill="#163BFF">RECOMENDARÍAS VISITAR?</text>
+  </g>
+
+  <text x="70" y="1860" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" fill="#FFFFFF" opacity="0.85">MyCity • Louisville/Kentuckiana</text>
+</svg>
