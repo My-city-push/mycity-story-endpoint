@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#050713"/>
+      <stop offset="0.38" stop-color="#10164a"/>
+      <stop offset="0.72" stop-color="#082d43"/>
+      <stop offset="1" stop-color="#031018"/>
+    </linearGradient>
+    <linearGradient id="hot" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#00e7ff"/>
+      <stop offset="0.48" stop-color="#7dffcf"/>
+      <stop offset="1" stop-color="#ffcf3d"/>
+    </linearGradient>
+    <linearGradient id="pink" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff3ba7"/>
+      <stop offset="1" stop-color="#ff6b35"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="18" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="900" cy="180" r="270" fill="#ff3ba7" opacity="0.16"/>
+  <circle cx="130" cy="1620" r="310" fill="#00e7ff" opacity="0.13"/>
+  <path d="M-100 540 C220 400 420 700 760 520 C930 430 1110 440 1200 520" fill="none" stroke="#00e7ff" stroke-width="12" opacity="0.35"/>
+  <path d="M-80 600 C250 450 440 760 790 570 C960 480 1110 510 1200 600" fill="none" stroke="#ff3ba7" stroke-width="8" opacity="0.35"/>
+
+  <rect x="72" y="92" rx="34" width="395" height="72" fill="#ffffff" opacity="0.10" stroke="#ffffff" stroke-opacity="0.18"/>
+  <text x="106" y="140" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" letter-spacing="2">TRABAJO • LOUISVILLE</text>
+
+  <g transform="translate(72 250)">
+    <text x="0" y="0" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="108" font-weight="900">911 ESTÁ</text>
+    <text x="0" y="116" fill="url(#hot)" font-family="Arial, Helvetica, sans-serif" font-size="116" font-weight="900">CONTRATANDO</text>
+    <text x="2" y="196" fill="#d9e7ff" font-family="Arial, Helvetica, sans-serif" font-size="45" font-weight="700">Entrena para ser telecommunicator</text>
+  </g>
+
+  <g transform="translate(76 600)">
+    <rect x="0" y="0" width="928" height="390" rx="58" fill="#08111d" opacity="0.78" stroke="#29efff" stroke-width="2"/>
+    <circle cx="742" cy="90" r="160" fill="#00e7ff" opacity="0.07"/>
+    <text x="58" y="92" fill="#a9c5da" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">PAGO DURANTE ENTRENAMIENTO</text>
+    <text x="56" y="220" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="128" font-weight="900">$22.31</text>
+    <text x="627" y="220" fill="#8fefff" font-family="Arial, Helvetica, sans-serif" font-size="49" font-weight="800">/ HORA</text>
+    <rect x="58" y="270" width="812" height="2" fill="#ffffff" opacity="0.15"/>
+    <text x="58" y="334" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700">Después de entrenamiento + promoción:</text>
+    <text x="652" y="335" fill="#ffcf3d" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="900">$24.48/h</text>
+  </g>
+
+  <g transform="translate(76 1070)">
+    <text x="0" y="0" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="900">LO BÁSICO PARA APLICAR</text>
+    <g font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700" fill="#e9f3ff">
+      <circle cx="18" cy="88" r="12" fill="#00e7ff"/><text x="52" y="101">18 años o más</text>
+      <circle cx="18" cy="166" r="12" fill="#7dffcf"/><text x="52" y="179">High school diploma o GED</text>
+      <circle cx="18" cy="244" r="12" fill="#ffcf3d"/><text x="52" y="257">Ciudadanía estadounidense</text>
+      <circle cx="18" cy="322" r="12" fill="#ff5fae"/><text x="52" y="335">Disponibilidad para turnos rotativos</text>
+    </g>
+  </g>
+
+  <g transform="translate(76 1515)">
+    <rect x="0" y="0" width="928" height="238" rx="52" fill="url(#pink)"/>
+    <text x="58" y="88" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="900">VACANTE CONTINUA</text>
+    <text x="58" y="143" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="35" font-weight="700">Publicada hasta llenar puestos.</text>
+    <text x="58" y="193" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700">Busca “911 Telecommunicator Trainee” en Louisville Metro Jobs.</text>
+  </g>
+
+  <text x="76" y="1840" fill="#a7bad0" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="700">MYCITY LOCAL DESK • FUENTE: LOUISVILLE METRO GOVERNMENT</text>
+</svg>
