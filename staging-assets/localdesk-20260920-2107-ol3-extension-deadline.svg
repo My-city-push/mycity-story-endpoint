@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img" aria-labelledby="title desc">
+  <title id="title">Extensión OL-3 vence el 15 de octubre</title>
+  <desc id="desc">Story 9:16 de MyCity sobre la fecha límite del 15 de octubre de 2026 para declaraciones ocupacionales 2025 con extensión válida.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#081BFF"/>
+      <stop offset="0.48" stop-color="#6A00F4"/>
+      <stop offset="1" stop-color="#FF2D8D"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#00E5FF"/>
+      <stop offset="1" stop-color="#67FFB7"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="26" stdDeviation="28" flood-color="#000" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="940" cy="190" r="240" fill="#FFD51A" opacity="0.92"/>
+  <circle cx="150" cy="1570" r="300" fill="#00E5FF" opacity="0.2"/>
+  <path d="M-80 520 C250 360 490 610 780 420 S1250 280 1190 40" fill="none" stroke="#fff" stroke-width="28" opacity="0.12"/>
+  <path d="M-40 1480 C210 1320 420 1540 700 1400 S1090 1250 1170 1110" fill="none" stroke="#FFD51A" stroke-width="22" opacity="0.22"/>
+
+  <g transform="translate(72 84)">
+    <rect x="0" y="0" width="310" height="72" rx="36" fill="#050505" opacity="0.9"/>
+    <text x="155" y="48" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="800" fill="#fff">MYCITY · LOCAL DESK</text>
+  </g>
+
+  <g transform="translate(72 300)">
+    <text x="0" y="0" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="900" fill="#fff">¿PEDISTE</text>
+    <text x="0" y="86" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="900" fill="#fff">EXTENSIÓN?</text>
+  </g>
+
+  <g transform="translate(70 565)" filter="url(#shadow)">
+    <rect width="940" height="520" rx="52" fill="#080808" opacity="0.93"/>
+    <rect x="34" y="34" width="872" height="452" rx="38" fill="none" stroke="url(#card)" stroke-width="8"/>
+    <text x="470" y="160" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="800" fill="#9FFFE3">OL-3 · AÑO 2025</text>
+    <text x="470" y="305" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="152" font-weight="900" fill="#FFD51A">15 OCT</text>
+    <text x="470" y="390" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="800" fill="#fff">fecha límite para presentar</text>
+    <text x="470" y="452" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" fill="#C8D2FF">si tu extensión fue válida</text>
+  </g>
+
+  <g transform="translate(74 1180)">
+    <rect x="0" y="0" width="932" height="238" rx="40" fill="#fff" opacity="0.96"/>
+    <circle cx="96" cy="118" r="54" fill="#FF2D8D"/>
+    <path d="M78 118 l24 24 44-54" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="178" y="85" font-family="Arial, Helvetica, sans-serif" font-size="39" font-weight="900" fill="#111">IMPORTANTE</text>
+    <text x="178" y="139" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" fill="#222">Extender el plazo para presentar</text>
+    <text x="178" y="181" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" fill="#222">no extendió el plazo para pagar.</text>
+  </g>
+
+  <g transform="translate(74 1515)">
+    <rect x="0" y="0" width="932" height="210" rx="42" fill="url(#card)"/>
+    <text x="58" y="78" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="900" fill="#07121F">¿Negocio o trabajo por cuenta propia?</text>
+    <text x="58" y="135" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800" fill="#07121F">Revisa tu caso en EMINTS.</text>
+    <text x="58" y="179" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" fill="#173447">Louisville Metro Revenue Commission</text>
+  </g>
+
+  <text x="540" y="1838" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#fff" opacity="0.86">Información oficial · Louisville Metro · 16 SEP 2026</text>
+</svg>
