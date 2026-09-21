@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#18091f"/><stop offset=".45" stop-color="#b51cff"/><stop offset="1" stop-color="#ff5a36"/></linearGradient>
+  <filter id="shadow"><feDropShadow dx="0" dy="18" stdDeviation="28" flood-opacity=".22"/></filter>
+</defs>
+<rect width="1080" height="1920" fill="url(#bg)"/>
+<circle cx="170" cy="245" r="235" fill="#13e8d1" opacity=".88"/><circle cx="915" cy="1640" r="325" fill="#ffd32d" opacity=".9"/>
+<g filter="url(#shadow)"><rect x="76" y="178" width="360" height="72" rx="36" fill="#0a0f18" opacity=".78"/><text x="256" y="226" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="800" fill="#fff">QUÉ HABRÁ</text></g>
+<text x="76" y="430" font-family="Arial,Helvetica,sans-serif" font-size="75" font-weight="900" fill="#fff">PLAN FAMILIAR</text>
+<text x="76" y="515" font-family="Arial,Helvetica,sans-serif" font-size="40" font-weight="700" fill="#fff" opacity=".95">gratis y abierto a todas las edades</text>
+<g transform="translate(76 650)" filter="url(#shadow)"><rect width="928" height="760" rx="58" fill="#fff" opacity=".97"/>
+<g font-family="Arial,Helvetica,sans-serif" fill="#111827">
+<circle cx="126" cy="145" r="52" fill="#0057ff"/><text x="126" y="161" text-anchor="middle" font-size="50" font-weight="900" fill="#fff">♪</text><text x="215" y="134" font-size="41" font-weight="900">Audífonos inalámbricos</text><text x="215" y="184" font-size="30" font-weight="700" fill="#4b5563">para bailar con música de otoño</text>
+<line x1="80" y1="250" x2="848" y2="250" stroke="#d7dbe0" stroke-width="3"/>
+<circle cx="126" cy="360" r="52" fill="#10bfae"/><text x="126" y="375" text-anchor="middle" font-size="42" font-weight="900" fill="#fff">FT</text><text x="215" y="349" font-size="41" font-weight="900">Food trucks locales</text><text x="215" y="399" font-size="30" font-weight="700" fill="#4b5563">para comer algo en el parque</text>
+<line x1="80" y1="465" x2="848" y2="465" stroke="#d7dbe0" stroke-width="3"/>
+<circle cx="126" cy="575" r="52" fill="#ff3d8d"/><text x="126" y="592" text-anchor="middle" font-size="48" font-weight="900" fill="#fff">♥</text><text x="215" y="565" font-size="41" font-weight="900">Amigos + familia</text><text x="215" y="615" font-size="30" font-weight="700" fill="#4b5563">evento comunitario al aire libre</text>
+</g></g>
+<text x="76" y="1530" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="900" fill="#fff">Entrada: $0</text>
+<text x="76" y="1590" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="700" fill="#fff" opacity=".95">Louisville Parks también anuncia bebidas de West Sixth Brewing.</text>
+<text x="76" y="1788" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" fill="#fff" opacity=".92">MyCity Local Desk · Información verificada 21 SEP 2026</text>
+</svg>
