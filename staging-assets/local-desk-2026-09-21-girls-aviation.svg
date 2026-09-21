@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07162f"/>
+      <stop offset="0.48" stop-color="#1234ff"/>
+      <stop offset="1" stop-color="#00d5c8"/>
+    </linearGradient>
+    <linearGradient id="hot" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff3f8f"/>
+      <stop offset="1" stop-color="#ff8a2b"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#000" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="930" cy="220" r="250" fill="#ffcf3a" opacity="0.98"/>
+  <circle cx="120" cy="1640" r="260" fill="#ff3f8f" opacity="0.9"/>
+  <path d="M0 1390 C260 1270 520 1510 1080 1320 L1080 1920 L0 1920 Z" fill="#041126" opacity="0.88"/>
+  <path d="M40 560 C290 420 530 470 820 300" stroke="#ffffff" stroke-width="10" opacity="0.20" fill="none" stroke-dasharray="18 30"/>
+
+  <g transform="translate(640 310) rotate(-14)" filter="url(#shadow)">
+    <path d="M0 115 L250 50 L275 70 L95 155 L245 245 L220 266 L0 205 L-105 332 L-145 320 L-72 192 L-248 208 L-270 181 L-86 145 L-156 32 L-118 18 Z" fill="#ffffff"/>
+    <circle cx="34" cy="158" r="18" fill="#1234ff"/>
+  </g>
+
+  <g transform="translate(74 96)">
+    <rect width="390" height="66" rx="33" fill="#061226" opacity="0.74"/>
+    <text x="34" y="44" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#ffffff" letter-spacing="2">MYCITY • LOUISVILLE</text>
+  </g>
+
+  <text x="72" y="705" font-family="Arial, Helvetica, sans-serif" font-size="94" font-weight="900" fill="#ffffff" letter-spacing="-3">AVIACIÓN</text>
+  <text x="72" y="812" font-family="Arial, Helvetica, sans-serif" font-size="110" font-weight="900" fill="#ffffff" letter-spacing="-4">PARA ELLAS</text>
+  <rect x="72" y="852" width="700" height="22" rx="11" fill="#ffcf3a"/>
+
+  <g transform="translate(72 945)" filter="url(#shadow)">
+    <rect width="936" height="300" rx="52" fill="#ffffff"/>
+    <text x="48" y="78" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800" fill="#0b1e43">GIRLS IN AVIATION DAY</text>
+    <text x="48" y="150" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="900" fill="#1234ff">SÁB 26 SEP • 12–4 PM</text>
+    <text x="48" y="216" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="800" fill="#111827">BOWMAN FIELD</text>
+    <text x="48" y="265" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#5b6474">2815 Taylorsville Rd • Louisville</text>
+  </g>
+
+  <g transform="translate(72 1328)">
+    <rect width="450" height="84" rx="42" fill="url(#hot)"/>
+    <text x="225" y="55" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="900" fill="#ffffff">ABIERTO AL PÚBLICO</text>
+  </g>
+  <g transform="translate(548 1328)">
+    <rect width="460" height="84" rx="42" fill="#00d5c8"/>
+    <text x="230" y="55" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="900" fill="#041126">SIN RESERVA</text>
+  </g>
+
+  <text x="72" y="1530" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="800" fill="#ffffff">UN PRIMER CONTACTO CON CARRERAS</text>
+  <text x="72" y="1590" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="800" fill="#ffffff">QUE TAMBIÉN PUEDEN SER SU FUTURO.</text>
+
+  <g transform="translate(72 1686)">
+    <rect width="936" height="124" rx="38" fill="#ffffff" opacity="0.12" stroke="#ffffff" stroke-opacity="0.36"/>
+    <text x="42" y="53" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" fill="#ffffff">Carreras • comunidad • próxima generación</text>
+    <text x="42" y="94" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="600" fill="#d9faff">Women in Aviation International • Bluegrass Chapter</text>
+  </g>
+</svg>
