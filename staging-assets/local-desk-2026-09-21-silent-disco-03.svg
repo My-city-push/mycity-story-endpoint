@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#061923"/><stop offset=".48" stop-color="#00a8a8"/><stop offset="1" stop-color="#ff9d1f"/></linearGradient>
+  <filter id="shadow"><feDropShadow dx="0" dy="18" stdDeviation="28" flood-opacity=".22"/></filter>
+</defs>
+<rect width="1080" height="1920" fill="url(#bg)"/>
+<circle cx="930" cy="220" r="250" fill="#ff3d8d" opacity=".82"/><circle cx="110" cy="1690" r="330" fill="#0b57ff" opacity=".64"/>
+<g filter="url(#shadow)"><rect x="76" y="178" width="405" height="72" rx="36" fill="#0a0f18" opacity=".8"/><text x="278" y="226" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="800" fill="#fff">GUÁRDALO</text></g>
+<text x="76" y="425" font-family="Arial,Helvetica,sans-serif" font-size="72" font-weight="900" fill="#fff">DÓNDE + CUÁNDO</text>
+<g transform="translate(76 595)" filter="url(#shadow)"><rect width="928" height="705" rx="58" fill="#fff" opacity=".97"/>
+<text x="90" y="125" font-family="Arial,Helvetica,sans-serif" font-size="35" font-weight="800" fill="#0b57ff">JOE CREASON PARK</text>
+<text x="90" y="205" font-family="Arial,Helvetica,sans-serif" font-size="43" font-weight="900" fill="#111827">1297 Trevilian Way</text>
+<text x="90" y="260" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="700" fill="#4b5563">Louisville, KY 40213</text>
+<line x1="90" y1="335" x2="838" y2="335" stroke="#d7dbe0" stroke-width="3"/>
+<text x="90" y="430" font-family="Arial,Helvetica,sans-serif" font-size="35" font-weight="800" fill="#ff3d8d">MARTES 22 DE SEPTIEMBRE</text>
+<text x="90" y="515" font-family="Arial,Helvetica,sans-serif" font-size="58" font-weight="900" fill="#111827">5:30–7:30 PM</text>
+<text x="90" y="610" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="700" fill="#4b5563">Gratis · todas las edades · al aire libre</text>
+</g>
+<g transform="translate(76 1415)"><rect width="760" height="124" rx="62" fill="#111827"/><text x="380" y="79" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="900" fill="#fff">ENVÍASELO A TU GRUPO →</text></g>
+<text x="76" y="1645" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="800" fill="#fff">Tip MyCity: llega con tiempo si quieres comer antes de bailar.</text>
+<text x="76" y="1788" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" fill="#fff" opacity=".92">MyCity Local Desk · Fuente oficial: LouisvilleKY.gov</text>
+</svg>
