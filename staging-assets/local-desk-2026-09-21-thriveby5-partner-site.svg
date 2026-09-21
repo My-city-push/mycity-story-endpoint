@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07152B"/>
+      <stop offset="0.45" stop-color="#0B2B52"/>
+      <stop offset="1" stop-color="#15113D"/>
+    </linearGradient>
+    <linearGradient id="cta" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#20E0D0"/>
+      <stop offset="1" stop-color="#00A8FF"/>
+    </linearGradient>
+    <linearGradient id="warm" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFB703"/>
+      <stop offset="1" stop-color="#FF5C7A"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="28" flood-color="#000000" flood-opacity="0.32"/>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="940" cy="180" r="250" fill="#F72585" opacity="0.20"/>
+  <circle cx="120" cy="420" r="210" fill="#00D4FF" opacity="0.16"/>
+  <circle cx="960" cy="1420" r="300" fill="#FFB703" opacity="0.10"/>
+  <path d="M0 1520 C240 1430 390 1660 650 1535 C830 1450 940 1510 1080 1450 L1080 1920 L0 1920 Z" fill="#0A1833" opacity="0.72"/>
+
+  <g font-family="Arial, Helvetica, sans-serif">
+    <rect x="72" y="88" width="284" height="72" rx="36" fill="#FFFFFF" opacity="0.12" stroke="#FFFFFF" stroke-opacity="0.28"/>
+    <text x="214" y="135" text-anchor="middle" font-size="30" font-weight="700" fill="#FFFFFF">MYCITY • LOCAL DESK</text>
+
+    <rect x="72" y="210" width="286" height="82" rx="24" fill="url(#warm)"/>
+    <text x="215" y="264" text-anchor="middle" font-size="38" font-weight="900" fill="#111827">HOY • 21 SEP</text>
+
+    <text x="72" y="410" font-size="48" font-weight="700" fill="#79F7EE">¿TIENES UN CENTRO DE</text>
+    <text x="72" y="476" font-size="48" font-weight="700" fill="#79F7EE">CUIDADO INFANTIL?</text>
+
+    <text x="72" y="625" font-size="102" font-weight="900" fill="#FFFFFF">ÚLTIMO DÍA</text>
+    <text x="72" y="730" font-size="74" font-weight="900" fill="#FFFFFF">PARA SOLICITAR</text>
+
+    <g filter="url(#shadow)">
+      <rect x="72" y="800" width="936" height="420" rx="54" fill="#FFFFFF" opacity="0.97"/>
+      <rect x="112" y="846" width="232" height="232" rx="44" fill="#0B2B52"/>
+      <rect x="150" y="884" width="72" height="72" rx="16" fill="#20E0D0"/>
+      <rect x="234" y="884" width="72" height="72" rx="16" fill="#FFB703"/>
+      <rect x="150" y="968" width="72" height="72" rx="16" fill="#F72585"/>
+      <rect x="234" y="968" width="72" height="72" rx="16" fill="#00A8FF"/>
+      <text x="390" y="900" font-size="42" font-weight="900" fill="#0B2B52">THRIVE BY 5</text>
+      <text x="390" y="953" font-size="42" font-weight="900" fill="#0B2B52">PARTNER SITE</text>
+      <text x="390" y="1028" font-size="34" font-weight="700" fill="#334155">Jefferson County</text>
+      <text x="390" y="1080" font-size="31" fill="#475569">Centros licenciados +</text>
+      <text x="390" y="1124" font-size="31" fill="#475569">Family Child Care Homes</text>
+      <text x="390" y="1174" font-size="26" fill="#64748B">Sujeto a requisitos oficiales</text>
+    </g>
+
+    <g transform="translate(72,1285)">
+      <rect x="0" y="0" width="936" height="185" rx="42" fill="#101D3B" stroke="#20E0D0" stroke-width="3"/>
+      <circle cx="74" cy="64" r="26" fill="#20E0D0"/>
+      <text x="74" y="74" text-anchor="middle" font-size="28" font-weight="900" fill="#08152B">+</text>
+      <text x="126" y="68" font-size="36" font-weight="800" fill="#FFFFFF">APOYO + RECURSOS</text>
+      <circle cx="74" cy="126" r="26" fill="#FFB703"/>
+      <text x="74" y="136" text-anchor="middle" font-size="28" font-weight="900" fill="#08152B">$</text>
+      <text x="126" y="132" font-size="34" font-weight="700" fill="#FFFFFF">Posibles incentivos por participación</text>
+    </g>
+
+    <rect x="72" y="1545" width="936" height="196" rx="52" fill="url(#cta)" filter="url(#shadow)"/>
+    <text x="540" y="1624" text-anchor="middle" font-size="44" font-weight="900" fill="#061426">REVISA REQUISITOS Y APLICA HOY</text>
+    <text x="540" y="1694" text-anchor="middle" font-size="34" font-weight="700" fill="#061426">thriveby5louisville.org</text>
+
+    <text x="72" y="1822" font-size="26" font-weight="700" fill="#FFFFFF" opacity="0.86">Fuente: Thrive By 5 Louisville • información verificada</text>
+    <text x="72" y="1864" font-size="24" fill="#FFFFFF" opacity="0.58">Aplicaciones abiertas hasta el 21 de septiembre de 2026.</text>
+  </g>
+</svg>
