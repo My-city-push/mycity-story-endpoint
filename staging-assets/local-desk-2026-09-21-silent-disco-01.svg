@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07111f"/><stop offset=".42" stop-color="#0057ff"/><stop offset="1" stop-color="#10d9c4"/></linearGradient>
+  <linearGradient id="pill" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#ff3d8d"/><stop offset="1" stop-color="#ff8a18"/></linearGradient>
+  <filter id="shadow"><feDropShadow dx="0" dy="18" stdDeviation="28" flood-opacity=".24"/></filter>
+</defs>
+<rect width="1080" height="1920" fill="url(#bg)"/>
+<circle cx="920" cy="250" r="250" fill="#ff3d8d" opacity=".82"/>
+<circle cx="130" cy="1660" r="330" fill="#ffd02a" opacity=".92"/>
+<path d="M-80 1010 C210 870 390 1120 690 960 S1100 890 1180 970" fill="none" stroke="#fff" stroke-width="16" opacity=".18"/>
+<path d="M-80 1070 C210 930 390 1180 690 1020 S1100 950 1180 1030" fill="none" stroke="#fff" stroke-width="7" stroke-dasharray="24 30" opacity=".55"/>
+<g filter="url(#shadow)"><rect x="76" y="178" width="510" height="72" rx="36" fill="#0a0f18" opacity=".82"/><text x="331" y="226" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="800" fill="#fff">MAÑANA · PLAN GRATIS</text></g>
+<text x="76" y="430" font-family="Arial,Helvetica,sans-serif" font-size="88" font-weight="900" fill="#fff">SILENT</text>
+<text x="76" y="525" font-family="Arial,Helvetica,sans-serif" font-size="88" font-weight="900" fill="#fff">DISCO</text>
+<text x="76" y="620" font-family="Arial,Helvetica,sans-serif" font-size="57" font-weight="900" fill="#dffcff">EN EL PARQUE</text>
+<g transform="translate(76 765)" filter="url(#shadow)"><rect width="928" height="365" rx="58" fill="#fff" opacity=".97"/>
+<text x="464" y="116" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="43" font-weight="900" fill="#111827">MARTES · 22 SEP</text>
+<text x="464" y="198" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="68" font-weight="900" fill="#0057ff">5:30–7:30 PM</text>
+<text x="464" y="280" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="800" fill="#4b5563">Joe Creason Park · Louisville</text>
+</g>
+<g transform="translate(76 1275)"><rect width="488" height="126" rx="63" fill="url(#pill)"/><text x="244" y="81" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="37" font-weight="900" fill="#fff">DESLIZA →</text></g>
+<text x="76" y="1788" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" fill="#fff" opacity=".92">MyCity Local Desk · Fuente: Louisville Parks &amp; Recreation</text>
+</svg>
