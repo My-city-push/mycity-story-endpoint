@@ -8,7 +8,19 @@ function parseServiceAccount(){
   if(parsed.private_key) parsed.private_key=parsed.private_key.replace(/\\n/g,"\n");
   return parsed;
 }
-async function uploadRemote(sourceUrl,index=0,total=1){
+function sourceKind(url,explicit){
+  const kind=safe(explicit,20).toLowerCase();
+  if(kind==="video"||kind==="image") return kind;
+  return /(?:\/video\/upload\/|\.(?:mp4|mov|m4v|webm)(?:[?#]|$))/i.test(safe(url,4000))?"video":"image";
+}
+function videoPoster(url){
+  const raw=safe(url,4000);
+  if(!raw.includes("/video/upload/")) return "";
+  return raw.replace("/video/upload/","/video/upload/so_0,w_720,c_limit,q_auto:good,f_jpg/").replace(/\.[^./?]+(?=\?|$)/,".jpg");
+}
+async function uploadRemote(source,index=0,total=1){
+  const sourceUrl=safe(source&&source.url||source,4000);
+  const kind=sourceKind(sourceUrl,source&&source.type);
   const cloud=safe(process.env.CLOUDINARY_CLOUD_NAME||"dxnxwaigw",100);
   const preset=safe(process.env.CLOUDINARY_UNSIGNED_PRESET||"mycity_unsigned",200);
   const folder=safe(process.env.CLOUDINARY_STORY_UPLOAD_FOLDER||"mycity/story-uploads",500);
@@ -16,28 +28,39 @@ async function uploadRemote(sourceUrl,index=0,total=1){
   fd.append("file",sourceUrl);
   fd.append("upload_preset",preset);
   if(folder) fd.append("folder",folder);
-  fd.append("tags",["mycity","story_upload","ai_generated","automation",total>1?"carousel":"single"].join(","));
-  fd.append("context",["source=mycity_local_desk","carousel_index="+index,"carousel_total="+total].join("|"));
-  const res=await fetch("https://api.cloudinary.com/v1_1/"+encodeURIComponent(cloud)+"/image/upload",{method:"POST",body:fd});
+  fd.append("tags",["mycity","story_upload","ai_generated","automation",kind,total>1?"carousel":"single"].join(","));
+  fd.append("context",["source=mycity_local_desk","carousel_index="+index,"carousel_total="+total,"media_kind="+kind].join("|"));
+  const res=await fetch("https://api.cloudinary.com/v1_1/"+encodeURIComponent(cloud)+"/"+kind+"/upload",{method:"POST",body:fd});
   const data=await res.json().catch(()=>({}));
-  if(!res.ok||!data.secure_url) throw new Error("Cloudinary upload failed: "+safe(data?.error?.message||res.status,300));
-  return data;
+  if(!res.ok||!data.secure_url) throw new Error("Cloudinary "+kind+" upload failed: "+safe(data?.error?.message||res.status,300));
+  return Object.assign({},data,{_sourceKind:kind,_sourceUrl:sourceUrl});
 }
-function automatedSourceUrls(){
+function automatedSources(){
+  const itemsJson=safe(process.env.AUTOMATED_STORY_SOURCE_ITEMS_JSON,30000);
+  if(itemsJson){
+    try{
+      const parsed=JSON.parse(itemsJson);
+      if(Array.isArray(parsed)){
+        const items=parsed.map(v=>typeof v==="string"?{url:safe(v,4000)}:{url:safe(v&&v.url,4000),type:safe(v&&v.type,20)})
+          .filter(v=>/^https:\/\//i.test(v.url)).slice(0,10);
+        if(items.length) return items;
+      }
+    }catch(e){}
+  }
   const rawJson=safe(process.env.AUTOMATED_STORY_SOURCE_URLS_JSON,20000);
   if(rawJson){
     try{
       const parsed=JSON.parse(rawJson);
-      if(Array.isArray(parsed)) return parsed.map(v=>safe(v,4000)).filter(v=>/^https:\/\//i.test(v)).slice(0,10);
+      if(Array.isArray(parsed)) return parsed.map(v=>({url:safe(v,4000)})).filter(v=>/^https:\/\//i.test(v.url)).slice(0,10);
     }catch(e){}
   }
   const multi=safe(process.env.AUTOMATED_STORY_SOURCE_URLS,20000);
   if(multi){
-    const list=multi.split(/\r?\n|\s*\|\|\s*/).map(v=>safe(v,4000)).filter(v=>/^https:\/\//i.test(v)).slice(0,10);
+    const list=multi.split(/\r?\n|\s*\|\|\s*/).map(v=>({url:safe(v,4000)})).filter(v=>/^https:\/\//i.test(v.url)).slice(0,10);
     if(list.length) return list;
   }
   const single=safe(process.env.AUTOMATED_STORY_SOURCE_URL,4000);
-  return /^https:\/\//i.test(single)?[single]:[];
+  return /^https:\/\//i.test(single)?[{url:single}]:[];
 }
 async function sendPublishNotificationHook(storyId, story){
   const url=safe(process.env.PROFILE_STORY_NOTIFY_HOOK_URL||"https://hook.us1.make.com/j1mpnbe8v78bq6m2y9smr3wq6d8mk92q",4000);
@@ -115,11 +138,11 @@ async function run(){
   const db=admin.database();
 
   const requestId=safe(process.env.AUTOMATED_STORY_REQUEST_ID,200);
-  const sourceUrls=automatedSourceUrls();
+  const sources=automatedSources();
   const title=safe(process.env.AUTOMATED_STORY_TITLE,250);
   const caption=safe(process.env.AUTOMATED_STORY_CAPTION,5000);
   const category=safe(process.env.AUTOMATED_STORY_CATEGORY,120);
-  if(!requestId||!sourceUrls.length||!title) throw new Error("Automated story inputs missing");
+  if(!requestId||!sources.length||!title) throw new Error("Automated story inputs missing");
 
   const idem=db.ref("aiStoryRequests/"+requestId.replace(/[.#$\/\[\]]/g,"_"));
   const prior=await idem.get();
@@ -128,28 +151,30 @@ async function run(){
     return;
   }
 
-  const uploads=await Promise.all(sourceUrls.map((url,index)=>uploadRemote(url,index,sourceUrls.length)));
+  const uploads=await Promise.all(sources.map((source,index)=>uploadRemote(source,index,sources.length)));
   const items=uploads.map((up,index)=>{
+    const kind=sourceKind(up.secure_url,up._sourceKind||up.resource_type);
     const original=safe(up.secure_url,4000);
-    const mediaUrl=safe(up.format,50).toLowerCase()==="svg"
+    const mediaUrl=kind==="image"&&safe(up.format,50).toLowerCase()==="svg"
       ? original.replace("/upload/","/upload/f_jpg,q_auto/")
       : original;
+    const poster=kind==="video"?videoPoster(mediaUrl):mediaUrl;
     const width=Number(up.width||0)||0,height=Number(up.height||0)||0;
     return {
       id:"auto_"+index,
       index,
-      mediaKind:"image",
-      mediaType:"image",
-      type:"image",
+      mediaKind:kind,
+      mediaType:kind==="video"?"video/mp4":"image",
+      type:kind,
       mediaUrl,
       mediaDeliveryUrl:mediaUrl,
       url:mediaUrl,
       previewUrl:mediaUrl,
-      imageUrl:mediaUrl,
-      videoUrl:"",
-      thumbnailUrl:mediaUrl,
-      thumb:mediaUrl,
-      previewThumb:mediaUrl,
+      imageUrl:kind==="image"?mediaUrl:poster,
+      videoUrl:kind==="video"?mediaUrl:"",
+      thumbnailUrl:poster,
+      thumb:poster,
+      previewThumb:poster,
       cloudinarySecureUrl:mediaUrl,
       cloudinaryPublicId:safe(up.public_id,500),
       cloudinaryAssetId:safe(up.asset_id,500),
@@ -165,6 +190,8 @@ async function run(){
   const first=items[0]||{};
   const up=uploads[0]||{};
   const mediaUrl=safe(first.mediaUrl,4000);
+  const firstKind=safe(first.mediaKind||first.type,20)||"image";
+  const firstThumb=safe(first.thumbnailUrl||first.imageUrl||mediaUrl,4000);
   const isCarousel=items.length>1;
   const now=Date.now();
   const ownerId=safe(process.env.MYCITY_USER_ID||"629388",100);
@@ -186,15 +213,18 @@ async function run(){
     title,
     caption,
     category,
-    postType:isCarousel?"carousel":"IMAGE",
+    postType:isCarousel?"carousel":(firstKind==="video"?"video":"IMAGE"),
     postProductType:"MYCITY_STORY",
     carousel:isCarousel,
     isCarousel,
     itemCount:items.length,
     items,
-    imageUrl:mediaUrl,
+    mediaType:firstKind,
+    mediaKind:firstKind,
+    imageUrl:firstKind==="image"?mediaUrl:firstThumb,
+    videoUrl:firstKind==="video"?mediaUrl:"",
     mediaUrl,
-    thumbnailUrl:mediaUrl,
+    thumbnailUrl:firstThumb,
     cloudinarySecureUrl:mediaUrl,
     cloudinaryPublicId:safe(up.public_id,500),
     cloudinaryAssetId:safe(up.asset_id,500),
@@ -224,13 +254,14 @@ async function run(){
     ownerAvatar:story.avatar,
     title:story.title || "Story Feed",
     caption:story.caption || "",
-    mediaType:"image",
-    mediaKind:"image",
+    mediaType:firstKind,
+    mediaKind:firstKind,
     mediaUrl,
     url:mediaUrl,
-    imageUrl:mediaUrl,
-    thumbnailUrl:mediaUrl,
-    thumb:mediaUrl,
+    imageUrl:firstKind==="image"?mediaUrl:firstThumb,
+    videoUrl:firstKind==="video"?mediaUrl:"",
+    thumbnailUrl:firstThumb,
+    thumb:firstThumb,
     postType:isCarousel?"carousel":"feed",
     postProductType:"MYCITY_FEED",
     carousel:isCarousel,
@@ -257,7 +288,7 @@ async function run(){
     ["/storyVitrineByUser/"+userKey+"/"+ref.key]:vitrineRecord
   });
 
-  await idem.set({storyId:ref.key,status:"published",mediaType:"image",isCarousel,itemCount:items.length,userId:ownerId,requestId,cloudinarySecureUrl:mediaUrl,createdAtMs:now});
+  await idem.set({storyId:ref.key,status:"published",mediaType:firstKind,isCarousel,itemCount:items.length,userId:ownerId,requestId,cloudinarySecureUrl:mediaUrl,createdAtMs:now});
   await sendPublishNotificationHook(ref.key,story);
   console.log("AUTOMATED_STORY_PUBLISHED created storyId="+ref.key+" itemCount="+items.length+" isCarousel="+isCarousel+" secureUrl="+mediaUrl);
 }
