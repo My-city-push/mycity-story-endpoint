@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07122F"/>
+      <stop offset="0.42" stop-color="#1238C7"/>
+      <stop offset="1" stop-color="#00C8B4"/>
+    </linearGradient>
+    <linearGradient id="warm" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FF4F72"/>
+      <stop offset="0.55" stop-color="#FF8A2A"/>
+      <stop offset="1" stop-color="#FFD84A"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#00102F" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <g opacity="0.18" stroke="#FFFFFF" stroke-width="4" fill="none">
+    <path d="M0 1420 L1080 830"/>
+    <path d="M0 1560 L1080 970"/>
+    <path d="M140 1920 L760 420"/>
+    <path d="M420 1920 L1040 420"/>
+  </g>
+  <circle cx="945" cy="190" r="220" fill="#FF3B8D" opacity="0.22"/>
+  <circle cx="70" cy="980" r="250" fill="#00E5FF" opacity="0.16"/>
+
+  <rect x="70" y="72" width="392" height="66" rx="33" fill="#FFFFFF" opacity="0.97"/>
+  <text x="266" y="116" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="800" text-anchor="middle" fill="#10266D" letter-spacing="1.5">OPORTUNIDAD LOCAL</text>
+  <text x="73" y="194" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#D7FFF8">LOUISVILLE · KENTUCKIANA</text>
+
+  <text x="70" y="355" font-family="Arial, Helvetica, sans-serif" font-size="106" font-weight="900" fill="#FFFFFF">¿QUIERES ENTRAR</text>
+  <text x="70" y="470" font-family="Arial, Helvetica, sans-serif" font-size="106" font-weight="900" fill="#FFFFFF">A CONSTRUCCIÓN?</text>
+  <rect x="70" y="515" width="940" height="18" rx="9" fill="url(#warm)"/>
+
+  <text x="70" y="635" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="800" fill="#FFF4B7">Kentuckiana Builds</text>
+  <text x="70" y="695" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="600" fill="#FFFFFF">te prepara para oficios y te conecta con empleadores.</text>
+
+  <g filter="url(#shadow)">
+    <rect x="70" y="780" width="940" height="248" rx="42" fill="#FFFFFF"/>
+    <rect x="70" y="780" width="24" height="248" rx="12" fill="#FFD84A"/>
+  </g>
+  <text x="130" y="850" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="900" fill="#10266D">RUTAS QUE PUEDES EXPLORAR</text>
+  <text x="130" y="920" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800" fill="#131A2E">⚡ Electricidad   •   🏗 Maquinaria pesada</text>
+  <text x="130" y="982" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800" fill="#131A2E">🔧 Oficios especializados   •   🌐 Fibra óptica</text>
+
+  <g filter="url(#shadow)">
+    <rect x="70" y="1090" width="940" height="342" rx="46" fill="#07122F" opacity="0.94"/>
+  </g>
+  <text x="130" y="1180" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800" fill="#63FFF0">RESULTADO REPORTADO</text>
+  <text x="130" y="1310" font-family="Arial, Helvetica, sans-serif" font-size="104" font-weight="900" fill="#FFD84A">≈ $20 / HORA</text>
+  <text x="130" y="1376" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#FFFFFF">promedio entre graduados que encontraron empleo</text>
+  <text x="130" y="1418" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="600" fill="#C7D5FF">Dato de KentuckianaWorks · no es salario inicial garantizado.</text>
+
+  <g filter="url(#shadow)">
+    <rect x="70" y="1515" width="940" height="235" rx="42" fill="url(#warm)"/>
+  </g>
+  <text x="130" y="1602" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="900" fill="#11152A">PRIMER PASO: ORIENTACIÓN VIRTUAL</text>
+  <text x="130" y="1670" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800" fill="#11152A">18+ · ID estatal · diploma/GED · elegible para trabajar</text>
+  <text x="130" y="1724" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="900" fill="#11152A">502-585-4622  ·  KentuckianaWorks.org/builds</text>
+
+  <text x="70" y="1850" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#FFFFFF" opacity="0.92">MYCITY LOCAL DESK · OPORTUNIDADES DE TRABAJO</text>
+</svg>
