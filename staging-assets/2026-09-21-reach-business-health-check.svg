@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#081426"/><stop offset=".5" stop-color="#0f766e"/><stop offset="1" stop-color="#ff7a45"/></linearGradient><filter id="sh"><feDropShadow dx="0" dy="16" stdDeviation="24" flood-opacity=".24"/></filter></defs>
+<rect width="1080" height="1920" fill="url(#bg)"/>
+<circle cx="930" cy="210" r="255" fill="#ffd166" opacity=".92"/><circle cx="145" cy="1710" r="300" fill="#23c9c8" opacity=".4"/>
+<rect x="72" y="118" width="420" height="70" rx="35" fill="#fff"/><text x="282" y="164" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="900" fill="#081426">LOUISVILLE · NEGOCIOS</text>
+<text x="72" y="390" font-family="Arial,Helvetica,sans-serif" font-size="86" font-weight="900" fill="#fff">¿TU NEGOCIO</text><text x="72" y="485" font-family="Arial,Helvetica,sans-serif" font-size="86" font-weight="900" fill="#fff">ESTÁ LISTO?</text>
+<text x="72" y="575" font-family="Arial,Helvetica,sans-serif" font-size="38" font-weight="700" fill="#f7f3e8">REACH · Business Health Check</text>
+<g transform="translate(72 710)" filter="url(#sh)"><rect width="936" height="560" rx="54" fill="#fff"/><rect x="68" y="74" width="160" height="160" rx="38" fill="#ffd166"/><text x="148" y="178" text-anchor="middle" font-family="Arial" font-size="76" font-weight="900" fill="#081426">3</text><text x="270" y="120" font-family="Arial" font-size="34" font-weight="900" fill="#081426">OCTUBRE 2026</text><text x="270" y="176" font-family="Arial" font-size="29" font-weight="700" fill="#39424e">Sesión sin costo de REACH</text>
+<line x1="68" y1="280" x2="868" y2="280" stroke="#d8dee4" stroke-width="3"/>
+<text x="68" y="352" font-family="Arial" font-size="31" font-weight="900" fill="#081426">APRENDE SOBRE:</text>
+<text x="68" y="414" font-family="Arial" font-size="29" font-weight="700" fill="#26313d">• Formación y etapa de tu negocio</text><text x="68" y="462" font-family="Arial" font-size="29" font-weight="700" fill="#26313d">• Licencias y permisos esenciales</text><text x="68" y="510" font-family="Arial" font-size="29" font-weight="700" fill="#26313d">• Pasos para operar con base sólida</text></g>
+<rect x="72" y="1390" width="730" height="126" rx="63" fill="#ffd166"/><text x="437" y="1470" text-anchor="middle" font-family="Arial" font-size="41" font-weight="900" fill="#081426">APOYO MULTILINGÜE</text>
+<text x="72" y="1615" font-family="Arial" font-size="34" font-weight="800" fill="#fff">Programa de la Office for Immigrant Affairs</text><text x="72" y="1670" font-family="Arial" font-size="31" font-weight="700" fill="#f7f3e8">con Louisville SBDC y proveedores locales.</text>
+<text x="72" y="1790" font-family="Arial" font-size="34" font-weight="900" fill="#fff">REGÍSTRATE EN REACH →</text><text x="72" y="1842" font-family="Arial" font-size="22" font-weight="700" fill="#fff" opacity=".72">Fuente: Louisville Metro Government · louisvilleky.gov</text>
+</svg>
