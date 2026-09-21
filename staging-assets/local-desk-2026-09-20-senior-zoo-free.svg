@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img" aria-labelledby="title desc">
+  <title id="title">60+ entra gratis al Louisville Zoo</title>
+  <desc id="desc">Story vertical sobre Senior Sundays, domingo 27 de septiembre de 2026.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071A52"/>
+      <stop offset="0.45" stop-color="#0057FF"/>
+      <stop offset="1" stop-color="#00C7B7"/>
+    </linearGradient>
+    <linearGradient id="hot" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FF4D7D"/>
+      <stop offset="1" stop-color="#FF8A1F"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="22" stdDeviation="24" flood-color="#001031" flood-opacity="0.32"/>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="950" cy="200" r="230" fill="#FFD84A" opacity="0.94"/>
+  <circle cx="110" cy="1640" r="250" fill="#FF3C82" opacity="0.30"/>
+  <path d="M-70 520 C190 390 410 690 640 550 C820 440 980 470 1160 610 L1160 0 L-70 0 Z" fill="#00E2C7" opacity="0.18"/>
+  <path d="M-40 1380 C180 1250 370 1500 590 1380 C800 1260 950 1320 1120 1450 L1120 1920 L-40 1920 Z" fill="#FF9A2F" opacity="0.22"/>
+
+  <g transform="translate(72 78)">
+    <rect width="560" height="72" rx="36" fill="#FFFFFF" opacity="0.96"/>
+    <text x="32" y="48" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="800" fill="#071A52" letter-spacing="1">LOUISVILLE • OPORTUNIDAD FAMILIAR</text>
+  </g>
+
+  <g transform="translate(74 278)" filter="url(#shadow)">
+    <rect width="932" height="670" rx="58" fill="#07142C" opacity="0.93"/>
+    <rect x="30" y="30" width="872" height="610" rx="42" fill="none" stroke="#39F5DA" stroke-width="3" opacity="0.55"/>
+    <text x="70" y="238" font-family="Arial, Helvetica, sans-serif" font-size="258" font-weight="900" fill="#FFD84A">60+</text>
+    <text x="72" y="370" font-family="Arial, Helvetica, sans-serif" font-size="94" font-weight="900" fill="#FFFFFF">ENTRA</text>
+    <text x="72" y="470" font-family="Arial, Helvetica, sans-serif" font-size="104" font-weight="900" fill="#FFFFFF">GRATIS</text>
+    <rect x="68" y="516" width="510" height="76" rx="22" fill="url(#hot)"/>
+    <text x="98" y="570" font-family="Arial, Helvetica, sans-serif" font-size="45" font-weight="900" fill="#FFFFFF">AL LOUISVILLE ZOO</text>
+
+    <!-- simple paw icon -->
+    <g transform="translate(700 415)" fill="#39F5DA">
+      <ellipse cx="76" cy="110" rx="83" ry="69"/>
+      <circle cx="22" cy="38" r="28"/>
+      <circle cx="76" cy="18" r="30"/>
+      <circle cx="130" cy="38" r="28"/>
+      <circle cx="160" cy="82" r="25"/>
+    </g>
+  </g>
+
+  <g transform="translate(74 1010)">
+    <rect width="932" height="154" rx="36" fill="#FFD84A"/>
+    <text x="52" y="70" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800" fill="#071A52">ÚLTIMO SENIOR SUNDAY DE SEPTIEMBRE</text>
+    <text x="52" y="127" font-family="Arial, Helvetica, sans-serif" font-size="55" font-weight="900" fill="#071A52">DOMINGO 27 SEP</text>
+  </g>
+
+  <g transform="translate(74 1218)" font-family="Arial, Helvetica, sans-serif">
+    <g>
+      <circle cx="29" cy="30" r="29" fill="#39F5DA"/>
+      <text x="19" y="42" font-size="32" font-weight="900" fill="#071A52">✓</text>
+      <text x="86" y="42" font-size="43" font-weight="800" fill="#FFFFFF">Entrada gratis en taquilla</text>
+    </g>
+    <g transform="translate(0 108)">
+      <circle cx="29" cy="30" r="29" fill="#FF6C3D"/>
+      <text x="20" y="42" font-size="32" font-weight="900" fill="#FFFFFF">!</text>
+      <text x="86" y="42" font-size="43" font-weight="800" fill="#FFFFFF">Parking no incluido</text>
+    </g>
+    <g transform="translate(0 216)">
+      <circle cx="29" cy="30" r="29" fill="#FFD84A"/>
+      <path d="M29 9 C42 29 47 37 47 49 C47 61 39 69 29 69 C19 69 11 61 11 49 C11 37 16 29 29 9Z" fill="#0B5FE8"/>
+      <text x="86" y="31" font-size="40" font-weight="800" fill="#FFFFFF">Agua + toallas refrescantes</text>
+      <text x="86" y="79" font-size="34" font-weight="700" fill="#D7FFF9">10 a.m.–2 p.m. • mientras duren</text>
+    </g>
+  </g>
+
+  <g transform="translate(74 1610)">
+    <rect width="932" height="170" rx="42" fill="#FFFFFF" opacity="0.96"/>
+    <text x="48" y="72" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="900" fill="#071A52">GUÁRDALO • COMPÁRTELO</text>
+    <text x="48" y="124" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" fill="#3C4B69">con alguien de 60+ antes del domingo</text>
+    <g transform="translate(790 34)">
+      <circle cx="62" cy="52" r="54" fill="#FF4D7D"/>
+      <path d="M34 54 L53 73 L91 34" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+
+  <text x="74" y="1850" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#FFFFFF" opacity="0.82">Louisville Zoo • Senior Sundays • Información oficial verificada</text>
+</svg>
