@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#081426"/><stop offset=".52" stop-color="#0f766e"/><stop offset="1" stop-color="#ff7a45"/></linearGradient>
+<filter id="sh"><feDropShadow dx="0" dy="18" stdDeviation="26" flood-opacity=".26"/></filter>
+</defs>
+<rect width="1080" height="1920" fill="url(#bg)"/>
+<circle cx="930" cy="220" r="260" fill="#ffd166" opacity=".92"/><circle cx="140" cy="1680" r="310" fill="#23c9c8" opacity=".55"/>
+<g filter="url(#sh)">
+<rect x="72" y="120" width="315" height="70" rx="35" fill="#fff"/>
+<text x="230" y="166" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="900" fill="#081426">MYCITY · LOUISVILLE</text>
+</g>
+<text x="72" y="405" font-family="Arial,Helvetica,sans-serif" font-size="86" font-weight="900" fill="#fff">TU NEGOCIO</text>
+<text x="72" y="500" font-family="Arial,Helvetica,sans-serif" font-size="86" font-weight="900" fill="#fff">MÁS CERCA</text>
+<text x="72" y="580" font-family="Arial,Helvetica,sans-serif" font-size="39" font-weight="700" fill="#f7f3e8">de personas que viven, trabajan y compran aquí.</text>
+<g transform="translate(72 725)" filter="url(#sh)">
+<rect width="936" height="500" rx="60" fill="#fff" opacity=".97"/>
+<rect x="72" y="72" width="300" height="354" rx="38" fill="#0b1220"/>
+<rect x="96" y="105" width="252" height="270" rx="24" fill="#f6ead7"/>
+<circle cx="222" cy="232" r="74" fill="#ff7a45"/>
+<rect x="125" y="327" width="194" height="24" rx="12" fill="#0f766e"/>
+<circle cx="512" cy="138" r="28" fill="#23c9c8"/><rect x="564" y="112" width="280" height="52" rx="26" fill="#edf2f5"/>
+<circle cx="512" cy="235" r="28" fill="#ffd166"/><rect x="564" y="209" width="230" height="52" rx="26" fill="#edf2f5"/>
+<circle cx="512" cy="332" r="28" fill="#ff7a45"/><rect x="564" y="306" width="248" height="52" rx="26" fill="#edf2f5"/>
+<text x="704" y="423" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="900" fill="#081426">PUBLICA · CONECTA · CRECE</text>
+</g>
+<g transform="translate(72 1358)">
+<rect width="680" height="130" rx="65" fill="#ffd166"/>
+<text x="340" y="82" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="43" font-weight="900" fill="#081426">+20,000 USUARIOS LOCALES*</text>
+</g>
+<text x="72" y="1570" font-family="Arial,Helvetica,sans-serif" font-size="42" font-weight="900" fill="#fff">Haz que conozcan lo que haces.</text>
+<text x="72" y="1635" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="700" fill="#f7f3e8">Ofertas · servicios · eventos · novedades</text>
+<text x="72" y="1798" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" fill="#fff" opacity=".78">*Dato proporcionado por la propia plataforma MyCity.</text>
+</svg>
