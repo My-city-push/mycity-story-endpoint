@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#082f49"/><stop offset=".45" stop-color="#06b6d4"/><stop offset="1" stop-color="#f97316"/></linearGradient><filter id="s"><feDropShadow dx="0" dy="18" stdDeviation="30" flood-opacity=".2"/></filter></defs>
+<rect width="1080" height="1920" fill="url(#g)"/>
+<circle cx="920" cy="260" r="240" fill="#facc15" opacity=".9"/><circle cx="110" cy="1700" r="300" fill="#db2777" opacity=".78"/>
+<g filter="url(#s)"><rect x="78" y="170" width="340" height="68" rx="34" fill="#0b0f14" opacity=".75"/><text x="248" y="216" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="800" fill="#fff">PARADAS CLAVE</text></g>
+<text x="78" y="415" font-family="Arial,Helvetica,sans-serif" font-size="72" font-weight="900" fill="#fff">PLAN RÁPIDO</text>
+<text x="78" y="500" font-family="Arial,Helvetica,sans-serif" font-size="39" font-weight="700" fill="#e6fffb">si usas estas rutas en downtown</text>
+<g transform="translate(78 650)"><rect width="924" height="900" rx="52" fill="#fff" opacity=".97"/>
+<g font-family="Arial,Helvetica,sans-serif" fill="#111827"><text x="70" y="120" font-size="48" font-weight="900">RUTA 1</text><text x="70" y="176" font-size="31" font-weight="700">Broadway/Jackson · Broadway/4th</text>
+<line x1="70" y1="225" x2="854" y2="225" stroke="#d1d5db" stroke-width="3"/>
+<text x="70" y="330" font-size="48" font-weight="900">RUTA 72</text><text x="70" y="386" font-size="31" font-weight="700">Preston/Chestnut · 2nd/Broadway</text>
+<line x1="70" y1="435" x2="854" y2="435" stroke="#d1d5db" stroke-width="3"/>
+<text x="70" y="540" font-size="48" font-weight="900">RUTA 76</text><text x="70" y="596" font-size="31" font-weight="700">Bay K · 10th/Cherry · 10th/Morningside</text>
+<line x1="70" y1="645" x2="854" y2="645" stroke="#d1d5db" stroke-width="3"/>
+<text x="70" y="750" font-size="48" font-weight="900">RUTA 93</text><text x="70" y="806" font-size="31" font-weight="700">Broadway/4th es una parada alternativa</text></g></g>
+<text x="78" y="1655" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="800" fill="#fff">La parada exacta depende del sentido de viaje.</text>
+<text x="78" y="1795" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" fill="#fff" opacity=".9">MyCity Local Desk · Fuente: TARC</text>
+</svg>
