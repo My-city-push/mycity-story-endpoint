@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071A35"/>
+      <stop offset="0.58" stop-color="#0D3151"/>
+      <stop offset="1" stop-color="#0A6E78"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFD166"/>
+      <stop offset="1" stop-color="#FF7A59"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#00101C" flood-opacity="0.34"/>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="922" cy="230" r="185" fill="url(#sun)" opacity="0.98"/>
+  <circle cx="880" cy="205" r="245" fill="#FFD166" opacity="0.08"/>
+  <path d="M-80 520 C250 390 470 470 730 350 C900 272 1020 305 1160 205 L1160 760 L-80 760 Z" fill="#15B8A6" opacity="0.16"/>
+  <path d="M-110 1335 C160 1210 390 1280 610 1170 C785 1085 940 1110 1180 940 L1180 1550 L-110 1550 Z" fill="#FF7A59" opacity="0.13"/>
+
+  <g transform="translate(74 95)">
+    <rect width="292" height="74" rx="37" fill="#FFF4DE"/>
+    <text x="146" y="49" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="800" fill="#071A35" letter-spacing="2">LOUISVILLE</text>
+  </g>
+
+  <g font-family="Arial, Helvetica, sans-serif" fill="#FFF8E8">
+    <text x="74" y="350" font-size="92" font-weight="900">¿PANELES</text>
+    <text x="74" y="448" font-size="92" font-weight="900">SOLARES?</text>
+    <text x="77" y="522" font-size="35" font-weight="700" fill="#B7F4EB">Hay una ventana de ahorro abierta.</text>
+  </g>
+
+  <g transform="translate(75 620)" filter="url(#shadow)">
+    <rect width="930" height="445" rx="46" fill="#FFF4DE"/>
+    <text x="54" y="92" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800" fill="#071A35">SOLARIZE LOUISVILLE</text>
+    <text x="54" y="190" font-family="Arial, Helvetica, sans-serif" font-size="112" font-weight="900" fill="#FF6B4A">15–20%</text>
+    <text x="54" y="250" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800" fill="#071A35">de descuento en precios grupales</text>
+    <rect x="54" y="300" width="520" height="86" rx="26" fill="#071A35"/>
+    <text x="314" y="356" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="900" fill="#FFD166">HASTA OCT. 1</text>
+    <g transform="translate(670 275)">
+      <polygon points="0,90 170,0 260,85 260,190 0,190" fill="#0D3151"/>
+      <g transform="skewX(-18)">
+        <rect x="35" y="56" width="88" height="54" rx="6" fill="#15B8A6"/>
+        <rect x="132" y="56" width="88" height="54" rx="6" fill="#15B8A6"/>
+        <rect x="50" y="119" width="88" height="54" rx="6" fill="#1DB6D2"/>
+        <rect x="147" y="119" width="88" height="54" rx="6" fill="#1DB6D2"/>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(75 1135)" font-family="Arial, Helvetica, sans-serif">
+    <rect width="930" height="382" rx="44" fill="#0A1730" opacity="0.82"/>
+    <g transform="translate(42 42)">
+      <circle cx="30" cy="30" r="30" fill="#FFD166"/>
+      <path d="M16 31 l10 10 20 -24" fill="none" stroke="#071A35" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="82" y="41" font-size="36" font-weight="800" fill="#FFF8E8">Cotización gratis</text>
+    </g>
+    <g transform="translate(42 136)">
+      <circle cx="30" cy="30" r="30" fill="#15B8A6"/>
+      <text x="30" y="43" text-anchor="middle" font-size="38" font-weight="900" fill="#071A35">ES</text>
+      <text x="82" y="41" font-size="36" font-weight="800" fill="#FFF8E8">Formulario disponible en español</text>
+    </g>
+    <g transform="translate(42 230)">
+      <circle cx="30" cy="30" r="30" fill="#FF7A59"/>
+      <path d="M13 31 h34 M30 14 v34" stroke="#071A35" stroke-width="8" stroke-linecap="round"/>
+      <text x="82" y="41" font-size="36" font-weight="800" fill="#FFF8E8">Hogares y pequeños negocios</text>
+    </g>
+  </g>
+
+  <g transform="translate(75 1580)">
+    <rect width="930" height="220" rx="40" fill="#FFD166"/>
+    <text x="465" y="76" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="41" font-weight="900" fill="#071A35">¿TE CONVIENE?</text>
+    <text x="465" y="128" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" fill="#17324D">Compara costo, techo y financiamiento.</text>
+    <text x="465" y="172" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" fill="#17324D">Solicita la cotización antes del 1 de octubre.</text>
+  </g>
+
+  <text x="76" y="1863" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#CBE9E7">MyCity Local Desk · información cívica útil para Louisville</text>
+</svg>
