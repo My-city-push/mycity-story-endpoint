@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07182f"/><stop offset="0.5" stop-color="#135d7a"/><stop offset="1" stop-color="#16b9c6"/></linearGradient>
+  <filter id="sh"><feDropShadow dx="0" dy="18" stdDeviation="24" flood-opacity="0.28"/></filter>
+</defs>
+<rect width="1080" height="1920" fill="url(#bg)"/>
+<circle cx="900" cy="230" r="250" fill="#ffd166" opacity="0.96"/>
+<circle cx="145" cy="1660" r="310" fill="#ff7a45" opacity="0.38"/>
+<rect x="70" y="105" width="350" height="70" rx="35" fill="#fff"/>
+<text x="245" y="151" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="29" font-weight="900" fill="#07182f">LOUISVILLE · SEP 26</text>
+<text x="70" y="370" font-family="Arial,Helvetica,sans-serif" font-size="78" font-weight="900" fill="#fff">MIRA AL CIELO</text>
+<text x="70" y="460" font-family="Arial,Helvetica,sans-serif" font-size="74" font-weight="900" fill="#fff">Y DESCUBRE</text>
+<text x="70" y="550" font-family="Arial,Helvetica,sans-serif" font-size="74" font-weight="900" fill="#ffd166">LA AVIACIÓN</text>
+<text x="72" y="620" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" fill="#dff7fb">Girls in Aviation Day · Bowman Field</text>
+<g transform="translate(70 735)" filter="url(#sh)">
+ <rect width="940" height="510" rx="58" fill="#f9fbfc"/>
+ <path d="M130 290 L445 210 L560 115 L610 140 L535 245 L810 210 L855 245 L525 315 L390 430 L345 405 L415 325 L185 345 Z" fill="#ff7a45"/>
+ <circle cx="155" cy="135" r="38" fill="#ffd166"/><circle cx="780" cy="405" r="28" fill="#16b9c6"/>
+ <text x="75" y="90" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="900" fill="#07182f">UNA EXPERIENCIA LOCAL PARA CONOCER</text>
+ <text x="75" y="130" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="900" fill="#07182f">EL MUNDO DE LA AVIACIÓN</text>
+</g>
+<g transform="translate(70 1360)">
+ <rect width="940" height="135" rx="50" fill="#ffd166"/>
+ <text x="470" y="57" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="36" font-weight="900" fill="#07182f">SÁBADO 26 DE SEPTIEMBRE</text>
+ <text x="470" y="101" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="800" fill="#07182f">Bowman Field · 2815 Taylorsville Rd.</text>
+</g>
+<text x="70" y="1615" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="900" fill="#fff">No se requiere reservación.</text>
+<text x="70" y="1675" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="700" fill="#e7f6fa">Presentado por WAI Bluegrass Chapter.</text>
+<text x="70" y="1810" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="800" fill="#fff">MYCITY · OPORTUNIDADES CERCA DE TI</text>
+</svg>
