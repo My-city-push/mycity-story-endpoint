@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071B33"/>
+      <stop offset="1" stop-color="#0A4154"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFD35A"/>
+      <stop offset="1" stop-color="#FF7A4D"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#001018" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="920" cy="170" r="220" fill="#18C7C1" opacity="0.20"/>
+  <circle cx="140" cy="1740" r="260" fill="#FF6D52" opacity="0.18"/>
+  <path d="M0 1460 C230 1360 380 1510 590 1440 C790 1370 900 1260 1080 1310 L1080 1920 L0 1920 Z" fill="#F4E9D8"/>
+
+  <g font-family="Arial, Helvetica, sans-serif" fill="#F9F4EA">
+    <text x="72" y="115" font-size="38" font-weight="700" letter-spacing="5">MYCITY • LOUISVILLE</text>
+    <text x="72" y="245" font-size="92" font-weight="900">AVENTURA</text>
+    <text x="72" y="340" font-size="92" font-weight="900">DESPUÉS DE CLASES</text>
+    <text x="76" y="415" font-size="36" font-weight="700" fill="#AEEBE3">PARQUES DEL OESTE • 7–12 AÑOS</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="70" y="505" rx="42" ry="42" width="940" height="610" fill="#F7F1E8"/>
+  </g>
+
+  <circle cx="810" cy="695" r="150" fill="url(#sun)"/>
+  <path d="M807 560 L910 660 L807 760 L704 660 Z" fill="#FFFFFF" opacity="0.96"/>
+  <path d="M808 760 C820 845 776 900 724 954" fill="none" stroke="#FF7A4D" stroke-width="12" stroke-linecap="round" stroke-dasharray="18 18"/>
+  <path d="M724 954 q-35 42 -72 10 q28 42 -10 77" fill="none" stroke="#FF7A4D" stroke-width="12" stroke-linecap="round"/>
+
+  <g font-family="Arial, Helvetica, sans-serif" fill="#0B2236">
+    <text x="120" y="610" font-size="42" font-weight="800">ARRANCA</text>
+    <text x="120" y="700" font-size="78" font-weight="900">SEP 24</text>
+    <text x="120" y="755" font-size="32" font-weight="700" fill="#3B5C68">5:00–6:30 PM</text>
+    <text x="120" y="850" font-size="44" font-weight="900">AVES + COMETAS</text>
+    <text x="120" y="905" font-size="30" font-weight="700" fill="#3B5C68">Shawnee Park</text>
+    <text x="120" y="1010" font-size="29" font-weight="600" fill="#49636D">La inscripción incluye toda la serie.</text>
+    <text x="120" y="1050" font-size="29" font-weight="600" fill="#49636D">Cupos abiertos en Louisville ECHO.</text>
+  </g>
+
+  <g transform="translate(70 1195)">
+    <rect x="0" y="0" width="940" height="180" rx="34" fill="#11B5AE"/>
+    <g font-family="Arial, Helvetica, sans-serif" fill="#062437">
+      <text x="42" y="62" font-size="28" font-weight="900" letter-spacing="2">6 TARDES DE EXPLORACIÓN</text>
+      <text x="42" y="112" font-size="30" font-weight="800">Río • semillas • tiro con arco • hiking</text>
+      <text x="42" y="150" font-size="27" font-weight="700">+ cierre en Chickasaw Park</text>
+    </g>
+  </g>
+
+  <g font-family="Arial, Helvetica, sans-serif" fill="#0B2236">
+    <text x="72" y="1560" font-size="54" font-weight="900">APRENDER AFUERA</text>
+    <text x="72" y="1628" font-size="34" font-weight="700">una tarde a la vez.</text>
+    <rect x="72" y="1690" width="605" height="98" rx="49" fill="#FF6D52"/>
+    <text x="116" y="1755" font-size="34" font-weight="900" fill="#FFFFFF">RESERVA TU LUGAR EN ECHO</text>
+    <text x="72" y="1850" font-size="24" font-weight="700" fill="#4A5E64">Fuente: Louisville ECHO • mycity.city</text>
+  </g>
+
+  <g opacity="0.16" fill="#FFFFFF">
+    <circle cx="952" cy="1140" r="16"/>
+    <circle cx="900" cy="1195" r="10"/>
+    <circle cx="1010" cy="1230" r="12"/>
+  </g>
+</svg>
