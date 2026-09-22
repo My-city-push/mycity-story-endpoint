@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071A33"/>
+      <stop offset="0.58" stop-color="#0C3150"/>
+      <stop offset="1" stop-color="#0B6F76"/>
+    </linearGradient>
+    <linearGradient id="coral" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FF7A59"/>
+      <stop offset="1" stop-color="#FF9A62"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="16" stdDeviation="22" flood-color="#00111A" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="930" cy="210" r="250" fill="#19C6B3" opacity="0.18"/>
+  <circle cx="110" cy="1650" r="330" fill="#FF7A59" opacity="0.16"/>
+  <path d="M0 460 C270 360 500 560 1080 360 L1080 0 L0 0 Z" fill="#0E2745" opacity="0.58"/>
+  <path d="M0 1510 C340 1360 710 1570 1080 1420 L1080 1920 L0 1920 Z" fill="#071528" opacity="0.72"/>
+
+  <rect x="72" y="78" width="350" height="62" rx="31" fill="#FFF2D8" opacity="0.98"/>
+  <text x="247" y="119" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="800" fill="#0A2742" letter-spacing="2">MYCITY LOCAL DESK</text>
+
+  <text x="72" y="300" font-family="Arial, Helvetica, sans-serif" font-size="102" font-weight="900" fill="#FFF7E7">¿TE GRADÚAS?</text>
+  <text x="72" y="398" font-family="Arial, Helvetica, sans-serif" font-size="66" font-weight="800" fill="#FFD35C">TU PRÓXIMO TRABAJO</text>
+  <text x="72" y="470" font-family="Arial, Helvetica, sans-serif" font-size="66" font-weight="800" fill="#FFD35C">PUEDE EMPEZAR AQUÍ</text>
+
+  <g transform="translate(72 590)" filter="url(#shadow)">
+    <rect width="936" height="410" rx="48" fill="#FFF7E7"/>
+    <rect x="52" y="48" width="388" height="128" rx="30" fill="url(#coral)"/>
+    <text x="246" y="102" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="35" font-weight="800" fill="#FFFFFF">EMPLEOS DE</text>
+    <text x="246" y="155" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="900" fill="#FFFFFF">$15/H +</text>
+
+    <g transform="translate(520 44)">
+      <path d="M0 72 L150 8 L300 72 L150 136 Z" fill="#0D3658"/>
+      <rect x="86" y="122" width="128" height="25" rx="12" fill="#0D3658"/>
+      <path d="M280 72 L280 176" stroke="#0D3658" stroke-width="12" stroke-linecap="round"/>
+      <circle cx="280" cy="190" r="18" fill="#FF7A59"/>
+    </g>
+
+    <text x="52" y="248" font-family="Arial, Helvetica, sans-serif" font-size="49" font-weight="900" fill="#0B2745">CON BENEFICIOS</text>
+    <text x="52" y="308" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" fill="#3F5260">Tiempo completo • preparación laboral</text>
+    <text x="52" y="354" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" fill="#3F5260">conexión con empleadores locales</text>
+  </g>
+
+  <g transform="translate(72 1062)">
+    <text x="0" y="0" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800" fill="#7FE6D6">AFTER THE TASSEL</text>
+    <text x="0" y="66" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="900" fill="#FFFFFF">Para seniors y recién graduados</text>
+    <text x="0" y="128" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700" fill="#D9E9EC">de escuelas participantes de Louisville</text>
+    <text x="0" y="178" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700" fill="#D9E9EC">y otros condados de Kentuckiana.</text>
+  </g>
+
+  <g transform="translate(72 1368)" filter="url(#shadow)">
+    <rect width="936" height="300" rx="44" fill="#0A203A" opacity="0.95"/>
+    <circle cx="92" cy="86" r="42" fill="#FFD35C"/>
+    <path d="M72 86 l16 16 28 -34" fill="none" stroke="#0A203A" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="160" y="78" font-family="Arial, Helvetica, sans-serif" font-size="35" font-weight="800" fill="#FFFFFF">Si no tienes planes inmediatos</text>
+    <text x="160" y="122" font-family="Arial, Helvetica, sans-serif" font-size="35" font-weight="800" fill="#FFFFFF">de ir a college, revisa si calificas.</text>
+
+    <rect x="52" y="188" width="832" height="74" rx="37" fill="#19C6B3"/>
+    <text x="468" y="238" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="900" fill="#072137">PRE-REGÍSTRATE EN KENTUCKIANAWORKS</text>
+  </g>
+
+  <text x="72" y="1776" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#BFD6DB">Oportunidad local verificada • Louisville / Kentuckiana</text>
+  <text x="72" y="1822" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#91B8C0">Compártelo con un senior o recién graduado.</text>
+
+  <g transform="translate(900 1740)">
+    <rect width="108" height="108" rx="28" fill="#FFF2D8"/>
+    <text x="54" y="68" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="900" fill="#0B3153">M</text>
+  </g>
+</svg>
