@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#071B2D"/>
+      <stop offset="55%" stop-color="#0A4150"/>
+      <stop offset="100%" stop-color="#0C776F"/>
+    </linearGradient>
+    <linearGradient id="warm" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FF6B4A"/>
+      <stop offset="100%" stop-color="#FFA24A"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="928" cy="155" r="118" fill="#FFD166"/>
+  <circle cx="860" cy="245" r="42" fill="#FF6B4A"/>
+  <circle cx="125" cy="1690" r="150" fill="#2EC4B6" opacity="0.55"/>
+  <path d="M0 460 C210 350 360 500 570 430 S900 360 1080 430 L1080 585 L0 585 Z" fill="#2EC4B6" opacity="0.16"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <rect x="78" y="74" width="370" height="66" rx="33" fill="#FFF3DA"/>
+    <text x="263" y="118" text-anchor="middle" font-size="28" font-weight="800" fill="#071B2D" letter-spacing="2">MYCITY LOCAL DESK</text>
+
+    <text x="78" y="600" font-size="54" font-weight="800" fill="#FFD166">LOUISVILLE</text>
+    <text x="78" y="730" font-size="112" font-weight="900" fill="#FFF8E8">IDIOMAS</text>
+    <text x="78" y="846" font-size="112" font-weight="900" fill="#FFF8E8">GRATIS</text>
+    <rect x="76" y="884" width="540" height="86" rx="43" fill="url(#warm)"/>
+    <text x="346" y="941" text-anchor="middle" font-size="36" font-weight="900" fill="#fff">LANGUAGE CAFÉ</text>
+
+    <rect x="64" y="1030" width="952" height="590" rx="58" fill="#FFF3DA"/>
+    <text x="112" y="1118" font-size="34" font-weight="900" fill="#071B2D">PRÓXIMA SESIÓN: JUEVES 24 SEP.</text>
+    <text x="112" y="1186" font-size="63" font-weight="900" fill="#071B2D">5:30 — 6:30 PM</text>
+    <text x="112" y="1246" font-size="31" font-weight="700" fill="#34505C">Bellarmine University · Snacks y bebidas</text>
+
+    <text x="112" y="1330" font-size="28" font-weight="800" fill="#FF6B4A">ELIGE UNA MESA</text>
+    <g font-size="29" font-weight="800" text-anchor="middle">
+      <rect x="110" y="1365" width="250" height="82" rx="41" fill="#0A4150"/><text x="235" y="1418" fill="#fff">ESPAÑOL</text>
+      <rect x="390" y="1365" width="250" height="82" rx="41" fill="#2EC4B6"/><text x="515" y="1418" fill="#071B2D">INGLÉS</text>
+      <rect x="670" y="1365" width="250" height="82" rx="41" fill="#FFD166"/><text x="795" y="1418" fill="#071B2D">FRANCÉS</text>
+      <rect x="110" y="1470" width="250" height="82" rx="41" fill="#FF6B4A"/><text x="235" y="1523" fill="#fff">SWAHILI</text>
+      <rect x="390" y="1470" width="250" height="82" rx="41" fill="#0A4150"/><text x="515" y="1523" fill="#fff">ÁRABE</text>
+      <rect x="670" y="1470" width="250" height="82" rx="41" fill="#2EC4B6"/><text x="795" y="1523" fill="#071B2D">JAPONÉS</text>
+    </g>
+
+    <text x="78" y="1758" font-size="38" font-weight="900" fill="#FFF3DA">Practica. Conecta. Conoce gente.</text>
+    <text x="78" y="1815" font-size="28" font-weight="700" fill="#C4F3EE">Sesiones semanales hasta el 19 de noviembre.</text>
+  </g>
+</svg>
