@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071B34"/>
+      <stop offset="0.58" stop-color="#0F355A"/>
+      <stop offset="1" stop-color="#0A7B7A"/>
+    </linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="18" stdDeviation="24" flood-opacity=".22"/></filter>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="935" cy="170" r="190" fill="#FFBE3B" opacity=".95"/>
+  <circle cx="955" cy="188" r="118" fill="#FF6B4A" opacity=".86"/>
+  <path d="M0 1280 C210 1160 380 1380 590 1260 C780 1145 890 1230 1080 1120 L1080 1920 L0 1920Z" fill="#FFF1D8"/>
+  <path d="M0 1420 C260 1330 420 1510 650 1400 C835 1312 930 1370 1080 1320 L1080 1920 L0 1920Z" fill="#FFB83E" opacity=".96"/>
+  <g filter="url(#shadow)">
+    <rect x="74" y="105" width="340" height="74" rx="37" fill="#FFF1D8"/>
+    <text x="244" y="154" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="800" fill="#071B34" text-anchor="middle">MYCITY • LOCAL DESK</text>
+  </g>
+  <text x="74" y="350" font-family="Arial,Helvetica,sans-serif" font-size="58" font-weight="800" fill="#63E6D7">PRIMER FESTIVAL</text>
+  <text x="74" y="470" font-family="Arial,Helvetica,sans-serif" font-size="124" font-weight="900" fill="#FFF1D8" letter-spacing="-3">LA VILLA</text>
+  <text x="74" y="585" font-family="Arial,Helvetica,sans-serif" font-size="124" font-weight="900" fill="#FFF1D8" letter-spacing="-3">LOU</text>
+  <rect x="74" y="650" width="780" height="145" rx="34" fill="#FF6B4A"/>
+  <text x="110" y="713" font-family="Arial,Helvetica,sans-serif" font-size="44" font-weight="900" fill="#071B34">BUSCA TALENTO LOCAL</text>
+  <text x="110" y="760" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="800" fill="#071B34">VENDEDORES + ARTISTAS</text>
+
+  <g transform="translate(95 990)">
+    <rect x="0" y="0" width="250" height="180" rx="24" fill="#FFF1D8"/>
+    <path d="M30 72h190l-20-42H50z" fill="#FF6B4A"/>
+    <rect x="45" y="78" width="160" height="72" rx="12" fill="#0F355A"/>
+    <rect x="75" y="96" width="42" height="54" fill="#63E6D7"/>
+    <rect x="135" y="96" width="42" height="54" fill="#FFBE3B"/>
+  </g>
+  <g transform="translate(420 945)">
+    <circle cx="120" cy="120" r="105" fill="#FFF1D8"/>
+    <rect x="102" y="42" width="36" height="132" rx="18" fill="#0F355A"/>
+    <ellipse cx="120" cy="50" rx="48" ry="58" fill="#FF6B4A"/>
+    <path d="M74 170 Q120 220 166 170" fill="none" stroke="#0F355A" stroke-width="22" stroke-linecap="round"/>
+    <rect x="108" y="185" width="24" height="54" rx="12" fill="#0F355A"/>
+  </g>
+  <g transform="translate(750 985)">
+    <rect x="0" y="0" width="220" height="178" rx="28" fill="#FFF1D8"/>
+    <circle cx="68" cy="62" r="26" fill="#FF6B4A"/>
+    <circle cx="128" cy="62" r="26" fill="#63E6D7"/>
+    <circle cx="98" cy="112" r="26" fill="#FFBE3B"/>
+    <circle cx="158" cy="112" r="26" fill="#0F355A"/>
+  </g>
+
+  <text x="74" y="1535" font-family="Arial,Helvetica,sans-serif" font-size="58" font-weight="900" fill="#071B34">DOMINGO 11 OCT</text>
+  <text x="74" y="1612" font-family="Arial,Helvetica,sans-serif" font-size="47" font-weight="800" fill="#071B34">12 PM — 9 PM</text>
+  <text x="74" y="1690" font-family="Arial,Helvetica,sans-serif" font-size="36" font-weight="700" fill="#071B34">Preston Plaza • 4132 Outer Loop</text>
+  <rect x="74" y="1752" width="512" height="86" rx="43" fill="#071B34"/>
+  <text x="330" y="1808" font-family="Arial,Helvetica,sans-serif" font-size="33" font-weight="900" fill="#FFF1D8" text-anchor="middle">ENTRADA GRATIS</text>
+  <text x="1000" y="1818" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" fill="#071B34" text-anchor="end">Fuente: Louisville Metro</text>
+</svg>
