@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FF6B4A"/>
+      <stop offset="1" stop-color="#FFBE3B"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="#0F355A"/>
+  <path d="M0 0h1080v530C840 650 690 470 470 610C275 735 130 645 0 760Z" fill="url(#g)"/>
+  <text x="72" y="112" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="800" fill="#071B34">MYCITY • CULTURA + COMUNIDAD</text>
+  <text x="72" y="245" font-family="Arial,Helvetica,sans-serif" font-size="74" font-weight="900" fill="#071B34">¿CANTAS, BAILAS</text>
+  <text x="72" y="334" font-family="Arial,Helvetica,sans-serif" font-size="74" font-weight="900" fill="#071B34">O CREAS?</text>
+  <text x="72" y="422" font-family="Arial,Helvetica,sans-serif" font-size="39" font-weight="800" fill="#071B34">ARTISTAS Y PERFORMERS TAMBIÉN PUEDEN SOLICITAR</text>
+
+  <g transform="translate(130 690)">
+    <circle cx="160" cy="160" r="150" fill="#FFF1D8"/>
+    <rect x="142" y="60" width="36" height="170" rx="18" fill="#071B34"/>
+    <ellipse cx="160" cy="75" rx="58" ry="68" fill="#FF6B4A"/>
+    <path d="M100 232 Q160 302 220 232" fill="none" stroke="#071B34" stroke-width="25" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(560 690)">
+    <circle cx="160" cy="160" r="150" fill="#63E6D7"/>
+    <path d="M115 80 Q160 40 205 80 L190 144 Q160 170 130 144Z" fill="#071B34"/>
+    <circle cx="160" cy="92" r="28" fill="#FFF1D8"/>
+    <path d="M160 130 L120 220 M160 130 L205 215 M145 170 L88 205 M175 170 L236 192" stroke="#071B34" stroke-width="24" stroke-linecap="round"/>
+  </g>
+
+  <rect x="72" y="1115" width="936" height="420" rx="48" fill="#FFF1D8"/>
+  <text x="118" y="1205" font-family="Arial,Helvetica,sans-serif" font-size="48" font-weight="900" fill="#071B34">LA VILLA LOU CELEBRA:</text>
+  <text x="118" y="1295" font-family="Arial,Helvetica,sans-serif" font-size="40" font-weight="800" fill="#0F355A">MÚSICA • BAILE • COMIDA</text>
+  <text x="118" y="1365" font-family="Arial,Helvetica,sans-serif" font-size="40" font-weight="800" fill="#0F355A">ARTE • CULTURA • COMUNIDAD</text>
+  <rect x="118" y="1435" width="520" height="70" rx="35" fill="#63E6D7"/>
+  <text x="378" y="1482" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="900" fill="#071B34" text-anchor="middle">DOMINGO 11 DE OCTUBRE</text>
+
+  <text x="72" y="1665" font-family="Arial,Helvetica,sans-serif" font-size="42" font-weight="900" fill="#FFF1D8">PRESTON PLAZA • 4132 OUTER LOOP</text>
+  <text x="72" y="1732" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="800" fill="#63E6D7">12 PM — 9 PM • ENTRADA GRATIS</text>
+  <text x="72" y="1815" font-family="Arial,Helvetica,sans-serif" font-size="29" font-weight="700" fill="#FFF1D8">Busca “La Villa Lou Festival” en LouisvilleKY.gov</text>
+  <text x="72" y="1862" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#9BD9D2">Fuente: Office for Immigrant Affairs • Louisville Metro</text>
+</svg>
