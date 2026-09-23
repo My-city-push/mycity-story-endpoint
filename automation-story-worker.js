@@ -293,4 +293,3 @@ async function run(){
   console.log("AUTOMATED_STORY_PUBLISHED created storyId="+ref.key+" itemCount="+items.length+" isCarousel="+isCarousel+" secureUrl="+mediaUrl);
 }
 try{ await run(); }catch(e){ console.error("AUTOMATED_STORY_DRAFT failed:",e?.message||e); }
-await import("./index.js");
