@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#071B33"/><stop offset="1" stop-color="#0C6571"/></linearGradient><filter id="s"><feDropShadow dx="0" dy="18" stdDeviation="24" flood-opacity=".28"/></filter></defs>
+<rect width="1080" height="1920" fill="url(#bg)"/><circle cx="930" cy="180" r="260" fill="#FF6B4A" opacity=".22"/><circle cx="120" cy="1680" r="320" fill="#F7C948" opacity=".12"/>
+<text x="72" y="118" fill="#FFF4DE" font-family="Arial,sans-serif" font-size="40" font-weight="700">MYCITY • MOVILIDAD</text>
+<g filter="url(#s)"><rect x="72" y="220" width="936" height="1180" rx="54" fill="#FFF4DE"/></g>
+<rect x="116" y="274" width="420" height="70" rx="35" fill="#FF6B4A"/><text x="326" y="322" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-size="32" font-weight="800">ALERTA ACTIVA</text>
+<text x="116" y="470" fill="#071B33" font-family="Arial,sans-serif" font-size="92" font-weight="900">4 RUTAS</text><text x="116" y="570" fill="#071B33" font-family="Arial,sans-serif" font-size="92" font-weight="900">TARC CON</text><text x="116" y="670" fill="#071B33" font-family="Arial,sans-serif" font-size="92" font-weight="900">DESVÍO</text>
+<text x="116" y="800" fill="#0C6571" font-family="Arial,sans-serif" font-size="46" font-weight="700">Rutas 1 • 72 • 76 • 93</text>
+<rect x="116" y="890" width="848" height="2" fill="#D3C7B4"/>
+<text x="116" y="975" fill="#2A3543" font-family="Arial,sans-serif" font-size="38">Por obras del corredor I-65,</text><text x="116" y="1030" fill="#2A3543" font-family="Arial,sans-serif" font-size="38">hay cierres en Broadway entre</text><text x="116" y="1085" fill="#2A3543" font-family="Arial,sans-serif" font-size="38">1st St. y Brook St.</text>
+<rect x="116" y="1170" width="848" height="128" rx="28" fill="#F7C948"/><text x="540" y="1249" text-anchor="middle" fill="#071B33" font-family="Arial,sans-serif" font-size="42" font-weight="900">HASTA EL 10 DE OCTUBRE</text>
+<text x="72" y="1518" fill="#FFF4DE" font-family="Arial,sans-serif" font-size="42" font-weight="800">DESLIZA →</text><text x="72" y="1582" fill="#D8F2EF" font-family="Arial,sans-serif" font-size="34">Mira las paradas alternativas</text>
+<text x="72" y="1812" fill="#FFF4DE" font-family="Arial,sans-serif" font-size="30">Fuente: TARC • 23 SEP 2026</text>
+</svg>
