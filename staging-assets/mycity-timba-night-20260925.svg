@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071A2B"/>
+      <stop offset="0.55" stop-color="#102A43"/>
+      <stop offset="1" stop-color="#1A103D"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0.2" cy="0.2" r="0.75">
+      <stop offset="0" stop-color="#22D3C5" stop-opacity="0.75"/>
+      <stop offset="1" stop-color="#22D3C5" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0.8" cy="0.25" r="0.7">
+      <stop offset="0" stop-color="#FF6B4A" stop-opacity="0.7"/>
+      <stop offset="1" stop-color="#FF6B4A" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="160" cy="210" r="360" fill="url(#glow1)"/>
+  <circle cx="940" cy="360" r="420" fill="url(#glow2)"/>
+  <circle cx="860" cy="1510" r="360" fill="#F6C64D" opacity="0.08"/>
+  <g opacity="0.16">
+    <path d="M0 1480 C260 1350 380 1620 610 1490 C820 1370 930 1280 1080 1340 L1080 1920 L0 1920 Z" fill="#22D3C5"/>
+    <path d="M0 1600 C260 1480 450 1760 700 1610 C870 1510 980 1490 1080 1535 L1080 1920 L0 1920 Z" fill="#FF6B4A"/>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <rect x="72" y="76" width="280" height="58" rx="29" fill="#F7F1E5" opacity="0.98"/>
+    <text x="212" y="115" text-anchor="middle" font-size="24" font-weight="800" fill="#071A2B" letter-spacing="1.5">MYCITY LOCAL DESK</text>
+    <rect x="72" y="164" width="420" height="54" rx="27" fill="#22D3C5"/>
+    <text x="282" y="200" text-anchor="middle" font-size="22" font-weight="800" fill="#071A2B" letter-spacing="1.2">HISPANIC HERITAGE MONTH</text>
+    <text x="72" y="370" font-size="86" font-weight="900" fill="#F7F1E5" letter-spacing="-3">LOUISVILLE</text>
+    <text x="72" y="462" font-size="86" font-weight="900" fill="#F7F1E5" letter-spacing="-3">SE MUEVE A</text>
+    <text x="72" y="580" font-size="118" font-weight="900" fill="#F6C64D" letter-spacing="-4">RITMO CUBANO</text>
+    <rect x="72" y="650" width="936" height="148" rx="38" fill="#F7F1E5" filter="url(#shadow)"/>
+    <text x="112" y="706" font-size="29" font-weight="800" fill="#071A2B">TIMBA NIGHT · VIERNES 25 DE SEPTIEMBRE</text>
+    <text x="112" y="752" font-size="28" font-weight="700" fill="#40566B">Desde las 6:00 PM · 991 Logan St · Smoketown</text>
+    <g transform="translate(72 860)">
+      <rect x="0" y="0" width="936" height="490" rx="42" fill="#0D2338" stroke="#31506A" stroke-width="2"/>
+      <text x="46" y="66" font-size="27" font-weight="800" fill="#22D3C5">PLAN DE LA NOCHE</text>
+      <circle cx="62" cy="136" r="18" fill="#F6C64D"/>
+      <text x="102" y="146" font-size="34" font-weight="900" fill="#F7F1E5">7 PM</text>
+      <text x="252" y="146" font-size="31" font-weight="700" fill="#D7E0E8">Clase para principiantes</text>
+      <circle cx="62" cy="220" r="18" fill="#FF6B4A"/>
+      <text x="102" y="230" font-size="34" font-weight="900" fill="#F7F1E5">8 PM</text>
+      <text x="252" y="230" font-size="31" font-weight="700" fill="#D7E0E8">Clase intermedia</text>
+      <circle cx="62" cy="304" r="18" fill="#22D3C5"/>
+      <text x="102" y="314" font-size="34" font-weight="900" fill="#F7F1E5">9 PM</text>
+      <text x="252" y="314" font-size="31" font-weight="700" fill="#D7E0E8">DJ Rico Suave</text>
+      <circle cx="62" cy="388" r="18" fill="#F6C64D"/>
+      <text x="102" y="398" font-size="34" font-weight="900" fill="#F7F1E5">COMIDA</text>
+      <text x="304" y="398" font-size="31" font-weight="700" fill="#D7E0E8">Menú cubano inspirado por Pacaya</text>
+    </g>
+    <g transform="translate(72 1400)">
+      <rect x="0" y="0" width="936" height="160" rx="40" fill="#FF6B4A"/>
+      <text x="46" y="66" font-size="31" font-weight="900" fill="#FFFFFF">$10 PREVENTA · $15 EN PUERTA</text>
+      <text x="46" y="112" font-size="28" font-weight="700" fill="#FFF5F1">Música, baile y cultura latina en el corazón de Louisville.</text>
+    </g>
+    <g transform="translate(72 1638)">
+      <circle cx="90" cy="82" r="62" fill="#22D3C5" opacity="0.95"/>
+      <path d="M72 82 C82 60,100 60,110 82 C100 104,82 104,72 82 Z" fill="#071A2B"/>
+      <circle cx="91" cy="82" r="10" fill="#F7F1E5"/>
+      <text x="180" y="64" font-size="28" font-weight="900" fill="#F7F1E5">PLAN LOCAL PARA ESTE VIERNES</text>
+      <text x="180" y="108" font-size="25" font-weight="700" fill="#BFD0DE">Comparte con alguien que quiera aprender y bailar.</text>
+    </g>
+    <text x="72" y="1860" font-size="22" font-weight="700" fill="#7F97AA">Fuente verificada: Louisville Public Media + información pública del evento · 23 SEP 2026</text>
+  </g>
+</svg>
