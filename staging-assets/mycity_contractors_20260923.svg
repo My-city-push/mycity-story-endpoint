@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0D1B2A"/>
+      <stop offset="0.55" stop-color="#12324A"/>
+      <stop offset="1" stop-color="#0B6E75"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFF3DD"/>
+      <stop offset="1" stop-color="#F9E4C7"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#000000" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="910" cy="160" r="180" fill="#FF7A59" opacity="0.18"/>
+  <circle cx="130" cy="1760" r="220" fill="#FFD166" opacity="0.16"/>
+  <path d="M0 430 C260 330 490 520 760 410 C900 355 1010 340 1080 360 L1080 0 L0 0 Z" fill="#19B5A5" opacity="0.11"/>
+
+  <g transform="translate(72 70)">
+    <rect width="250" height="74" rx="37" fill="#FF7A59"/>
+    <text x="125" y="49" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700" fill="#FFFFFF">MyCity</text>
+  </g>
+
+  <text x="72" y="245" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="700" fill="#FFD166">OPORTUNIDAD ACTIVA</text>
+  <text x="72" y="348" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="900" fill="#FFFFFF">Louisville busca</text>
+  <text x="72" y="445" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="900" fill="#FFFFFF">contratistas</text>
+  <text x="72" y="522" font-family="Arial, Helvetica, sans-serif" font-size="37" font-weight="500" fill="#D7EEF0">para programas de reparación del hogar</text>
+
+  <g transform="translate(110 610)" filter="url(#shadow)">
+    <rect x="0" y="100" width="860" height="520" rx="50" fill="url(#card)"/>
+    <path d="M120 250 L430 30 L740 250" fill="none" stroke="#FF7A59" stroke-width="42" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="220" y="245" width="420" height="270" rx="30" fill="#FFFFFF"/>
+    <rect x="280" y="315" width="120" height="200" rx="16" fill="#12324A"/>
+    <rect x="455" y="315" width="120" height="95" rx="16" fill="#19B5A5"/>
+    <rect x="455" y="430" width="120" height="85" rx="16" fill="#FFD166"/>
+    <circle cx="375" cy="417" r="11" fill="#FFD166"/>
+
+    <g font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#0D1B2A">
+      <rect x="70" y="540" width="160" height="58" rx="29" fill="#BDEBE6"/>
+      <text x="150" y="579" text-anchor="middle">HVAC</text>
+      <rect x="245" y="540" width="190" height="58" rx="29" fill="#FFD8CE"/>
+      <text x="340" y="579" text-anchor="middle">Plomería</text>
+      <rect x="450" y="540" width="190" height="58" rx="29" fill="#FFE8A8"/>
+      <text x="545" y="579" text-anchor="middle">Electricidad</text>
+      <rect x="655" y="540" width="150" height="58" rx="29" fill="#C7D8FF"/>
+      <text x="730" y="579" text-anchor="middle">Techos</text>
+    </g>
+  </g>
+
+  <g transform="translate(72 1315)">
+    <rect width="936" height="355" rx="42" fill="#FFFFFF" opacity="0.96"/>
+    <text x="48" y="76" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="800" fill="#0D1B2A">¿Qué pide el programa?</text>
+    <g font-family="Arial, Helvetica, sans-serif" font-size="34" fill="#23465A">
+      <circle cx="60" cy="145" r="12" fill="#FF7A59"/><text x="88" y="157">Licencias y seguro vigentes</text>
+      <circle cx="60" cy="211" r="12" fill="#19B5A5"/><text x="88" y="223">Certificaciones requeridas</text>
+      <circle cx="60" cy="277" r="12" fill="#FFD166"/><text x="88" y="289">Registro SAM para proyectos federales</text>
+    </g>
+  </g>
+
+  <g transform="translate(72 1710)">
+    <rect width="936" height="126" rx="30" fill="#FF7A59"/>
+    <text x="468" y="53" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" fill="#FFFFFF">Si tienes empresa de reparación residencial,</text>
+    <text x="468" y="94" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" fill="#FFFFFF">revisa la solicitud oficial en louisvilleky.gov</text>
+  </g>
+
+  <text x="72" y="1882" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#BFD8DE">Fuente: Louisville Metro Office of Housing &amp; Community Development</text>
+</svg>
