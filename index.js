@@ -958,6 +958,23 @@ registerPersonalizedArticleRoutes(app, {
 
 app.use((_req, res) => res.status(404).json({ ok: false, error: "Not found" }));
 
+
+function maybeRunPersonalizedTestOnce() {
+  const enabled = /^true$/i.test(String(process.env.RUN_PERSONALIZED_TEST_ONCE || "false"));
+  if (!enabled) return;
+  console.log("personalized-test-runner starting...");
+  const child = spawn(process.execPath, ["personalized-test-runner.js"], {
+    stdio: "inherit",
+    env: process.env
+  });
+  child.on("exit", (code, signal) => {
+    console.log(`personalized-test-runner exited code=${code ?? "null"} signal=${signal ?? "none"}`);
+  });
+  child.on("error", (error) => {
+    console.error("personalized-test-runner spawn failed:", error?.message || error);
+  });
+}
+
 function maybeRunAutomationWorker() {
   const enabled = /^true$/i.test(String(process.env.RUN_AUTOMATED_STORY_DRAFT || "false"));
   if (!enabled) {
@@ -980,4 +997,5 @@ function maybeRunAutomationWorker() {
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`mycity-story-endpoint listening on ${PORT}; firebaseMode=${firebaseMode}; publishEnabled=${ALLOW_PUBLISH}`);
   maybeRunAutomationWorker();
+  maybeRunPersonalizedTestOnce();
 });
