@@ -2,6 +2,7 @@ import express from "express";
 import crypto from "node:crypto";
 import { spawn } from "node:child_process";
 import admin from "firebase-admin";
+import { registerPersonalizedArticleRoutes } from "./personalized-article-routes.js";
 
 const app = express();
 app.use(express.json({ limit: "12mb" }));
@@ -945,6 +946,14 @@ app.options("/business/intake", (_req, res) => {
   res.set("Access-Control-Allow-Headers", "content-type");
   res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.status(204).end();
+});
+
+registerPersonalizedArticleRoutes(app, {
+  firebaseGet,
+  firebaseRootPatch,
+  safeString,
+  sanitizeUrl,
+  requireApiKey
 });
 
 app.use((_req, res) => res.status(404).json({ ok: false, error: "Not found" }));
