@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071A2D"/>
+      <stop offset="0.48" stop-color="#0B4F6C"/>
+      <stop offset="1" stop-color="#14B8A6"/>
+    </linearGradient>
+    <linearGradient id="coral" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FF7A59"/>
+      <stop offset="1" stop-color="#FF9B54"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#00131F" flood-opacity="0.26"/>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="930" cy="130" r="210" fill="#FFD166" opacity="0.22"/>
+  <circle cx="95" cy="1640" r="260" fill="#FF7A59" opacity="0.16"/>
+  <path d="M0 520 C220 430 400 610 610 520 C820 430 950 510 1080 470 L1080 0 L0 0Z" fill="#ffffff" opacity="0.035"/>
+
+  <g transform="translate(76 90)">
+    <rect x="0" y="0" width="340" height="74" rx="37" fill="#FFF5DF" opacity="0.96"/>
+    <text x="30" y="49" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" fill="#071A2D">MyCity • Louisville</text>
+  </g>
+
+  <text x="76" y="300" font-family="Arial, Helvetica, sans-serif" font-size="88" font-weight="900" fill="#FFF8ED">
+    <tspan x="76" dy="0">HAZ QUE</tspan>
+    <tspan x="76" dy="96">LOUISVILLE</tspan>
+    <tspan x="76" dy="96">TE ENCUENTRE</tspan>
+  </text>
+
+  <text x="80" y="625" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="600" fill="#DFF7F4">
+    Negocios • servicios • food trucks • eventos
+  </text>
+
+  <g transform="translate(68 760)" filter="url(#shadow)">
+    <rect x="0" y="0" width="610" height="520" rx="44" fill="#FFF5DF"/>
+    <rect x="0" y="0" width="610" height="105" rx="44" fill="url(#coral)"/>
+    <rect x="0" y="70" width="610" height="35" fill="url(#coral)"/>
+    <text x="36" y="68" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="900" fill="#071A2D">TU NEGOCIO, MÁS CERCA</text>
+
+    <g transform="translate(36 150)">
+      <rect x="0" y="0" width="160" height="165" rx="18" fill="#0B4F6C"/>
+      <rect x="18" y="36" width="124" height="92" rx="8" fill="#DFF7F4"/>
+      <path d="M18 36 H142 L126 10 H34Z" fill="#FFD166"/>
+      <rect x="65" y="86" width="34" height="42" rx="4" fill="#FF7A59"/>
+
+      <rect x="188" y="0" width="160" height="165" rx="18" fill="#14B8A6"/>
+      <rect x="206" y="38" width="124" height="90" rx="8" fill="#FFF5DF"/>
+      <path d="M206 38 H330 L315 10 H222Z" fill="#FF7A59"/>
+      <rect x="252" y="84" width="34" height="44" rx="4" fill="#0B4F6C"/>
+
+      <rect x="376" y="0" width="160" height="165" rx="18" fill="#FFD166"/>
+      <rect x="394" y="38" width="124" height="90" rx="8" fill="#FFF5DF"/>
+      <path d="M394 38 H518 L503 10 H410Z" fill="#0B4F6C"/>
+      <rect x="440" y="84" width="34" height="44" rx="4" fill="#14B8A6"/>
+    </g>
+
+    <g transform="translate(36 350)">
+      <rect x="0" y="0" width="538" height="64" rx="32" fill="#071A2D"/>
+      <text x="28" y="43" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="800" fill="#FFF5DF">PUBLICA • OFERTAS • NOVEDADES • EVENTOS</text>
+    </g>
+
+    <text x="36" y="466" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="600" fill="#4A5965">Mantén presencia diaria frente a personas de tu zona.</text>
+  </g>
+
+  <g transform="translate(720 700)" filter="url(#shadow)">
+    <rect x="0" y="0" width="290" height="610" rx="52" fill="#071A2D"/>
+    <rect x="14" y="16" width="262" height="578" rx="40" fill="#F7F5EF"/>
+    <rect x="100" y="28" width="92" height="12" rx="6" fill="#071A2D"/>
+    <text x="36" y="100" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="900" fill="#071A2D">MyCity</text>
+    <rect x="34" y="128" width="194" height="112" rx="22" fill="#14B8A6"/>
+    <rect x="50" y="147" width="62" height="62" rx="31" fill="#FFD166"/>
+    <rect x="128" y="152" width="80" height="14" rx="7" fill="#FFF5DF"/>
+    <rect x="128" y="178" width="58" height="10" rx="5" fill="#FFF5DF" opacity="0.8"/>
+    <rect x="34" y="262" width="194" height="112" rx="22" fill="#FF7A59"/>
+    <rect x="50" y="281" width="62" height="62" rx="18" fill="#FFF5DF"/>
+    <rect x="128" y="286" width="80" height="14" rx="7" fill="#071A2D"/>
+    <rect x="128" y="312" width="58" height="10" rx="5" fill="#071A2D" opacity="0.55"/>
+    <rect x="34" y="396" width="194" height="112" rx="22" fill="#FFD166"/>
+    <rect x="50" y="415" width="62" height="62" rx="18" fill="#0B4F6C"/>
+    <rect x="128" y="420" width="80" height="14" rx="7" fill="#071A2D"/>
+    <rect x="128" y="446" width="58" height="10" rx="5" fill="#071A2D" opacity="0.55"/>
+    <circle cx="145" cy="552" r="18" fill="#14B8A6"/>
+  </g>
+
+  <g transform="translate(74 1395)" filter="url(#shadow)">
+    <rect x="0" y="0" width="932" height="255" rx="48" fill="#FFF8ED"/>
+    <text x="44" y="78" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700" fill="#0B4F6C">DATOS INTERNOS DE MYCITY</text>
+    <text x="44" y="160" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="900" fill="#071A2D">+20,000 USUARIOS LOCALES</text>
+    <text x="44" y="211" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="600" fill="#4A5965">Una comunidad local para mostrar lo que haces y conectar.</text>
+  </g>
+
+  <g transform="translate(74 1710)">
+    <rect x="0" y="0" width="932" height="118" rx="59" fill="#FF7A59"/>
+    <text x="466" y="76" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="900" fill="#071A2D">PUBLICA HOY EN MYCITY</text>
+  </g>
+</svg>
