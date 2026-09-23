@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff6e6"/><stop offset="1" stop-color="#ffe2c8"/></linearGradient><filter id="s"><feDropShadow dx="0" dy="12" stdDeviation="18" flood-opacity=".16"/></filter></defs>
+<rect width="1080" height="1920" fill="url(#bg)"/>
+<rect x="0" y="0" width="1080" height="220" fill="#071a2f"/>
+<text x="76" y="95" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#69e0dd" letter-spacing="3">MYCITY • TRABAJO</text>
+<text x="76" y="165" font-family="Arial,Helvetica,sans-serif" font-size="68" font-weight="900" fill="#fff">ANTES DE APLICAR</text>
+<text x="76" y="310" font-family="Arial,Helvetica,sans-serif" font-size="52" font-weight="800" fill="#071a2f">Lo esencial que pide el aviso oficial</text>
+<g transform="translate(76 405)" filter="url(#s)">
+ <rect width="928" height="250" rx="44" fill="#fff"/>
+ <circle cx="106" cy="125" r="66" fill="#0fa8aa"/>
+ <path d="M75 128h62M106 97v62" stroke="#fff" stroke-width="16" stroke-linecap="round"/>
+ <text x="210" y="100" font-family="Arial,Helvetica,sans-serif" font-size="46" font-weight="900" fill="#071a2f">CDL Clase A</text>
+ <text x="210" y="158" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="600" fill="#4a6173">La publicación de Kentucky Works la</text>
+ <text x="210" y="202" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="600" fill="#4a6173">incluye entre los requisitos.</text>
+</g>
+<g transform="translate(76 705)" filter="url(#s)">
+ <rect width="928" height="250" rx="44" fill="#fff"/>
+ <circle cx="106" cy="125" r="66" fill="#ff7b58"/>
+ <text x="106" y="144" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="50" font-weight="900" fill="#fff">$25</text>
+ <text x="210" y="100" font-family="Arial,Helvetica,sans-serif" font-size="46" font-weight="900" fill="#071a2f">Tarifa de solicitud</text>
+ <text x="210" y="158" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="600" fill="#4a6173">No reembolsable, según la ficha</text>
+ <text x="210" y="202" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="600" fill="#4a6173">oficial del programa.</text>
+</g>
+<g transform="translate(76 1005)" filter="url(#s)">
+ <rect width="928" height="286" rx="44" fill="#fff"/>
+ <circle cx="106" cy="143" r="66" fill="#f0b83d"/>
+ <path d="M78 143l18 18 38-48" fill="none" stroke="#071a2f" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+ <text x="210" y="90" font-family="Arial,Helvetica,sans-serif" font-size="46" font-weight="900" fill="#071a2f">Prueba de aptitud</text>
+ <text x="210" y="150" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="600" fill="#4a6173">Todos los solicitantes deben</text>
+ <text x="210" y="195" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="600" fill="#4a6173">programarla y completarla antes</text>
+ <text x="210" y="240" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="600" fill="#4a6173">de la entrevista.</text>
+</g>
+<rect x="76" y="1405" width="928" height="230" rx="44" fill="#0d3852"/>
+<text x="116" y="1480" font-family="Arial,Helvetica,sans-serif" font-size="36" font-weight="800" fill="#69e0dd">También:</text>
+<text x="116" y="1535" font-family="Arial,Helvetica,sans-serif" font-size="36" font-weight="700" fill="#fff">revisa las calificaciones mínimas y</text>
+<text x="116" y="1585" font-family="Arial,Helvetica,sans-serif" font-size="36" font-weight="700" fill="#fff">los requisitos de residencia del programa.</text>
+<text x="76" y="1770" font-family="Arial,Helvetica,sans-serif" font-size="40" font-weight="900" fill="#071a2f">Siguiente → dónde aplicar</text>
+<text x="76" y="1858" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" fill="#5c6c78">Fuente: Kentucky Works • 23 SEP 2026</text>
+</svg>
