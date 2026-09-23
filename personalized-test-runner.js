@@ -11,7 +11,7 @@ function parseServiceAccount(){
 function key(v){ return safe(v,300).replace(/[.#$\\/\\[\\]]/g,"_"); }
 
 async function publicDb(base,path,method="GET",body){
-  const r=await fetch(base+"/"+path.replace(/^\\/+|\\/+$/g,"")+".json",{
+  const r=await fetch(base+"/"+path.replace(/^\/+|\/+$/g,"")+".json",{
     method,
     headers:body?{"content-type":"application/json"}:undefined,
     body:body?JSON.stringify(body):undefined
@@ -23,7 +23,7 @@ async function publicDb(base,path,method="GET",body){
 async function run(){
   if(!/^true$/i.test(safe(process.env.RUN_PERSONALIZED_TEST_ONCE,10))) return;
 
-  const databaseURL=safe(process.env.FIREBASE_DATABASE_URL,1000).replace(/\\/+$/,"");
+  const databaseURL=safe(process.env.FIREBASE_DATABASE_URL,1000).replace(/\/+$/,"");
   const serviceAccount=parseServiceAccount();
   if(!databaseURL||!serviceAccount) throw new Error("Firebase config missing");
   if(!admin.apps.length) admin.initializeApp({credential:admin.credential.cert(serviceAccount),databaseURL});
