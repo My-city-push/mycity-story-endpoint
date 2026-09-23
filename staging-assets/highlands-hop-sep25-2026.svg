@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071A2F"/>
+      <stop offset="0.55" stop-color="#0C3550"/>
+      <stop offset="1" stop-color="#0D5C63"/>
+    </linearGradient>
+    <linearGradient id="coral" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FF7A59"/>
+      <stop offset="1" stop-color="#FF4E6A"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#000000" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="960" cy="190" r="250" fill="#F8D869" opacity="0.18"/>
+  <circle cx="110" cy="1680" r="300" fill="#FF775D" opacity="0.16"/>
+  <path d="M-60 1310 C220 1150 320 1490 600 1335 S1040 1130 1140 1280" fill="none" stroke="#F8EBD7" stroke-width="26" opacity="0.16" stroke-linecap="round"/>
+  <path d="M-80 1385 C200 1225 300 1565 580 1410 S1020 1205 1120 1355" fill="none" stroke="#F8EBD7" stroke-width="4" opacity="0.42" stroke-dasharray="20 22" stroke-linecap="round"/>
+
+  <g transform="translate(76,70)">
+    <rect width="390" height="74" rx="37" fill="#F8EBD7" opacity="0.96"/>
+    <text x="36" y="49" fill="#0A2237" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">MYCITY • LOCAL DESK</text>
+  </g>
+
+  <g transform="translate(78,260)">
+    <text x="0" y="0" fill="#F8D869" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="800" letter-spacing="3">ESTE VIERNES</text>
+    <text x="0" y="118" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="124" font-weight="900">HIGHLANDS</text>
+    <text x="0" y="238" fill="url(#coral)" font-family="Arial, Helvetica, sans-serif" font-size="154" font-weight="900">HOP</text>
+    <text x="2" y="318" fill="#F8EBD7" font-family="Arial, Helvetica, sans-serif" font-size="50" font-weight="700">Bardstown Rd + Baxter Ave</text>
+  </g>
+
+  <g transform="translate(78,690)" filter="url(#shadow)">
+    <rect width="924" height="308" rx="44" fill="#F8EBD7"/>
+    <g transform="translate(52,46)">
+      <rect width="250" height="216" rx="34" fill="#0D5C63"/>
+      <text x="125" y="72" text-anchor="middle" fill="#F8D869" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="800">VIERNES</text>
+      <text x="125" y="137" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="900">25</text>
+      <text x="125" y="183" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="800">SEP</text>
+    </g>
+    <g transform="translate(342,54)">
+      <text x="0" y="54" fill="#0A2237" font-family="Arial, Helvetica, sans-serif" font-size="76" font-weight="900">5–9 PM</text>
+      <text x="0" y="122" fill="#2C3D4D" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700">negocios abiertos más tarde</text>
+      <text x="0" y="176" fill="#2C3D4D" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700">+ especiales por la zona</text>
+    </g>
+  </g>
+
+  <g transform="translate(78,1090)">
+    <text x="0" y="0" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="800">CAMINA • COMPRA • CENA • DESCUBRE</text>
+    <g transform="translate(0,80)">
+      <g>
+        <rect width="275" height="255" rx="34" fill="#FF775D"/>
+        <path d="M62 105 h150 v90 h-150 z M50 105 l28-52 h118 l30 52 z" fill="#FFF4E2"/>
+        <path d="M84 53 v52 M118 53 v52 M152 53 v52 M186 53 v52" stroke="#FF775D" stroke-width="9"/>
+        <rect x="83" y="135" width="45" height="60" rx="7" fill="#0A2237"/>
+        <rect x="146" y="135" width="46" height="35" rx="7" fill="#0A2237"/>
+        <text x="137" y="232" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="800">TIENDAS</text>
+      </g>
+      <g transform="translate(324,0)">
+        <rect width="275" height="255" rx="34" fill="#F8D869"/>
+        <path d="M91 77 h95 a30 30 0 0 1 30 30 v42 a42 42 0 0 1-42 42 h-70 a42 42 0 0 1-42-42 v-42 a30 30 0 0 1 30-30z" fill="#0A2237"/>
+        <path d="M216 112 h20 a28 28 0 0 1 0 56 h-26" fill="none" stroke="#0A2237" stroke-width="14"/>
+        <path d="M111 52 c-18-22 20-34 5-54 M157 52 c-18-22 20-34 5-54" fill="none" stroke="#0D5C63" stroke-width="10" stroke-linecap="round"/>
+        <text x="137" y="232" text-anchor="middle" fill="#0A2237" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="800">CAFÉS + FOOD</text>
+      </g>
+      <g transform="translate(648,0)">
+        <rect width="275" height="255" rx="34" fill="#18B9B0"/>
+        <path d="M60 167 q77-120 154 0" fill="none" stroke="#FFF4E2" stroke-width="18" stroke-linecap="round"/>
+        <circle cx="88" cy="104" r="24" fill="#FFF4E2"/>
+        <circle cx="137" cy="78" r="24" fill="#FFF4E2"/>
+        <circle cx="186" cy="104" r="24" fill="#FFF4E2"/>
+        <text x="137" y="232" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="800">COMUNIDAD</text>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(78,1535)" filter="url(#shadow)">
+    <rect width="924" height="235" rx="44" fill="#071A2F" stroke="#F8EBD7" stroke-width="3" opacity="0.97"/>
+    <text x="46" y="72" fill="#F8EBD7" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">Una nueva noche mensual para recorrer</text>
+    <text x="46" y="122" fill="#F8EBD7" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">la zona y apoyar negocios locales.</text>
+    <rect x="46" y="157" width="450" height="52" rx="26" fill="#FF775D"/>
+    <text x="271" y="193" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="800">GUÁRDALO PARA EL VIERNES</text>
+  </g>
+
+  <text x="78" y="1860" fill="#F8EBD7" opacity="0.78" font-family="Arial, Helvetica, sans-serif" font-size="25">Fuente: Louisville Metro • 23 Sep 2026</text>
+</svg>
