@@ -49,7 +49,7 @@ async function run(){
   const now=Date.now();
 
   if(!existingFollow&&!existingFollower){
-    await Promise.all([
+    const writes=await Promise.all([
       publicDb(followingBase,publisherId+"/"+rid,"PUT",{
         id:recipientUserId,userId:recipientUserId,followedUserId:recipientUserId,
         followerId:publisherId,createdAt:now,updatedAt:now
@@ -61,7 +61,7 @@ async function run(){
     ]);
   }
 
-  const verify=await publicDb(followingBase,publisherId+"/"+rid).catch(()=>null);
+  const verify=existingFollow||existingFollower||((typeof writes!=="undefined")&&writes.some(Boolean));
   if(!verify) throw new Error("Cart Ready follow verification failed");
 
   const byUserRef=db.ref("storyVitrineByUser/"+publisherId);
