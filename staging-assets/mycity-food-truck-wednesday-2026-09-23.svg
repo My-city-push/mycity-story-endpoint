@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#081B3A"/>
+      <stop offset="0.55" stop-color="#0B4B6F"/>
+      <stop offset="1" stop-color="#0E8C8C"/>
+    </linearGradient>
+    <linearGradient id="truck" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FF6B35"/>
+      <stop offset="1" stop-color="#FFB000"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#000" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="930" cy="190" r="210" fill="#FFB000" opacity="0.14"/>
+  <circle cx="115" cy="1550" r="270" fill="#FF6B35" opacity="0.18"/>
+  <path d="M0 1330 C250 1220 430 1410 650 1335 C860 1265 940 1140 1080 1185 L1080 1920 L0 1920Z" fill="#FFF2D8" opacity="0.98"/>
+
+  <g transform="translate(74,78)">
+    <rect x="0" y="0" width="214" height="64" rx="32" fill="#FFFFFF" opacity="0.14" stroke="#FFFFFF" stroke-opacity="0.28"/>
+    <text x="107" y="41" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" fill="#FFFFFF">MYCITY LOCAL</text>
+  </g>
+
+  <text x="74" y="270" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#9DE7FF">HOY EN DOWNTOWN</text>
+  <text x="74" y="385" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="900" fill="#FFFFFF">FOOD TRUCK</text>
+  <text x="74" y="475" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="900" fill="#FFD166">WEDNESDAY</text>
+  <text x="78" y="545" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="600" fill="#D8F4FF">Almuerzo local + música en vivo</text>
+
+  <g filter="url(#shadow)" transform="translate(76,650)">
+    <rect x="0" y="0" width="928" height="510" rx="44" fill="#FFFFFF"/>
+    <g transform="translate(56,64)">
+      <rect x="0" y="95" width="650" height="230" rx="42" fill="url(#truck)"/>
+      <rect x="90" y="18" width="360" height="176" rx="38" fill="#FF7A45"/>
+      <rect x="130" y="62" width="280" height="96" rx="18" fill="#0B2A4A"/>
+      <rect x="520" y="155" width="155" height="145" rx="24" fill="#FFF5DD"/>
+      <circle cx="165" cy="350" r="52" fill="#0B2A4A"/>
+      <circle cx="565" cy="350" r="52" fill="#0B2A4A"/>
+      <circle cx="165" cy="350" r="24" fill="#D8E7F4"/>
+      <circle cx="565" cy="350" r="24" fill="#D8E7F4"/>
+      <path d="M700 246 C740 210 785 215 820 250" fill="none" stroke="#0B4B6F" stroke-width="16" stroke-linecap="round"/>
+      <path d="M710 290 C760 255 805 258 845 295" fill="none" stroke="#FFB000" stroke-width="16" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <g transform="translate(76,1235)">
+    <rect x="0" y="0" width="928" height="205" rx="38" fill="#0B2A4A"/>
+    <text x="48" y="70" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" fill="#85DFFF">MIÉRCOLES · 23 SEPT</text>
+    <text x="48" y="125" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="900" fill="#FFFFFF">11:00 AM — 2:00 PM</text>
+    <text x="48" y="170" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="600" fill="#FFE2A8">S. 4th St. · Jefferson ↔ Market</text>
+  </g>
+
+  <g transform="translate(76,1485)">
+    <rect x="0" y="0" width="445" height="170" rx="34" fill="#FFFFFF"/>
+    <text x="38" y="58" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="800" fill="#0B4B6F">QUÉ ESPERAR</text>
+    <text x="38" y="110" font-family="Arial, Helvetica, sans-serif" font-size="39" font-weight="900" fill="#0B2A4A">4–6 food trucks</text>
+    <text x="38" y="145" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="600" fill="#566579">+ picnic tables + live music</text>
+  </g>
+
+  <g transform="translate(559,1485)">
+    <rect x="0" y="0" width="445" height="170" rx="34" fill="#FF6B35"/>
+    <text x="38" y="58" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="800" fill="#FFF6E8">CTA LOCAL</text>
+    <text x="38" y="108" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="900" fill="#FFFFFF">Apoya a los</text>
+    <text x="38" y="148" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="900" fill="#FFFFFF">vendedores locales</text>
+  </g>
+
+  <text x="76" y="1768" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#0B2A4A">Fuente: Louisville Downtown Partnership</text>
+  <text x="76" y="1817" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="600" fill="#5A6672">Consulta el listado semanal oficial antes de salir.</text>
+  <text x="76" y="1870" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="800" fill="#0E8C8C">MyCity · Louisville / Kentuckiana</text>
+</svg>
