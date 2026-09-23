@@ -5,6 +5,124 @@ import admin from "firebase-admin";
 const app = express();
 app.use(express.json({ limit: "12mb" }));
 
+app.use(express.static("public"));
+
+const GOODBARBER_APP_ID = String(process.env.GOODBARBER_APP_ID || "2817182");
+const GOODBARBER_READ_TOKEN = String(process.env.GOODBARBER_READ_TOKEN || "");
+const GOODBARBER_API_BASE = "https://classic.goodbarber.dev";
+const GOODBARBER_ANALYTICS_METRICS = new Set([
+  "page_views",
+  "launches",
+  "unique_launches",
+  "downloads_global",
+  "page_views_per_week_day",
+  "session_time",
+  "mobile_os_distribution_global"
+]);
+const goodbarberAnalyticsCache = new Map();
+const GOODBARBER_CACHE_TTL_MS = 60 * 1000;
+
+function validAnalyticsDate(value) {
+  return !value || /^\d{4}-\d{2}-\d{2}$/.test(String(value));
+}
+
+app.get("/gb-proxy/publicapi/v1/general/stats/:appId/:metric/", async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Cache-Control", "public, max-age=30, s-maxage=60");
+
+  try {
+    if (!GOODBARBER_READ_TOKEN) {
+      return res.status(503).json({ ok: false, error: "Analytics proxy is not configured" });
+    }
+    if (String(req.params.appId) !== GOODBARBER_APP_ID) {
+      return res.status(404).json({ ok: false, error: "Unknown app" });
+    }
+
+    const metric = String(req.params.metric || "").trim();
+    if (!GOODBARBER_ANALYTICS_METRICS.has(metric)) {
+      return res.status(404).json({ ok: false, error: "Unsupported analytics metric" });
+    }
+
+    const startDate = req.query.start_date ? String(req.query.start_date) : "";
+    const endDate = req.query.end_date ? String(req.query.end_date) : "";
+    const platform = req.query.platform ? String(req.query.platform) : "";
+
+    if (!validAnalyticsDate(startDate) || !validAnalyticsDate(endDate)) {
+      return res.status(400).json({ ok: false, error: "Invalid date format" });
+    }
+    if (platform && !["all", "ios", "android"].includes(platform.toLowerCase())) {
+      return res.status(400).json({ ok: false, error: "Invalid platform" });
+    }
+
+    if (startDate && endDate) {
+      const startMs = Date.parse(startDate + "T00:00:00Z");
+      const endMs = Date.parse(endDate + "T00:00:00Z");
+      if (!Number.isFinite(startMs) || !Number.isFinite(endMs) || endMs < startMs) {
+        return res.status(400).json({ ok: false, error: "Invalid date range" });
+      }
+      const days = Math.floor((endMs - startMs) / 86400000) + 1;
+      if (days > 400) {
+        return res.status(400).json({ ok: false, error: "Date range exceeds 400 days" });
+      }
+    }
+
+    const upstream = new URL(
+      GOODBARBER_API_BASE +
+      "/publicapi/v1/general/stats/" +
+      encodeURIComponent(GOODBARBER_APP_ID) +
+      "/" +
+      encodeURIComponent(metric) +
+      "/"
+    );
+    if (startDate) upstream.searchParams.set("start_date", startDate);
+    if (endDate) upstream.searchParams.set("end_date", endDate);
+    if (platform) upstream.searchParams.set("platform", platform);
+
+    const cacheKey = upstream.pathname + "?" + upstream.searchParams.toString();
+    const cached = goodbarberAnalyticsCache.get(cacheKey);
+    if (cached && Date.now() - cached.ts < GOODBARBER_CACHE_TTL_MS) {
+      res.set("X-MyCity-Analytics-Cache", "HIT");
+      return res.status(200).json(cached.data);
+    }
+
+    const upstreamRes = await fetch(upstream, {
+      headers: {
+        token: GOODBARBER_READ_TOKEN,
+        accept: "application/json"
+      }
+    });
+    const text = await upstreamRes.text();
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      data = { error: "Invalid response from analytics provider" };
+    }
+
+    if (!upstreamRes.ok || data?.error_code) {
+      console.error("GoodBarber analytics proxy upstream error", {
+        metric,
+        status: upstreamRes.status,
+        error: data?.error_description || data?.message || "unknown"
+      });
+      return res.status(upstreamRes.status >= 400 && upstreamRes.status < 600 ? upstreamRes.status : 502)
+        .json({ ok: false, error: "Analytics provider request failed" });
+    }
+
+    goodbarberAnalyticsCache.set(cacheKey, { ts: Date.now(), data });
+    if (goodbarberAnalyticsCache.size > 100) {
+      const oldestKey = goodbarberAnalyticsCache.keys().next().value;
+      if (oldestKey) goodbarberAnalyticsCache.delete(oldestKey);
+    }
+
+    res.set("X-MyCity-Analytics-Cache", "MISS");
+    return res.status(200).json(data);
+  } catch (error) {
+    console.error("GET GoodBarber analytics proxy failed:", error?.message || error);
+    return res.status(500).json({ ok: false, error: "Analytics proxy failed" });
+  }
+});
+
 const PORT = Number(process.env.PORT || 10000);
 const FIREBASE_DATABASE_URL = String(process.env.FIREBASE_DATABASE_URL || "").replace(/\/+$/, "");
 const ENDPOINT_KEY = String(process.env.MYCITY_ENDPOINT_KEY || "");
