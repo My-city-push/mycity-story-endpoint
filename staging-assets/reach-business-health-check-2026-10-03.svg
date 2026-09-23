@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#081D3A"/>
+      <stop offset="0.52" stop-color="#0A6D7C"/>
+      <stop offset="1" stop-color="#19B8AE"/>
+    </linearGradient>
+    <linearGradient id="cta" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FF7B45"/>
+      <stop offset="1" stop-color="#FFC857"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#00121F" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="930" cy="190" r="220" fill="#FFD166" opacity="0.22"/>
+  <circle cx="105" cy="1450" r="265" fill="#FF6B57" opacity="0.18"/>
+  <path d="M-80 520 C250 330 530 690 1160 410 L1160 720 C590 890 220 630 -80 825Z" fill="#FFFFFF" opacity="0.08"/>
+
+  <g transform="translate(72,72)">
+    <rect width="254" height="66" rx="33" fill="#FFFFFF" opacity="0.15"/>
+    <circle cx="35" cy="33" r="11" fill="#FFC857"/>
+    <text x="59" y="42" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" fill="#FFFFFF">MYCITY LOCAL DESK</text>
+  </g>
+
+  <g transform="translate(72,255)">
+    <text x="0" y="0" font-family="Arial, Helvetica, sans-serif" font-size="84" font-weight="900" fill="#FFFFFF">¿Tienes un</text>
+    <text x="0" y="96" font-family="Arial, Helvetica, sans-serif" font-size="84" font-weight="900" fill="#FFFFFF">pequeño negocio?</text>
+    <text x="0" y="177" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="600" fill="#DDF8F4">Louisville tiene una próxima sesión gratuita</text>
+    <text x="0" y="230" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="600" fill="#DDF8F4">para ayudarte a revisar las bases de tu negocio.</text>
+  </g>
+
+  <g filter="url(#shadow)" transform="translate(72,620)">
+    <rect width="936" height="655" rx="44" fill="#FFF9E9"/>
+    <rect x="44" y="44" width="248" height="62" rx="31" fill="#092D4E"/>
+    <text x="77" y="85" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="900" fill="#FFFFFF">REACH · GRATIS</text>
+
+    <text x="44" y="190" font-family="Arial, Helvetica, sans-serif" font-size="66" font-weight="900" fill="#0A2239">Business Health Check</text>
+
+    <g transform="translate(44,256)">
+      <circle cx="28" cy="28" r="28" fill="#FF7B45"/>
+      <path d="M18 28h20M28 18v20" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
+      <text x="78" y="39" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800" fill="#0A2239">October 3, 2026</text>
+    </g>
+
+    <g transform="translate(44,350)">
+      <circle cx="28" cy="28" r="28" fill="#14AFA7"/>
+      <path d="M16 20h24M16 28h20M16 36h15" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+      <text x="78" y="39" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#25435A">Licenses · permits · business basics</text>
+    </g>
+
+    <g transform="translate(44,438)">
+      <circle cx="28" cy="28" r="28" fill="#FFC857"/>
+      <path d="M17 31l8 8 16-21" fill="none" stroke="#0A2239" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="78" y="39" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#25435A">Multilingual support available</text>
+    </g>
+
+    <g transform="translate(44,528)">
+      <rect width="848" height="86" rx="28" fill="url(#cta)"/>
+      <text x="38" y="56" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="900" fill="#0A2239">Sin costo · solo requiere tu tiempo y participación</text>
+    </g>
+  </g>
+
+  <g transform="translate(72,1365)">
+    <text x="0" y="0" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800" fill="#DDF8F4">PARA EMPRENDEDORES DE DIVERSOS IDIOMAS Y CULTURAS</text>
+    <text x="0" y="72" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="900" fill="#FFFFFF">Revisa tu etapa de negocio.</text>
+    <text x="0" y="132" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="900" fill="#FFFFFF">Conecta con recursos locales.</text>
+  </g>
+
+  <g transform="translate(72,1608)">
+    <rect width="936" height="190" rx="38" fill="#FFFFFF" opacity="0.12" stroke="#FFFFFF" stroke-opacity="0.22"/>
+    <text x="40" y="63" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" fill="#FFFFFF">Programa oficial: Louisville Office for Immigrant Affairs</text>
+    <text x="40" y="108" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" fill="#FFFFFF">+ Louisville Small Business Development Center</text>
+    <text x="40" y="155" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#DDF8F4">Busca “REACH Louisville” para registrarte.</text>
+  </g>
+
+  <text x="72" y="1870" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#DDF8F4" opacity="0.92">Información verificada en LouisvilleKY.gov · MyCity crea este visual original.</text>
+</svg>
