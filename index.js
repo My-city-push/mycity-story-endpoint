@@ -786,6 +786,167 @@ app.get("/analytics/interests", requireApiKey, async (req, res) => {
   }
 });
 
+
+// ---- Public business / brand partner intake ----
+const businessIntakeRate = new Map();
+
+function intakeRateAllowed(req) {
+  const ip = safeString(req.headers["x-forwarded-for"] || req.socket?.remoteAddress || "unknown", 200).split(",")[0].trim();
+  const now = Date.now();
+  const windowMs = 10 * 60 * 1000;
+  const max = 5;
+  const row = businessIntakeRate.get(ip) || { start: now, count: 0 };
+  if (now - row.start > windowMs) {
+    businessIntakeRate.set(ip, { start: now, count: 1 });
+    return true;
+  }
+  row.count += 1;
+  businessIntakeRate.set(ip, row);
+  return row.count <= max;
+}
+
+function validBusinessEmail(value) {
+  const email = safeString(value, 320);
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+async function createBusinessPartnerRequest(record) {
+  if (firebaseMode === "admin") {
+    const ref = db.ref("businessPartnerRequests").push();
+    await ref.set(record);
+    return ref.key;
+  }
+  if (firebaseMode === "rest-public") {
+    const data = await restRequest("businessPartnerRequests", "POST", record);
+    return data?.name;
+  }
+  throw new Error("Firebase is not configured");
+}
+
+app.post("/business/intake", async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Cache-Control", "no-store");
+
+  try {
+    if (!intakeRateAllowed(req)) {
+      return res.status(429).json({ ok: false, error: "Too many submissions. Please try again later." });
+    }
+
+    const input = req.body || {};
+    // Honeypot used by the public form.
+    if (safeString(input.companyFax, 200)) {
+      return res.status(200).json({ ok: true, received: true });
+    }
+
+    const companyName = safeString(input.companyName, 180);
+    const contactName = safeString(input.contactName, 180);
+    const jobTitle = safeString(input.jobTitle, 180);
+    const email = safeString(input.email, 320).toLowerCase();
+    const phone = safeString(input.phone, 80);
+    const website = sanitizeUrl(input.website);
+    const market = safeString(input.market || "Louisville / Kentuckiana", 160);
+    const requestType = safeString(input.requestType, 80);
+    const message = safeString(input.message, 5000);
+    const signatureName = safeString(input.signatureName, 180);
+    const documentLinks = Array.isArray(input.documentLinks)
+      ? input.documentLinks.map(sanitizeUrl).filter(Boolean).slice(0, 8)
+      : safeString(input.documentLinks, 4000).split(/\r?\n|,/).map(sanitizeUrl).filter(Boolean).slice(0, 8);
+
+    const allowedTypes = new Set([
+      "free_promotion",
+      "brand_content_authorization",
+      "brand_asset_permission",
+      "partnership",
+      "paid_campaign",
+      "sponsorship",
+      "affiliate_promo_code",
+      "event_activation",
+      "legal_contract_review",
+      "other"
+    ]);
+    if (!companyName || !contactName || !validBusinessEmail(email) || !allowedTypes.has(requestType)) {
+      return res.status(400).json({ ok: false, error: "Please complete the required company, contact, email and request type fields." });
+    }
+
+    const permissions = {
+      mentionBrand: input.permissions?.mentionBrand === true,
+      useBusinessName: input.permissions?.useBusinessName === true,
+      useLogo: input.permissions?.useLogo === true,
+      useProductNames: input.permissions?.useProductNames === true,
+      useApprovedImages: input.permissions?.useApprovedImages === true,
+      useApprovedVideos: input.permissions?.useApprovedVideos === true,
+      quotePublicOffers: input.permissions?.quotePublicOffers === true,
+      linkOfficialChannels: input.permissions?.linkOfficialChannels === true,
+      createOriginalEditorialVisuals: input.permissions?.createOriginalEditorialVisuals === true,
+      paidPromotionDiscussion: input.permissions?.paidPromotionDiscussion === true
+    };
+
+    const authorityConfirmed = input.authorityConfirmed === true;
+    const consentToContact = input.consentToContact === true;
+    const termsAccepted = input.termsAccepted === true;
+    if (!authorityConfirmed || !consentToContact || !termsAccepted || !signatureName) {
+      return res.status(400).json({ ok: false, error: "Authorization, contact consent, terms acceptance and typed signature are required." });
+    }
+
+    const now = Date.now();
+    const record = {
+      companyName,
+      contactName,
+      jobTitle,
+      email,
+      phone,
+      website,
+      market,
+      requestType,
+      permissions,
+      message,
+      documentLinks,
+      authorityConfirmed,
+      consentToContact,
+      termsAccepted,
+      signatureName,
+      source: "mycity_advertise_public_intake",
+      status: "new",
+      createdAtMs: now,
+      createdAtISO: new Date(now).toISOString(),
+      userAgent: safeString(req.get("user-agent"), 500)
+    };
+    for (const key of Object.keys(record)) {
+      if (record[key] === "" || record[key] == null) delete record[key];
+    }
+
+    const requestId = await createBusinessPartnerRequest(record);
+    if (!requestId) throw new Error("Request could not be stored");
+
+    console.log("BUSINESS_INTAKE_RECEIVED", JSON.stringify({
+      requestId,
+      companyName,
+      requestType,
+      market,
+      permissions: Object.keys(permissions).filter((k) => permissions[k]),
+      hasDocuments: documentLinks.length > 0,
+      messagePreview: message.slice(0, 280)
+    }));
+
+    return res.status(201).json({
+      ok: true,
+      requestId,
+      receivedAt: record.createdAtISO,
+      message: "Your request has been received by MyCity."
+    });
+  } catch (error) {
+    console.error("POST /business/intake failed:", error?.message || error);
+    return res.status(500).json({ ok: false, error: "Unable to receive this request right now." });
+  }
+});
+
+app.options("/business/intake", (_req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Headers", "content-type");
+  res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.status(204).end();
+});
+
 app.use((_req, res) => res.status(404).json({ ok: false, error: "Not found" }));
 
 function maybeRunAutomationWorker() {
