@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#071a2f"/><stop offset="0.6" stop-color="#0c5061"/><stop offset="1" stop-color="#11aeb0"/></linearGradient><filter id="s"><feDropShadow dx="0" dy="16" stdDeviation="22" flood-opacity=".22"/></filter></defs>
+<rect width="1080" height="1920" fill="url(#bg)"/>
+<circle cx="880" cy="330" r="270" fill="#ffcf5c" opacity=".16"/><circle cx="160" cy="1640" r="300" fill="#ff7b58" opacity=".14"/>
+<text x="76" y="118" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#7fe2df" letter-spacing="3">MYCITY • OPORTUNIDAD LOCAL</text>
+<text x="76" y="270" font-family="Arial,Helvetica,sans-serif" font-size="78" font-weight="900" fill="#fff">¿DÓNDE</text>
+<text x="76" y="365" font-family="Arial,Helvetica,sans-serif" font-size="92" font-weight="900" fill="#ffcf5c">APLICAR?</text>
+<g transform="translate(76 500)" filter="url(#s)">
+ <rect width="928" height="620" rx="58" fill="#fff8ea"/>
+ <text x="58" y="100" font-family="Arial,Helvetica,sans-serif" font-size="44" font-weight="800" fill="#0b6d76">Programa</text>
+ <text x="58" y="170" font-family="Arial,Helvetica,sans-serif" font-size="54" font-weight="900" fill="#071a2f">ALBAT Lineman Apprenticeship</text>
+ <line x1="58" y1="220" x2="870" y2="220" stroke="#e7d7bf" stroke-width="3"/>
+ <text x="58" y="300" font-family="Arial,Helvetica,sans-serif" font-size="40" font-weight="800" fill="#071a2f">Oficina del sponsor en Louisville</text>
+ <text x="58" y="360" font-family="Arial,Helvetica,sans-serif" font-size="37" font-weight="600" fill="#45606e">4315 Preston Hwy, Unit 102</text>
+ <text x="58" y="415" font-family="Arial,Helvetica,sans-serif" font-size="37" font-weight="600" fill="#45606e">Louisville, KY 40213</text>
+ <rect x="58" y="480" width="812" height="94" rx="47" fill="#ff7b58"/>
+ <text x="464" y="543" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="44" font-weight="900" fill="#fff">APLICA EN ALBAT.ORG</text>
+</g>
+<g transform="translate(76 1240)">
+ <rect width="928" height="280" rx="48" fill="#ffffff" opacity=".12"/>
+ <text x="52" y="82" font-family="Arial,Helvetica,sans-serif" font-size="42" font-weight="900" fill="#fff">No lo dejes para el último día.</text>
+ <text x="52" y="145" font-family="Arial,Helvetica,sans-serif" font-size="36" font-weight="600" fill="#d6f4f2">La ficha oficial indica cierre</text>
+ <text x="52" y="196" font-family="Arial,Helvetica,sans-serif" font-size="36" font-weight="600" fill="#d6f4f2">el miércoles 30 de septiembre.</text>
+ <text x="52" y="246" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#ffcf5c">Revisa requisitos completos antes de enviar.</text>
+</g>
+<text x="76" y="1705" font-family="Arial,Helvetica,sans-serif" font-size="38" font-weight="800" fill="#fff">Guárdalo • compártelo con alguien</text>
+<text x="76" y="1755" font-family="Arial,Helvetica,sans-serif" font-size="38" font-weight="800" fill="#fff">que esté buscando un oficio técnico.</text>
+<text x="76" y="1860" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" fill="#bde9e6">Fuente: Kentucky Works • verificada 23 SEP 2026</text>
+</svg>
