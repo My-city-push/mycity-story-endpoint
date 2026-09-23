@@ -32,7 +32,7 @@ export function registerPersonalizedArticleRoutes(app, deps) {
     if (following || follower) return { created: false };
 
     const now = Date.now();
-    await Promise.all([
+    const writes = await Promise.all([
       rtdb(FOLLOWING_DB, "433069/" + rid, "PUT", {
         id: recipientUserId,
         userId: recipientUserId,
@@ -53,7 +53,7 @@ export function registerPersonalizedArticleRoutes(app, deps) {
       })
     ]);
 
-    const verify = await rtdb(FOLLOWING_DB, "433069/" + rid).catch(() => null);
+    const verify = writes.some(Boolean);
     if (!verify) throw new Error("follow_verification_failed");
     return { created: true };
   }
