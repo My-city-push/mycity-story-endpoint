@@ -1,5 +1,6 @@
 import express from "express";
 import crypto from "node:crypto";
+import { spawn } from "node:child_process";
 import admin from "firebase-admin";
 
 const app = express();
@@ -787,6 +788,26 @@ app.get("/analytics/interests", requireApiKey, async (req, res) => {
 
 app.use((_req, res) => res.status(404).json({ ok: false, error: "Not found" }));
 
+function maybeRunAutomationWorker() {
+  const enabled = /^true$/i.test(String(process.env.RUN_AUTOMATED_STORY_DRAFT || "false"));
+  if (!enabled) {
+    console.log("automation-story-worker skipped; RUN_AUTOMATED_STORY_DRAFT=false");
+    return;
+  }
+  console.log("automation-story-worker starting from web service...");
+  const child = spawn(process.execPath, ["automation-story-worker.js"], {
+    stdio: "inherit",
+    env: process.env
+  });
+  child.on("exit", (code, signal) => {
+    console.log(`automation-story-worker exited code=${code ?? "null"} signal=${signal ?? "none"}`);
+  });
+  child.on("error", (error) => {
+    console.error("automation-story-worker spawn failed:", error?.message || error);
+  });
+}
+
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`mycity-story-endpoint listening on ${PORT}; firebaseMode=${firebaseMode}; publishEnabled=${ALLOW_PUBLISH}`);
+  maybeRunAutomationWorker();
 });
