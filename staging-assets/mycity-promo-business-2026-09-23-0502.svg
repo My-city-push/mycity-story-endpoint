@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07152D"/>
+      <stop offset="0.52" stop-color="#123B72"/>
+      <stop offset="1" stop-color="#10A6A6"/>
+    </linearGradient>
+    <linearGradient id="coral" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FF7A45"/>
+      <stop offset="1" stop-color="#FF4D6D"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFD76A"/>
+      <stop offset="1" stop-color="#FFB73E"/>
+    </linearGradient>
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="28" stdDeviation="28" flood-color="#00111F" flood-opacity="0.34"/>
+    </filter>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="45"/>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="920" cy="220" r="210" fill="#27D9C8" opacity="0.13" filter="url(#soft)"/>
+  <circle cx="165" cy="520" r="230" fill="#FF7043" opacity="0.12" filter="url(#soft)"/>
+  <circle cx="850" cy="1350" r="300" fill="#FFD76A" opacity="0.08" filter="url(#soft)"/>
+
+  <g opacity="0.10" stroke="#FFFFFF" stroke-width="2">
+    <path d="M0 420 C200 360 390 510 590 430 S900 330 1080 410" fill="none"/>
+    <path d="M0 1460 C260 1360 440 1530 650 1450 S890 1370 1080 1430" fill="none"/>
+  </g>
+
+  <g transform="translate(68 74)">
+    <rect x="0" y="0" width="172" height="58" rx="29" fill="#FFFFFF" opacity="0.12" stroke="#FFFFFF" stroke-opacity="0.22"/>
+    <circle cx="29" cy="29" r="16" fill="#27D9C8"/>
+    <path d="M22 30 l5 5 10-12" fill="none" stroke="#07152D" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="54" y="37" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700">MyCity</text>
+  </g>
+
+  <text x="70" y="220" fill="#A9F4E9" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="800" letter-spacing="2">LOUISVILLE / KENTUCKIANA</text>
+  <text x="70" y="320" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="900" letter-spacing="-3">TU NEGOCIO</text>
+  <text x="70" y="420" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="900" letter-spacing="-3">TAMBIÉN MERECE</text>
+  <text x="70" y="520" fill="#FFD76A" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="900" letter-spacing="-3">SER VISTO.</text>
+
+  <text x="74" y="585" fill="#DDE8F7" font-family="Arial, Helvetica, sans-serif" font-size="33" font-weight="500">Ofertas, servicios, eventos y novedades locales.</text>
+
+  <g transform="translate(70 655)" filter="url(#shadow)">
+    <rect x="0" y="0" width="940" height="505" rx="46" fill="#F7F1E8"/>
+
+    <g transform="translate(45 50)">
+      <rect x="0" y="115" width="160" height="260" rx="18" fill="#FFFFFF"/>
+      <rect x="0" y="72" width="160" height="72" rx="18" fill="url(#coral)"/>
+      <path d="M10 112 H150" stroke="#FFFFFF" stroke-width="8" stroke-dasharray="18 12"/>
+      <rect x="25" y="206" width="110" height="110" rx="12" fill="#FFE0D4"/>
+      <rect x="35" y="155" width="90" height="18" rx="9" fill="#123B72" opacity="0.75"/>
+      <text x="80" y="105" text-anchor="middle" fill="#FFFFFF" font-family="Arial" font-size="20" font-weight="800">CAFÉ</text>
+    </g>
+
+    <g transform="translate(232 48)">
+      <rect x="0" y="120" width="176" height="255" rx="18" fill="#FFFFFF"/>
+      <rect x="0" y="77" width="176" height="72" rx="18" fill="#123B72"/>
+      <path d="M12 114 H164" stroke="#FFFFFF" stroke-width="8" stroke-dasharray="16 12"/>
+      <rect x="24" y="202" width="128" height="112" rx="12" fill="#D6F7F2"/>
+      <circle cx="88" cy="257" r="30" fill="#27D9C8" opacity="0.65"/>
+      <text x="88" y="110" text-anchor="middle" fill="#FFFFFF" font-family="Arial" font-size="19" font-weight="800">BARBERÍA</text>
+    </g>
+
+    <g transform="translate(435 35)">
+      <rect x="0" y="0" width="265" height="410" rx="42" fill="#091827"/>
+      <rect x="18" y="28" width="229" height="350" rx="28" fill="#0E2540"/>
+      <rect x="38" y="56" width="189" height="96" rx="22" fill="url(#coral)"/>
+      <text x="58" y="92" fill="#FFFFFF" font-family="Arial" font-size="20" font-weight="800">NUEVA OFERTA</text>
+      <text x="58" y="123" fill="#FFFFFF" font-family="Arial" font-size="17">cerca de ti</text>
+      <rect x="38" y="171" width="189" height="72" rx="18" fill="#173A62"/>
+      <circle cx="67" cy="207" r="14" fill="#FFD76A"/>
+      <text x="92" y="214" fill="#FFFFFF" font-family="Arial" font-size="17" font-weight="700">Evento local</text>
+      <rect x="38" y="260" width="189" height="72" rx="18" fill="#143149"/>
+      <circle cx="67" cy="296" r="14" fill="#27D9C8"/>
+      <text x="92" y="303" fill="#FFFFFF" font-family="Arial" font-size="17" font-weight="700">Servicio nuevo</text>
+      <rect x="95" y="390" width="75" height="6" rx="3" fill="#7D91A7"/>
+    </g>
+
+    <g transform="translate(730 78)">
+      <rect x="0" y="90" width="165" height="285" rx="18" fill="#FFFFFF"/>
+      <rect x="0" y="48" width="165" height="72" rx="18" fill="#F4B83A"/>
+      <path d="M12 88 H153" stroke="#FFFFFF" stroke-width="8" stroke-dasharray="16 12"/>
+      <rect x="25" y="180" width="115" height="120" rx="12" fill="#EAF1FF"/>
+      <path d="M50 260 C70 220 95 220 118 260" fill="none" stroke="#123B72" stroke-width="10" stroke-linecap="round"/>
+      <text x="82" y="81" text-anchor="middle" fill="#07152D" font-family="Arial" font-size="18" font-weight="900">TALLER</text>
+    </g>
+  </g>
+
+  <g transform="translate(70 1215)">
+    <rect x="0" y="0" width="940" height="250" rx="40" fill="#FFFFFF" opacity="0.08" stroke="#FFFFFF" stroke-opacity="0.17"/>
+    <text x="42" y="64" fill="#A9F4E9" font-family="Arial" font-size="24" font-weight="800" letter-spacing="1.5">DATO DE LA PROPIA PLATAFORMA</text>
+    <text x="42" y="148" fill="#FFFFFF" font-family="Arial" font-size="68" font-weight="900" letter-spacing="-2">20,000+ usuarios locales</text>
+    <text x="42" y="202" fill="#DDE8F7" font-family="Arial" font-size="26">Una comunidad para descubrir, conversar y conectar.</text>
+  </g>
+
+  <g transform="translate(70 1510)">
+    <rect x="0" y="0" width="286" height="94" rx="28" fill="#FF6B4A"/>
+    <text x="143" y="58" text-anchor="middle" fill="#FFFFFF" font-family="Arial" font-size="27" font-weight="900">PUBLICA OFERTAS</text>
+
+    <rect x="327" y="0" width="286" height="94" rx="28" fill="#20C9B5"/>
+    <text x="470" y="58" text-anchor="middle" fill="#07152D" font-family="Arial" font-size="27" font-weight="900">ANUNCIA SERVICIOS</text>
+
+    <rect x="654" y="0" width="286" height="94" rx="28" fill="#FFD76A"/>
+    <text x="797" y="58" text-anchor="middle" fill="#07152D" font-family="Arial" font-size="27" font-weight="900">MANTENTE PRESENTE</text>
+  </g>
+
+  <text x="70" y="1685" fill="#FFFFFF" font-family="Arial" font-size="42" font-weight="900">Muéstrate. Publica. Conecta.</text>
+  <text x="70" y="1744" fill="#DDE8F7" font-family="Arial" font-size="28">Descubre oportunidades para tu negocio en MyCity.</text>
+
+  <g transform="translate(70 1790)">
+    <rect x="0" y="0" width="940" height="84" rx="26" fill="#FFFFFF"/>
+    <text x="470" y="53" text-anchor="middle" fill="#0B1B33" font-family="Arial" font-size="31" font-weight="900">mycity.city/advertise</text>
+  </g>
+</svg>
