@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <rect width="1080" height="1920" fill="#FFF1D8"/>
+  <rect x="0" y="0" width="1080" height="370" fill="#071B34"/>
+  <circle cx="940" cy="115" r="150" fill="#63E6D7"/>
+  <circle cx="1000" cy="160" r="88" fill="#FF6B4A"/>
+  <text x="72" y="120" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="800" fill="#FFBE3B">MYCITY • OPORTUNIDAD LOCAL</text>
+  <text x="72" y="228" font-family="Arial,Helvetica,sans-serif" font-size="78" font-weight="900" fill="#FFF1D8">¿TIENES</text>
+  <text x="72" y="318" font-family="Arial,Helvetica,sans-serif" font-size="78" font-weight="900" fill="#FFF1D8">UN NEGOCIO?</text>
+
+  <g transform="translate(72 455)">
+    <rect width="936" height="390" rx="44" fill="#0F355A"/>
+    <path d="M85 158h420l-45-92H130z" fill="#FF6B4A"/>
+    <rect x="118" y="169" width="355" height="150" rx="18" fill="#FFF1D8"/>
+    <rect x="158" y="212" width="70" height="107" fill="#63E6D7"/>
+    <rect x="258" y="212" width="70" height="107" fill="#FFBE3B"/>
+    <rect x="358" y="212" width="70" height="107" fill="#FF6B4A"/>
+    <text x="550" y="120" font-family="Arial,Helvetica,sans-serif" font-size="45" font-weight="900" fill="#FFF1D8">SOLICITUDES</text>
+    <text x="550" y="176" font-family="Arial,Helvetica,sans-serif" font-size="45" font-weight="900" fill="#FFF1D8">PARA VENDEDORES</text>
+    <text x="550" y="252" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#63E6D7">La ciudad mantiene</text>
+    <text x="550" y="294" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#63E6D7">la convocatoria abierta.</text>
+  </g>
+
+  <text x="72" y="980" font-family="Arial,Helvetica,sans-serif" font-size="46" font-weight="900" fill="#071B34">PUEDE ENCAJAR SI OFRECES:</text>
+  <g font-family="Arial,Helvetica,sans-serif" font-size="38" font-weight="800" fill="#071B34">
+    <rect x="72" y="1040" width="420" height="92" rx="46" fill="#FFBE3B"/><text x="112" y="1098">COMIDA / BEBIDAS</text>
+    <rect x="540" y="1040" width="468" height="92" rx="46" fill="#63E6D7"/><text x="580" y="1098">PRODUCTOS / RETAIL</text>
+    <rect x="72" y="1170" width="420" height="92" rx="46" fill="#FF6B4A"/><text x="112" y="1228">ARTE / MAKERS</text>
+    <rect x="540" y="1170" width="468" height="92" rx="46" fill="#0F355A"/><text x="580" y="1228" fill="#FFF1D8">SERVICIOS LOCALES</text>
+  </g>
+
+  <rect x="72" y="1395" width="936" height="280" rx="40" fill="#FF6B4A"/>
+  <text x="115" y="1483" font-family="Arial,Helvetica,sans-serif" font-size="43" font-weight="900" fill="#071B34">11 OCT • 12 PM — 9 PM</text>
+  <text x="115" y="1547" font-family="Arial,Helvetica,sans-serif" font-size="36" font-weight="800" fill="#071B34">Preston Plaza • 4132 Outer Loop</text>
+  <text x="115" y="1613" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="700" fill="#071B34">Festival gratuito y familiar.</text>
+
+  <text x="72" y="1788" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="900" fill="#071B34">REVISA LA SOLICITUD OFICIAL EN LOUISVILLEKY.GOV</text>
+  <text x="72" y="1842" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" fill="#667085">Fuente: Office for Immigrant Affairs • Louisville Metro</text>
+</svg>
