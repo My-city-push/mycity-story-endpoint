@@ -992,6 +992,23 @@ function maybeRunMarketBatch8() {
   });
 }
 
+
+function maybeRunMarketBatch3() {
+  const enabled = /^true$/i.test(String(process.env.RUN_MARKET_TEST_BATCH_3 || "false"));
+  if (!enabled) return;
+  console.log("market-batch-3-runner starting...");
+  const child = spawn(process.execPath, ["market-batch-3-runner.js"], {
+    stdio: "inherit",
+    env: process.env
+  });
+  child.on("exit", (code, signal) => {
+    console.log(`market-batch-3-runner exited code=${code ?? "null"} signal=${signal ?? "none"}`);
+  });
+  child.on("error", (error) => {
+    console.error("market-batch-3-runner spawn failed:", error?.message || error);
+  });
+}
+
 function maybeRunAutomationWorker() {
   const enabled = /^true$/i.test(String(process.env.RUN_AUTOMATED_STORY_DRAFT || "false"));
   if (!enabled) {
@@ -1016,4 +1033,5 @@ app.listen(PORT, "0.0.0.0", () => {
   maybeRunAutomationWorker();
   maybeRunPersonalizedTestOnce();
   maybeRunMarketBatch8();
+  maybeRunMarketBatch3();
 });
