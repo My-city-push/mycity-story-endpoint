@@ -27,19 +27,19 @@ const CART_READY={
 };
 
 const c={
-  recipientUserId:"884358",
-  vehicle:"2019 Chevrolet Equinox",
-  family:"maintenance_preventive",
-  topic:"high_use_downtime_prevention",
-  expectedIntentType:"service_interest",
-  hypothesis:"A driver with a high-use crossover may value a preventive inspection framed around protecting productive hours more than a generic maintenance reminder.",
-  title:"Antes de otro día largo con tu Equinox, revisa lo que puede dejarte parado",
-  caption:"Cuando un vehículo ya tiene bastante trabajo acumulado, conviene pasar de reaccionar a las fallas a revisar antes de que aparezcan.\n\nFrenos, llantas, fluidos, batería y suspensión no tienen que fallar para merecer atención. Una revisión preventiva puede ayudarte a proteger horas productivas y evitar que un problema pequeño termine convirtiéndose en un día sin trabajar.\n\n¿Te preocupa más el costo de una revisión o perder un día de trabajo?",
+  recipientUserId:"658543",
+  vehicle:"2017 Toyota RAV4",
+  family:"hygiene_quick_cleanup",
+  topic:"interior_protection_time_savings",
+  expectedIntentType:"product_interest",
+  hypothesis:"A rideshare driver may show stronger buying intent for practical interior-protection products when framed as reducing cleanup time between rides rather than as cosmetic accessories.",
+  title:"Si cada limpieza te roba minutos, tu RAV4 puede estar costándote tiempo sin moverse",
+  caption:"Cuando el carro es parte de tu ingreso, limpiar entre pasajeros también cuenta como tiempo de trabajo.\n\nAlfombras fáciles de lavar, protección para el área de carga y una organización simple pueden hacer que el interior vuelva a estar listo más rápido sin convertir cada jornada en una limpieza profunda.\n\nNo se trata de llenar el carro de accesorios: se trata de probar qué cosas realmente te ahorran minutos y trabajo.\n\n¿Tu carro usa alfombras de tela o de goma?",
   triggerType:"inspection_mileage_updated",
-  sourceFingerprint:"garage_884358_inspection_mileage_updated_2026-09-23T22:23:34.373Z",
-  editorialFingerprint:"market_v3_884358_2019_chevrolet_equinox_high_use_downtime_prevention",
-  visualTheme:"preventive_downtime",
-  visualPrompt:"Crear una portada editorial horizontal 1.91:1 para MyCity / Cart Ready. Tema: mantenimiento preventivo y evitar downtime. Mensaje central: antes de otro día largo, revisar lo que puede dejar el vehículo parado. Vehículo de referencia: 2019 Chevrolet Equinox solo si puede representarse fielmente; de lo contrario usar una composición limpia de rueda, freno, batería, fluidos y checklist de inspección sin mostrar un modelo incorrecto. Estilo minimalista, moderno, alto contraste, fondo blanco o blanco roto, sin personas, sin placas legibles, sin VIN, sin logos grandes. La imagen debe sentirse útil para un conductor que usa su auto para producir dinero. Sin texto o máximo una frase muy corta."
+  sourceFingerprint:"garage_658543_inspection_mileage_updated_2026-09-24T14:15:05.009Z",
+  editorialFingerprint:"market_v4_658543_2017_toyota_rav4_interior_protection_time_savings",
+  visualTheme:"quick_cleanup_interior_protection",
+  visualPrompt:"Crear una portada editorial horizontal 1.91:1 para MyCity / Cart Ready. Tema: limpieza rápida y protección interior para un vehículo de rideshare. Mensaje central: ahorrar minutos entre pasajeros con alfombras fáciles de lavar, protección de carga y organización simple. Vehículo de referencia: 2017 Toyota RAV4 solo si puede representarse fielmente; de lo contrario usar una composición limpia de interior de SUV compacto, alfombras all-weather y protector de carga sin logos ni modelo identificable. Estilo minimalista, moderno, alto contraste, fondo blanco o blanco roto, sin personas, sin placas legibles, sin VIN, sin logos grandes. La imagen debe sentirse útil para un conductor que usa su auto para producir dinero. Sin texto o máximo una frase muy corta."
 };
 
 async function ensureFollow(recipientUserId){
