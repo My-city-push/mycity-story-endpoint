@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#07152f"/><stop offset="0.58" stop-color="#103b61"/><stop offset="1" stop-color="#0c7d85"/></linearGradient>
+  <linearGradient id="coral" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff6b4a"/><stop offset="1" stop-color="#ff9a3d"/></linearGradient>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="20" stdDeviation="25" flood-color="#00111f" flood-opacity="0.32"/></filter>
+</defs>
+<rect width="1080" height="1920" fill="url(#bg)"/>
+<circle cx="930" cy="180" r="240" fill="#16c7be" opacity=".18"/>
+<circle cx="120" cy="1660" r="300" fill="#ff7a4f" opacity=".16"/>
+<path d="M-80 1380 C260 1190 420 1470 740 1270 C930 1150 1090 1240 1190 1100" fill="none" stroke="#f8d04a" stroke-width="18" stroke-linecap="round" opacity=".55"/>
+<path d="M-90 1450 C280 1260 470 1530 770 1340 C980 1210 1120 1300 1200 1190" fill="none" stroke="#ffffff" stroke-width="4" stroke-dasharray="22 24" opacity=".45"/>
+<g transform="translate(80 94)"><rect width="300" height="64" rx="32" fill="#ffffff" opacity=".12"/><circle cx="34" cy="32" r="10" fill="#f8d04a"/><text x="58" y="42" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" fill="#ffffff">MYCITY • MOVILIDAD</text></g>
+<g transform="translate(76 300)">
+  <text x="0" y="0" font-family="Arial,Helvetica,sans-serif" font-size="78" font-weight="900" fill="#ffffff">TARC:</text>
+  <text x="0" y="92" font-family="Arial,Helvetica,sans-serif" font-size="92" font-weight="900" fill="#ffffff">BROADWAY</text>
+  <text x="0" y="184" font-family="Arial,Helvetica,sans-serif" font-size="92" font-weight="900" fill="#f8d04a">EN DESVÍO</text>
+  <text x="0" y="256" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="600" fill="#d9f6f3">Obras del corredor I‑65 afectan paradas.</text>
+</g>
+<g filter="url(#shadow)" transform="translate(76 720)"><rect width="928" height="420" rx="52" fill="#f9f3e8"/>
+  <rect x="44" y="44" width="260" height="62" rx="31" fill="url(#coral)"/><text x="174" y="86" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="900" fill="#ffffff">HASTA OCT 10</text>
+  <text x="44" y="180" font-family="Arial,Helvetica,sans-serif" font-size="48" font-weight="900" fill="#0b2540">Cierre completo en Broadway</text>
+  <text x="44" y="244" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" fill="#405066">entre 1st St. y Brook St.</text>
+  <text x="44" y="318" font-family="Arial,Helvetica,sans-serif" font-size="29" font-weight="700" fill="#0c7d85">RUTAS AFECTADAS</text>
+  <g transform="translate(44 340)"><rect width="120" height="58" rx="18" fill="#07152f"/><text x="60" y="40" text-anchor="middle" font-family="Arial" font-size="30" font-weight="900" fill="#ffffff">1</text><rect x="138" width="120" height="58" rx="18" fill="#07152f"/><text x="198" y="40" text-anchor="middle" font-family="Arial" font-size="30" font-weight="900" fill="#ffffff">72</text><rect x="276" width="120" height="58" rx="18" fill="#07152f"/><text x="336" y="40" text-anchor="middle" font-family="Arial" font-size="30" font-weight="900" fill="#ffffff">76</text><rect x="414" width="120" height="58" rx="18" fill="#07152f"/><text x="474" y="40" text-anchor="middle" font-family="Arial" font-size="30" font-weight="900" fill="#ffffff">93</text></g>
+</g>
+<g transform="translate(76 1245)"><text x="0" y="0" font-family="Arial" font-size="31" font-weight="700" fill="#ffffff">Desliza → para ver paradas alternativas</text><text x="0" y="48" font-family="Arial" font-size="26" fill="#cbe9e8">Información oficial de TARC • 24 SEP 2026</text></g>
+<g transform="translate(760 1470)"><rect width="210" height="210" rx="48" fill="#ff6b4a"/><rect x="48" y="62" width="114" height="92" rx="22" fill="#ffffff"/><rect x="66" y="34" width="78" height="40" rx="12" fill="#ffffff"/><circle cx="78" cy="164" r="16" fill="#07152f"/><circle cx="132" cy="164" r="16" fill="#07152f"/><path d="M70 104h70" stroke="#0c7d85" stroke-width="12" stroke-linecap="round"/></g>
+<text x="76" y="1782" font-family="Arial" font-size="28" font-weight="700" fill="#ffffff">Planifica unos minutos extra antes de salir.</text>
+<text x="76" y="1835" font-family="Arial" font-size="24" fill="#bfe7e4">MyCity Louisville / Kentuckiana</text>
+</svg>
