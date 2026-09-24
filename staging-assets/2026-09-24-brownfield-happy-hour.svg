@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071a2f"/>
+      <stop offset="0.5" stop-color="#0b3d4a"/>
+      <stop offset="1" stop-color="#0f6d66"/>
+    </linearGradient>
+    <linearGradient id="coral" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff7a59"/>
+      <stop offset="1" stop-color="#ff9b54"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#001018" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="980" cy="160" r="260" fill="#f7c85c" opacity="0.18"/>
+  <circle cx="85" cy="1700" r="310" fill="#ff7a59" opacity="0.12"/>
+  <path d="M-40 455 C240 325 440 530 710 385 C850 310 975 325 1140 235" fill="none" stroke="#fff3d1" stroke-width="18" opacity="0.10"/>
+  <path d="M-80 510 C240 390 450 585 720 445 C875 365 995 380 1150 305" fill="none" stroke="#fff3d1" stroke-width="5" opacity="0.18"/>
+
+  <g transform="translate(70 76)">
+    <rect x="0" y="0" rx="24" width="252" height="72" fill="#fff3d1"/>
+    <text x="126" y="48" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="800" fill="#071a2f">MYCITY LOCAL</text>
+  </g>
+
+  <g transform="translate(70 218)">
+    <rect x="0" y="0" rx="24" width="250" height="64" fill="url(#coral)"/>
+    <text x="125" y="43" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="900" fill="#ffffff">HOY • SEP 24</text>
+  </g>
+
+  <text x="70" y="382" font-family="Arial, Helvetica, sans-serif" font-size="95" font-weight="900" fill="#fff3d1" letter-spacing="-3">IDEAS PARA</text>
+  <text x="70" y="480" font-family="Arial, Helvetica, sans-serif" font-size="95" font-weight="900" fill="#fff3d1" letter-spacing="-3">REACTIVAR</text>
+  <text x="70" y="578" font-family="Arial, Helvetica, sans-serif" font-size="95" font-weight="900" fill="#f7c85c" letter-spacing="-3">PROPIEDADES</text>
+
+  <g transform="translate(70 650)" filter="url(#shadow)">
+    <rect width="940" height="620" rx="46" fill="#fff7e7"/>
+
+    <g transform="translate(70 82)">
+      <rect x="0" y="215" width="355" height="170" rx="18" fill="#0b3d4a"/>
+      <rect x="38" y="145" width="110" height="80" rx="8" fill="#ff7a59"/>
+      <rect x="188" y="165" width="125" height="60" rx="8" fill="#f7c85c"/>
+      <rect x="48" y="252" width="70" height="92" rx="6" fill="#d8efe8"/>
+      <rect x="145" y="250" width="66" height="50" rx="6" fill="#d8efe8"/>
+      <rect x="235" y="250" width="76" height="50" rx="6" fill="#d8efe8"/>
+      <path d="M25 140 L330 140" stroke="#071a2f" stroke-width="14" stroke-linecap="round" opacity="0.18"/>
+      <path d="M390 290 C470 225 530 205 625 185" fill="none" stroke="#ff7a59" stroke-width="18" stroke-linecap="round"/>
+      <path d="M610 146 L675 174 L625 223" fill="#ff7a59"/>
+      <circle cx="690" cy="182" r="80" fill="#0f6d66"/>
+      <path d="M655 187 L680 212 L728 162" fill="none" stroke="#fff7e7" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <text x="70" y="455" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="900" fill="#071a2f">BROWNFIELD HAPPY HOUR</text>
+    <text x="70" y="515" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#0f6d66">Networking gratis sobre reutilización y desarrollo</text>
+    <text x="70" y="565" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#0f6d66">de propiedades con retos ambientales.</text>
+  </g>
+
+  <g transform="translate(70 1335)">
+    <rect width="940" height="360" rx="42" fill="#071a2f" opacity="0.78" stroke="#fff3d1" stroke-opacity="0.14"/>
+    <circle cx="92" cy="92" r="48" fill="#ff7a59"/>
+    <path d="M92 55 C64 55 48 75 48 98 C48 135 92 165 92 165 C92 165 136 135 136 98 C136 75 120 55 92 55 Z" fill="#ffffff" opacity="0.95"/>
+    <circle cx="92" cy="96" r="15" fill="#ff7a59"/>
+    <text x="170" y="84" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="900" fill="#fff3d1">5:30–7:00 PM</text>
+    <text x="170" y="134" font-family="Arial, Helvetica, sans-serif" font-size="35" font-weight="700" fill="#d8efe8">Atrium Brewing • 1154 Logan St.</text>
+
+    <rect x="56" y="205" width="828" height="98" rx="26" fill="#f7c85c"/>
+    <text x="470" y="268" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="900" fill="#071a2f">CONSTRUCCIÓN • DESARROLLO • COMUNIDAD</text>
+  </g>
+
+  <text x="70" y="1795" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#fff3d1">Entrada gratuita • Louisville, KY</text>
+  <text x="70" y="1850" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="600" fill="#d8efe8">Un espacio para conectar ideas que pueden volver a activar lugares de la ciudad.</text>
+</svg>
