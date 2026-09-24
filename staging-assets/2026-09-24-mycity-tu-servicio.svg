@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#081b35"/>
+      <stop offset="0.52" stop-color="#123f63"/>
+      <stop offset="1" stop-color="#0aa6a6"/>
+    </linearGradient>
+    <linearGradient id="hot" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff6f4d"/>
+      <stop offset="1" stop-color="#ffb33b"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#00111f" flood-opacity="0.32"/>
+    </filter>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="970" cy="220" r="320" fill="#ffb33b" opacity="0.16"/>
+  <circle cx="80" cy="1610" r="360" fill="#ff6f4d" opacity="0.13"/>
+  <path d="M0 1450 C250 1340, 520 1560, 1080 1350 L1080 1920 L0 1920 Z" fill="#06182e" opacity="0.42"/>
+
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="78" y="118" fill="#ffffff" font-size="48" font-weight="900" letter-spacing="3">MYCITY</text>
+    <rect x="78" y="145" width="154" height="8" rx="4" fill="#ffb33b"/>
+
+    <text x="78" y="290" fill="#ffcf72" font-size="34" font-weight="800" letter-spacing="2">NEGOCIOS · SERVICIOS · COMUNIDAD</text>
+    <text x="78" y="410" fill="#ffffff" font-size="98" font-weight="900">TU SERVICIO</text>
+    <text x="78" y="515" fill="#ffffff" font-size="98" font-weight="900">MERECE QUE</text>
+    <text x="78" y="620" fill="#ffffff" font-size="98" font-weight="900">LO VEAN.</text>
+
+    <text x="82" y="708" fill="#d7f7f4" font-size="38" font-weight="600">Publica lo que haces. Mantente presente.</text>
+
+    <g transform="translate(128 790)" filter="url(#shadow)">
+      <rect x="0" y="0" width="824" height="760" rx="72" fill="#fffaf1"/>
+      <rect x="300" y="24" width="224" height="26" rx="13" fill="#10243a" opacity="0.14"/>
+      <text x="62" y="125" fill="#10243a" font-size="34" font-weight="900">CERCA DE TI EN LOUISVILLE</text>
+
+      <g transform="translate(56 178)">
+        <rect width="712" height="122" rx="28" fill="#ffefe4"/>
+        <circle cx="62" cy="61" r="34" fill="#ff6f4d"/>
+        <path d="M47 63 l11 11 l22 -28" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="120" y="53" fill="#7d2c1f" font-size="27" font-weight="900">OFERTA HOY</text>
+        <text x="120" y="87" fill="#4c4c4c" font-size="25">Promociones y novedades locales</text>
+      </g>
+
+      <g transform="translate(56 326)">
+        <rect width="712" height="122" rx="28" fill="#e7f8f7"/>
+        <circle cx="62" cy="61" r="34" fill="#0aa6a6"/>
+        <path d="M47 62 h30 M62 47 v30" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+        <text x="120" y="53" fill="#075f65" font-size="27" font-weight="900">SERVICIO CERCA</text>
+        <text x="120" y="87" fill="#4c4c4c" font-size="25">Taller, barbería, limpieza, construcción...</text>
+      </g>
+
+      <g transform="translate(56 474)">
+        <rect width="712" height="122" rx="28" fill="#fff3ce"/>
+        <circle cx="62" cy="61" r="34" fill="#ffb33b"/>
+        <path d="M48 60 h28 M48 72 h18 M48 48 h22" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
+        <text x="120" y="53" fill="#7a5200" font-size="27" font-weight="900">NOVEDAD</text>
+        <text x="120" y="87" fill="#4c4c4c" font-size="25">Horarios, eventos, servicios y anuncios</text>
+      </g>
+
+      <rect x="56" y="632" width="712" height="84" rx="42" fill="url(#hot)"/>
+      <text x="412" y="685" text-anchor="middle" fill="#ffffff" font-size="32" font-weight="900">PUBLICA HOY EN MYCITY</text>
+    </g>
+
+    <g transform="translate(78 1630)">
+      <rect width="924" height="138" rx="34" fill="#ffffff" opacity="0.96"/>
+      <text x="42" y="62" fill="#10243a" font-size="46" font-weight="900">20,000+ usuarios locales</text>
+      <text x="42" y="104" fill="#51606d" font-size="27">cifra editorial proporcionada por MyCity</text>
+    </g>
+
+    <text x="540" y="1848" text-anchor="middle" fill="#ffffff" font-size="32" font-weight="800">Louisville / Kentuckiana · comunidad local todos los días</text>
+  </g>
+</svg>
