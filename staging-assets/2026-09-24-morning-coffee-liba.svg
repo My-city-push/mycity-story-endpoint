@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071B2F"/>
+      <stop offset="0.55" stop-color="#0B3445"/>
+      <stop offset="1" stop-color="#0E6B73"/>
+    </linearGradient>
+    <linearGradient id="coral" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FF6B4A"/>
+      <stop offset="1" stop-color="#FF9E58"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#001018" flood-opacity="0.35"/></filter>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="980" cy="180" r="250" fill="#16C6B7" opacity="0.16"/>
+  <circle cx="120" cy="1710" r="290" fill="#FF784E" opacity="0.14"/>
+  <path d="M0 590 C260 520 420 690 660 610 C830 555 920 470 1080 520 L1080 850 C850 900 700 790 500 860 C300 930 180 850 0 900Z" fill="#F5E9D8" opacity="0.06"/>
+
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="78" y="120" font-size="38" font-weight="800" fill="#F7F1E7">MYCITY • LOUISVILLE</text>
+    <rect x="78" y="160" width="268" height="64" rx="32" fill="#FFD34E"/>
+    <text x="212" y="203" text-anchor="middle" font-size="30" font-weight="900" fill="#10222C">HOY • SEP 24</text>
+
+    <text x="78" y="370" font-size="92" font-weight="900" fill="#FFFFFF">CAFÉ +</text>
+    <text x="78" y="468" font-size="92" font-weight="900" fill="#FFFFFF">CONEXIONES</text>
+    <text x="78" y="550" font-size="44" font-weight="700" fill="#FFD7C7">para negocios locales</text>
+
+    <g transform="translate(640 265)" filter="url(#shadow)">
+      <rect x="0" y="0" width="300" height="360" rx="48" fill="#F7F1E7"/>
+      <path d="M75 115 h130 v95 a65 65 0 0 1 -130 0z" fill="url(#coral)"/>
+      <path d="M205 135 h28 a42 42 0 0 1 0 84 h-20" fill="none" stroke="#FF9E58" stroke-width="20" stroke-linecap="round"/>
+      <path d="M105 80 c-18-34 24-42 5-74 M150 80 c-18-34 24-42 5-74 M195 80 c-18-34 24-42 5-74" fill="none" stroke="#0E6B73" stroke-width="10" stroke-linecap="round" opacity="0.8"/>
+      <circle cx="90" cy="290" r="16" fill="#0E6B73"/>
+      <circle cx="150" cy="260" r="16" fill="#FF6B4A"/>
+      <circle cx="210" cy="300" r="16" fill="#FFD34E"/>
+      <path d="M90 290 L150 260 L210 300" stroke="#0E6B73" stroke-width="8" fill="none"/>
+    </g>
+
+    <rect x="78" y="710" width="924" height="430" rx="54" fill="#F7F1E7" filter="url(#shadow)"/>
+    <text x="128" y="795" font-size="34" font-weight="900" fill="#0B3445">MORNING COFFEE WITH LIBA</text>
+    <text x="128" y="875" font-size="56" font-weight="900" fill="#071B2F">9:00–10:00 AM</text>
+    <text x="128" y="946" font-size="35" font-weight="700" fill="#35505A">Think Tank Marketing</text>
+    <text x="128" y="1000" font-size="32" fill="#35505A">101 N 7th St. • 4th Floor</text>
+    <text x="128" y="1060" font-size="32" fill="#35505A">Downtown Louisville</text>
+    <rect x="760" y="920" width="170" height="120" rx="28" fill="#16C6B7"/>
+    <text x="845" y="968" text-anchor="middle" font-size="27" font-weight="900" fill="#062A31">1 HORA</text>
+    <text x="845" y="1008" text-anchor="middle" font-size="23" font-weight="700" fill="#062A31">de networking</text>
+
+    <text x="78" y="1290" font-size="58" font-weight="900" fill="#FFFFFF">¿Tienes negocio?</text>
+    <text x="78" y="1365" font-size="36" font-weight="700" fill="#D7F8F5">Conecta con otros emprendedores,</text>
+    <text x="78" y="1413" font-size="36" font-weight="700" fill="#D7F8F5">conoce negocios independientes y</text>
+    <text x="78" y="1461" font-size="36" font-weight="700" fill="#D7F8F5">amplía tu red local.</text>
+
+    <g transform="translate(78 1550)">
+      <rect width="924" height="170" rx="42" fill="url(#coral)"/>
+      <text x="48" y="70" font-size="36" font-weight="900" fill="#FFFFFF">CTA</text>
+      <text x="48" y="119" font-size="42" font-weight="900" fill="#FFFFFF">Llega temprano y haz conexiones.</text>
+      <circle cx="850" cy="85" r="46" fill="#FFD34E"/>
+      <path d="M828 85 h42 M855 66 l19 19 -19 19" stroke="#071B2F" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <text x="78" y="1828" font-size="26" fill="#B8D9D8">Información verificada en el calendario de Louisville Independent Business Alliance.</text>
+  </g>
+</svg>
