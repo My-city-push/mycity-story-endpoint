@@ -96,16 +96,17 @@ export function registerPersonalizedArticleRoutes(app, deps) {
         input.caption || "Preparamos una recomendación para ayudarte a cuidar mejor tu vehículo.",
         3000
       );
-      const mediaUrl = sanitizeUrl(input.mediaUrl || CART_READY.avatar);
-      if (!mediaUrl) return res.status(400).json({ ok: false, error: "valid mediaUrl required" });
+      const mediaUrl = sanitizeUrl(input.mediaUrl || "");
+      
 
-      const thumbnailUrl = sanitizeUrl(input.thumbnailUrl || mediaUrl) || mediaUrl;
+      const thumbnailUrl = mediaUrl ? (sanitizeUrl(input.thumbnailUrl || mediaUrl) || mediaUrl) : "";
       const summary = input.isArticleSummary !== false;
       const width = Number(input.width || 1200) || 1200;
       const height = Number(input.height || 628) || 628;
       const createdAtMs = Number(prior?.createdAtMs || now);
 
-      const item = {
+      const hasMedia = !!mediaUrl;
+      const item = hasMedia ? {
         id: "media_1",
         index: 0,
         mediaKind: "image",
@@ -119,7 +120,7 @@ export function registerPersonalizedArticleRoutes(app, deps) {
         height,
         aspectRatio: width / height,
         uploadStatus: "external"
-      };
+      } : null;
 
       const article = {
         id: articleKey,
@@ -165,23 +166,23 @@ export function registerPersonalizedArticleRoutes(app, deps) {
         displayTarget: summary ? "feed_summary" : "personalized_campaign",
         presentation: summary ? { mediaRatio: "landscape_1_91_1", layout: "editorial_carousel" } : undefined,
 
-        postType: "carousel",
-        carousel: true,
-        isCarousel: true,
-        itemCount: 1,
-        items: [item],
+        postType: hasMedia ? "carousel" : "article",
+        carousel: hasMedia,
+        isCarousel: hasMedia,
+        itemCount: hasMedia ? 1 : 0,
+        items: hasMedia ? [item] : [],
 
-        mediaType: "image",
-        mediaKind: "image",
-        mediaUrl,
-        url: mediaUrl,
-        imageUrl: mediaUrl,
+        mediaType: hasMedia ? "image" : "",
+        mediaKind: hasMedia ? "image" : "",
+        mediaUrl: hasMedia ? mediaUrl : "",
+        url: hasMedia ? mediaUrl : "",
+        imageUrl: hasMedia ? mediaUrl : "",
         videoUrl: "",
-        thumbnailUrl,
-        thumb: thumbnailUrl,
-        width,
-        height,
-        aspectRatio: width / height,
+        thumbnailUrl: hasMedia ? thumbnailUrl : "",
+        thumb: hasMedia ? thumbnailUrl : "",
+        width: hasMedia ? width : 0,
+        height: hasMedia ? height : 0,
+        aspectRatio: hasMedia ? (width / height) : 0,
 
         likesCount: Number(prior?.likesCount || 0),
         commentsCount: Number(prior?.commentsCount || 0),
@@ -202,7 +203,11 @@ export function registerPersonalizedArticleRoutes(app, deps) {
         publisherSource: "personalized_content_automation",
         source: "mycity_automated_article",
         sourceFingerprint: safeString(input.sourceFingerprint, 300),
-        editorialFingerprint
+        editorialFingerprint,
+        visualTheme: safeString(input.visualTheme, 120),
+        visualPrompt: safeString(input.visualPrompt, 1200),
+        coverSource: safeString(input.coverSource, 120),
+        coverGenerated: input.coverGenerated === true
       };
 
       Object.keys(article).forEach((k) => article[k] === undefined && delete article[k]);
