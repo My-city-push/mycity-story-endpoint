@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071A33"/>
+      <stop offset="0.55" stop-color="#0C3650"/>
+      <stop offset="1" stop-color="#0D6A69"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FF7B54"/>
+      <stop offset="1" stop-color="#FFD166"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#00111f" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <circle cx="980" cy="180" r="240" fill="#FF7B54" opacity="0.14"/>
+  <circle cx="95" cy="1660" r="300" fill="#FFD166" opacity="0.10"/>
+  <path d="M-40 1210 C250 1060 420 1270 700 1120 C890 1015 1010 1025 1140 1090 L1140 1490 C900 1575 730 1500 520 1590 C300 1685 130 1585 -40 1670 Z" fill="#0BC5B0" opacity="0.10"/>
+  <g transform="translate(70 72)">
+    <rect width="248" height="62" rx="31" fill="#FFF2D8" opacity="0.98"/>
+    <circle cx="34" cy="31" r="16" fill="#FF6B4A"/>
+    <text x="62" y="39" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#0B2842">MYCITY LOCAL</text>
+  </g>
+  <text x="70" y="255" font-family="Arial, Helvetica, sans-serif" font-size="66" font-weight="800" fill="#FFF8EA">MÁS APOYO PARA</text>
+  <text x="70" y="332" font-family="Arial, Helvetica, sans-serif" font-size="66" font-weight="800" fill="#FFF8EA">EL PRÓXIMO PASO</text>
+  <text x="70" y="395" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="500" fill="#CDE9E6">College, becas, FAFSA y apprenticeships en Louisville.</text>
+  <g transform="translate(70 470)" filter="url(#shadow)">
+    <rect width="940" height="370" rx="44" fill="#FFF4DE"/>
+    <rect x="0" y="0" width="940" height="24" rx="12" fill="url(#accent)"/>
+    <text x="54" y="112" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700" fill="#15324A">KCAC recibió una subvención federal de</text>
+    <text x="54" y="220" font-family="Arial, Helvetica, sans-serif" font-size="102" font-weight="900" fill="#FF6B4A">$5 MILLONES</text>
+    <text x="56" y="294" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#0D6A69">para ampliar el apoyo a estudiantes de Louisville</text>
+  </g>
+  <g transform="translate(70 890)">
+    <rect width="450" height="260" rx="36" fill="#0F4660" stroke="#61D7C6" stroke-width="2"/>
+    <text x="36" y="68" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" fill="#A9EEE4">META ANUAL</text>
+    <text x="36" y="150" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="900" fill="#FFFFFF">2,000</text>
+    <text x="36" y="204" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" fill="#FFF0C2">estudiantes</text>
+  </g>
+  <g transform="translate(560 890)">
+    <rect width="450" height="260" rx="36" fill="#0F4660" stroke="#FFD166" stroke-width="2"/>
+    <text x="36" y="68" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" fill="#FFE4A0">EXPANSIÓN</text>
+    <text x="36" y="150" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="900" fill="#FFFFFF">12</text>
+    <text x="36" y="204" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" fill="#FFF0C2">escuelas</text>
+  </g>
+  <text x="70" y="1208" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="500" fill="#D4ECE9">Antes: aproximadamente 800 estudiantes en 7 escuelas.</text>
+  <g transform="translate(70 1270)" filter="url(#shadow)">
+    <rect width="940" height="390" rx="44" fill="#0A243B" stroke="#FFFFFF" stroke-opacity="0.12"/>
+    <text x="48" y="74" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="800" fill="#FFD166">APOYO GRATIS</text>
+    <g transform="translate(48 116)">
+      <circle cx="22" cy="22" r="22" fill="#FF6B4A"/>
+      <text x="12" y="31" font-family="Arial" font-size="25" font-weight="900" fill="#fff">✓</text>
+      <text x="62" y="31" font-family="Arial, Helvetica, sans-serif" font-size="33" font-weight="700" fill="#FFF8EA">FAFSA y solicitudes</text>
+    </g>
+    <g transform="translate(48 188)">
+      <circle cx="22" cy="22" r="22" fill="#0BC5B0"/>
+      <text x="12" y="31" font-family="Arial" font-size="25" font-weight="900" fill="#fff">✓</text>
+      <text x="62" y="31" font-family="Arial, Helvetica, sans-serif" font-size="33" font-weight="700" fill="#FFF8EA">Búsqueda de becas</text>
+    </g>
+    <g transform="translate(48 260)">
+      <circle cx="22" cy="22" r="22" fill="#FFD166"/>
+      <text x="12" y="31" font-family="Arial" font-size="25" font-weight="900" fill="#163149">✓</text>
+      <text x="62" y="31" font-family="Arial, Helvetica, sans-serif" font-size="33" font-weight="700" fill="#FFF8EA">Elegir programa y entender el mercado laboral</text>
+    </g>
+  </g>
+  <g transform="translate(70 1710)">
+    <rect width="940" height="128" rx="38" fill="url(#accent)"/>
+    <text x="42" y="54" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="800" fill="#0B2842">INFÓRMATE / COMPARTE</text>
+    <text x="42" y="96" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="900" fill="#0B2842">KentuckianaWorks.org/KCAC</text>
+  </g>
+  <text x="70" y="1882" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="600" fill="#A9DAD6">Louisville • Educación + oportunidades • Fuente: KentuckianaWorks / Louisville Metro</text>
+</svg>
