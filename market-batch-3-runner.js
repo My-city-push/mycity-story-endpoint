@@ -1,1 +1,1 @@
-import "./automation-equipment-signal-runner.js";
+import "./market-delta-runner.js";
