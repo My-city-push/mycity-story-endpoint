@@ -977,6 +977,22 @@ function maybeRunPersonalizedTestOnce() {
 
 
 
+function maybeRunCartReadyGarageBatchOnce() {
+  const enabled = /^true$/i.test(String(process.env.RUN_CART_READY_GARAGE_BATCH_ONCE || "false"));
+  if (!enabled) return;
+  console.log("cart-ready-garage-batch-runner starting...");
+  const child = spawn(process.execPath, ["cart-ready-garage-batch-runner.js"], {
+    stdio: "inherit",
+    env: process.env
+  });
+  child.on("exit", (code, signal) => {
+    console.log(`cart-ready-garage-batch-runner exited code=${code ?? "null"} signal=${signal ?? "none"}`);
+  });
+  child.on("error", (error) => {
+    console.error("cart-ready-garage-batch-runner spawn failed:", error?.message || error);
+  });
+}
+
 function maybeRunPersonalizedBatchOnce() {
   const enabled = /^true$/i.test(String(process.env.RUN_PERSONALIZED_BATCH_ONCE || "false"));
   if (!enabled) return;
@@ -1050,6 +1066,7 @@ app.listen(PORT, "0.0.0.0", () => {
   maybeRunAutomationWorker();
   maybeRunPersonalizedTestOnce();
   maybeRunPersonalizedBatchOnce();
+  maybeRunCartReadyGarageBatchOnce();
   maybeRunMarketBatch8();
   maybeRunMarketBatch3();
 });
