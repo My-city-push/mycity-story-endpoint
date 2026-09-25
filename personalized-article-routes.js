@@ -84,8 +84,9 @@ export function registerPersonalizedArticleRoutes(app, deps) {
         }
       }
 
+      const articleLimit = Math.max(20, Math.min(1000, Number(process.env.PERSONALIZED_ARTICLE_LIMIT || 250) || 250));
       let prunedArticleKey = "";
-      if (!articleKey && rows.length >= 20) {
+      if (!articleKey && rows.length >= articleLimit) {
         const scoredRows = rows.map(([k, v]) => {
           const likes = Number(v?.likesCount || 0);
           const comments = Number(v?.commentsCount || 0);
