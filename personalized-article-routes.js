@@ -96,31 +96,41 @@ export function registerPersonalizedArticleRoutes(app, deps) {
         input.caption || "Preparamos una recomendación para ayudarte a cuidar mejor tu vehículo.",
         3000
       );
-      const mediaUrl = sanitizeUrl(input.mediaUrl || "");
-      
+      const inputMediaUrls = Array.isArray(input.mediaUrls) ? input.mediaUrls : [];
+      const mediaUrls = inputMediaUrls
+        .map((url) => sanitizeUrl(url || ""))
+        .filter(Boolean)
+        .slice(0, 10);
+      const singleMediaUrl = sanitizeUrl(input.mediaUrl || "");
+      if (!mediaUrls.length && singleMediaUrl) mediaUrls.push(singleMediaUrl);
 
-      const thumbnailUrl = mediaUrl ? (sanitizeUrl(input.thumbnailUrl || mediaUrl) || mediaUrl) : "";
+      const inputThumbnailUrls = Array.isArray(input.thumbnailUrls) ? input.thumbnailUrls : [];
       const summary = input.isArticleSummary !== false;
       const width = Number(input.width || 1200) || 1200;
       const height = Number(input.height || 628) || 628;
       const createdAtMs = Number(prior?.createdAtMs || now);
 
-      const hasMedia = !!mediaUrl;
-      const item = hasMedia ? {
-        id: "media_1",
-        index: 0,
-        mediaKind: "image",
-        mediaType: "image/jpeg",
-        mediaUrl,
-        mediaDeliveryUrl: mediaUrl,
-        imageUrl: mediaUrl,
-        videoUrl: "",
-        thumbnailUrl,
-        width,
-        height,
-        aspectRatio: width / height,
-        uploadStatus: "external"
-      } : null;
+      const hasMedia = mediaUrls.length > 0;
+      const items = mediaUrls.map((mediaUrl, index) => {
+        const requestedThumb = sanitizeUrl(inputThumbnailUrls[index] || (index === 0 ? input.thumbnailUrl : "") || mediaUrl);
+        const thumbnailUrl = requestedThumb || mediaUrl;
+        return {
+          id: "media_" + (index + 1),
+          index,
+          mediaKind: "image",
+          mediaType: "image/jpeg",
+          mediaUrl,
+          mediaDeliveryUrl: mediaUrl,
+          imageUrl: mediaUrl,
+          videoUrl: "",
+          thumbnailUrl,
+          width,
+          height,
+          aspectRatio: width / height,
+          uploadStatus: "external"
+        };
+      });
+      const primaryItem = items[0] || null;
 
       const article = {
         id: articleKey,
@@ -169,17 +179,17 @@ export function registerPersonalizedArticleRoutes(app, deps) {
         postType: hasMedia ? "carousel" : "article",
         carousel: hasMedia,
         isCarousel: hasMedia,
-        itemCount: hasMedia ? 1 : 0,
-        items: hasMedia ? [item] : [],
+        itemCount: items.length,
+        items,
 
         mediaType: hasMedia ? "image" : "",
         mediaKind: hasMedia ? "image" : "",
-        mediaUrl: hasMedia ? mediaUrl : "",
-        url: hasMedia ? mediaUrl : "",
-        imageUrl: hasMedia ? mediaUrl : "",
+        mediaUrl: primaryItem?.mediaUrl || "",
+        url: primaryItem?.mediaUrl || "",
+        imageUrl: primaryItem?.imageUrl || "",
         videoUrl: "",
-        thumbnailUrl: hasMedia ? thumbnailUrl : "",
-        thumb: hasMedia ? thumbnailUrl : "",
+        thumbnailUrl: primaryItem?.thumbnailUrl || "",
+        thumb: primaryItem?.thumbnailUrl || "",
         width: hasMedia ? width : 0,
         height: hasMedia ? height : 0,
         aspectRatio: hasMedia ? (width / height) : 0,
