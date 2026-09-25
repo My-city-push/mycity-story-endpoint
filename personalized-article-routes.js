@@ -246,16 +246,20 @@ export function registerPersonalizedArticleRoutes(app, deps) {
 
       Object.keys(article).forEach((k) => article[k] === undefined && delete article[k]);
 
+      const recipientKey = key(recipientUserId);
       const updates = {
         ["/storyVitrine/" + articleKey]: article,
         ["/storyVitrineByUser/" + publisherKey + "/" + articleKey]: article,
-        ["/storyVitrineFeed/" + articleKey]: summary ? article : null
+        ["/storyVitrineFeed/" + articleKey]: summary ? article : null,
+        ["/storyVitrineTargetByUser/" + recipientKey + "/" + articleKey]: article
       };
 
       if (prunedArticleKey && prunedArticleKey !== articleKey) {
+        const prunedRecipient = key(scoredRows?.find((row) => row.k === prunedArticleKey)?.v?.recipientUserId || "");
         updates["/storyVitrine/" + prunedArticleKey] = null;
         updates["/storyVitrineByUser/" + publisherKey + "/" + prunedArticleKey] = null;
         updates["/storyVitrineFeed/" + prunedArticleKey] = null;
+        if (prunedRecipient) updates["/storyVitrineTargetByUser/" + prunedRecipient + "/" + prunedArticleKey] = null;
       }
 
       await firebaseRootPatch(updates);
