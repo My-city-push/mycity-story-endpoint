@@ -976,6 +976,23 @@ function maybeRunPersonalizedTestOnce() {
 }
 
 
+
+function maybeRunPersonalizedBatchOnce() {
+  const enabled = /^true$/i.test(String(process.env.RUN_PERSONALIZED_BATCH_ONCE || "false"));
+  if (!enabled) return;
+  console.log("personalized-batch-runner starting...");
+  const child = spawn(process.execPath, ["personalized-batch-runner.js"], {
+    stdio: "inherit",
+    env: process.env
+  });
+  child.on("exit", (code, signal) => {
+    console.log(`personalized-batch-runner exited code=${code ?? "null"} signal=${signal ?? "none"}`);
+  });
+  child.on("error", (error) => {
+    console.error("personalized-batch-runner spawn failed:", error?.message || error);
+  });
+}
+
 function maybeRunMarketBatch8() {
   const enabled = /^true$/i.test(String(process.env.RUN_MARKET_TEST_BATCH_8 || "false"));
   if (!enabled) return;
@@ -1032,6 +1049,7 @@ app.listen(PORT, "0.0.0.0", () => {
   console.log(`mycity-story-endpoint listening on ${PORT}; firebaseMode=${firebaseMode}; publishEnabled=${ALLOW_PUBLISH}`);
   maybeRunAutomationWorker();
   maybeRunPersonalizedTestOnce();
+  maybeRunPersonalizedBatchOnce();
   maybeRunMarketBatch8();
   maybeRunMarketBatch3();
 });
