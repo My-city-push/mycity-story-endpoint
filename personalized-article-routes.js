@@ -84,8 +84,31 @@ export function registerPersonalizedArticleRoutes(app, deps) {
         }
       }
 
+      let prunedArticleKey = "";
       if (!articleKey && rows.length >= 20) {
-        return res.status(409).json({ ok: false, error: "publisher_article_limit_reached" });
+        const scoredRows = rows.map(([k, v]) => {
+          const likes = Number(v?.likesCount || 0);
+          const comments = Number(v?.commentsCount || 0);
+          const shares = Number(v?.sharesCount || 0) + Number(v?.repostsCount || 0);
+          const views = Number(v?.viewsCount || 0);
+          const engagementScore = likes * 5 + comments * 8 + shares * 10 + Math.min(views, 100) * 0.05;
+          return {
+            k,
+            v,
+            engagementScore,
+            createdAtMs: Number(v?.createdAtMs || v?.publishedAtMs || 0)
+          };
+        });
+
+        scoredRows.sort((a, b) => {
+          const aZero = a.engagementScore === 0 ? 0 : 1;
+          const bZero = b.engagementScore === 0 ? 0 : 1;
+          if (aZero !== bZero) return aZero - bZero;
+          if (a.engagementScore !== b.engagementScore) return a.engagementScore - b.engagementScore;
+          return a.createdAtMs - b.createdAtMs;
+        });
+
+        prunedArticleKey = scoredRows[0]?.k || "";
       }
 
       const now = Date.now();
@@ -228,6 +251,12 @@ export function registerPersonalizedArticleRoutes(app, deps) {
         ["/storyVitrineFeed/" + articleKey]: summary ? article : null
       };
 
+      if (prunedArticleKey && prunedArticleKey !== articleKey) {
+        updates["/storyVitrine/" + prunedArticleKey] = null;
+        updates["/storyVitrineByUser/" + publisherKey + "/" + prunedArticleKey] = null;
+        updates["/storyVitrineFeed/" + prunedArticleKey] = null;
+      }
+
       await firebaseRootPatch(updates);
 
       return res.status(prior ? 200 : 201).json({
@@ -237,7 +266,8 @@ export function registerPersonalizedArticleRoutes(app, deps) {
         publisherUserId: CART_READY.userId,
         recipientUserId,
         autoFollowCreated: follow.created,
-        isArticleSummary: summary
+        isArticleSummary: summary,
+        prunedArticleId: prunedArticleKey || null
       });
     } catch (error) {
       console.error("POST /ai/personalized-article failed:", error);
