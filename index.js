@@ -993,6 +993,22 @@ function maybeRunCartReadyGarageBatchOnce() {
   });
 }
 
+function maybeRunOsmanyPublicBatchOnce() {
+  const enabled = /^true$/i.test(String(process.env.RUN_OSMANY_PUBLIC_BATCH_ONCE || "false"));
+  if (!enabled) return;
+  console.log("osmany-public-batch-runner starting...");
+  const child = spawn(process.execPath, ["osmany-public-batch-runner.js"], {
+    stdio: "inherit",
+    env: process.env
+  });
+  child.on("exit", (code, signal) => {
+    console.log(`osmany-public-batch-runner exited code=${code ?? "null"} signal=${signal ?? "none"}`);
+  });
+  child.on("error", (error) => {
+    console.error("osmany-public-batch-runner spawn failed:", error?.message || error);
+  });
+}
+
 function maybeRunPersonalizedBatchOnce() {
   const enabled = /^true$/i.test(String(process.env.RUN_PERSONALIZED_BATCH_ONCE || "false"));
   if (!enabled) return;
@@ -1067,6 +1083,7 @@ app.listen(PORT, "0.0.0.0", () => {
   maybeRunPersonalizedTestOnce();
   maybeRunPersonalizedBatchOnce();
   maybeRunCartReadyGarageBatchOnce();
+  maybeRunOsmanyPublicBatchOnce();
   maybeRunMarketBatch8();
   maybeRunMarketBatch3();
 });
