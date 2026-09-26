@@ -993,6 +993,22 @@ function maybeRunCartReadyGarageBatchOnce() {
   });
 }
 
+function maybeRunOsmanyMediaUpgradeOnce() {
+  const enabled = /^true$/i.test(String(process.env.RUN_OSMANY_MEDIA_UPGRADE_ONCE || "false"));
+  if (!enabled) return;
+  console.log("osmany-media-upgrade-runner starting...");
+  const child = spawn(process.execPath, ["osmany-media-upgrade-runner.js"], {
+    stdio: "inherit",
+    env: process.env
+  });
+  child.on("exit", (code, signal) => {
+    console.log(`osmany-media-upgrade-runner exited code=${code ?? "null"} signal=${signal ?? "none"}`);
+  });
+  child.on("error", (error) => {
+    console.error("osmany-media-upgrade-runner spawn failed:", error?.message || error);
+  });
+}
+
 function maybeRunOsmanyPublicBatchOnce() {
   const enabled = /^true$/i.test(String(process.env.RUN_OSMANY_PUBLIC_BATCH_ONCE || "false"));
   if (!enabled) return;
@@ -1084,6 +1100,7 @@ app.listen(PORT, "0.0.0.0", () => {
   maybeRunPersonalizedBatchOnce();
   maybeRunCartReadyGarageBatchOnce();
   maybeRunOsmanyPublicBatchOnce();
+  maybeRunOsmanyMediaUpgradeOnce();
   maybeRunMarketBatch8();
   maybeRunMarketBatch3();
 });
