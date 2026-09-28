@@ -138,6 +138,9 @@ const ALLOW_PUBLIC_RTDB_FALLBACK = /^true$/i.test(String(process.env.ALLOW_PUBLI
 const CLOUDINARY_CLOUD_NAME = String(process.env.CLOUDINARY_CLOUD_NAME || "dxnxwaigw");
 const CLOUDINARY_UNSIGNED_PRESET = String(process.env.CLOUDINARY_UNSIGNED_PRESET || "mycity_unsigned");
 const CLOUDINARY_STORY_UPLOAD_FOLDER = String(process.env.CLOUDINARY_STORY_UPLOAD_FOLDER || "mycity/story-uploads");
+const CLOUDINARY_ARTICLE_UPLOAD_FOLDER = String(process.env.CLOUDINARY_ARTICLE_UPLOAD_FOLDER || "cart-ready/articles");
+const PERSONALIZED_ARTICLE_EMAIL_WEBHOOK_URL = String(process.env.PERSONALIZED_ARTICLE_EMAIL_WEBHOOK_URL || "");
+const PERSONALIZED_ARTICLE_EMAIL_WEBHOOK_KEY = String(process.env.PERSONALIZED_ARTICLE_EMAIL_WEBHOOK_KEY || "");
 
 const VITRINE_ROOT = "storyVitrine";
 const VITRINE_FEED = "storyVitrineFeed";
@@ -370,7 +373,7 @@ async function createStoryRecord(story) {
 }
 
 
-async function uploadToCloudinaryFromInput(input) {
+async function uploadToCloudinaryFromInput(input, options = {}) {
   const raw = safeString(input.mediaDataUri || input.dataUri || input.base64DataUri, 12000000);
   if (!raw) return null;
   if (!/^data:(image|video)\//i.test(raw)) {
@@ -381,13 +384,14 @@ async function uploadToCloudinaryFromInput(input) {
   const form = new FormData();
   form.append("file", raw);
   form.append("upload_preset", CLOUDINARY_UNSIGNED_PRESET);
-  if (CLOUDINARY_STORY_UPLOAD_FOLDER) form.append("folder", CLOUDINARY_STORY_UPLOAD_FOLDER);
-  form.append("tags", "mycity,story_upload,ai_generated");
-  form.append("context", [
+  const folder = String(options.folder || CLOUDINARY_STORY_UPLOAD_FOLDER);
+  if (folder) form.append("folder", folder);
+  form.append("tags", String(options.tags || "mycity,story_upload,ai_generated"));
+  form.append("context", (options.context || [
     "source=mycity_ai_story_endpoint",
     "publisher=story_publisher_independent",
     "userId=" + OWNER.userId
-  ].join("|"));
+  ]).join("|"));
 
   const endpoint = "https://api.cloudinary.com/v1_1/" +
     encodeURIComponent(CLOUDINARY_CLOUD_NAME) + "/" + mediaType + "/upload";
@@ -434,6 +438,40 @@ async function resolveStoryMediaInput(input) {
     cloudinaryBytes: uploaded.bytes,
     cloudinaryFormat: uploaded.format
   };
+}
+
+async function uploadArticleCoverFromInput(input) {
+  const uploaded = await uploadToCloudinaryFromInput(input, {
+    folder: CLOUDINARY_ARTICLE_UPLOAD_FOLDER,
+    tags: "mycity,cart_ready,personalized_article,ai_generated",
+    context: [
+      "source=mycity_personalized_article_endpoint",
+      "publisher=cart_ready",
+      "userId=433069"
+    ]
+  });
+  if (!uploaded) return null;
+  if (uploaded.mediaType !== "image") throw new Error("Article cover must be an image");
+  return uploaded;
+}
+
+async function dispatchPersonalizedArticleEmail(payload) {
+  if (!PERSONALIZED_ARTICLE_EMAIL_WEBHOOK_URL) return { status: "queued" };
+  const headers = { "content-type": "application/json" };
+  if (PERSONALIZED_ARTICLE_EMAIL_WEBHOOK_KEY) {
+    headers["x-mycity-email-key"] = PERSONALIZED_ARTICLE_EMAIL_WEBHOOK_KEY;
+  }
+  const response = await fetch(PERSONALIZED_ARTICLE_EMAIL_WEBHOOK_URL, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      action: "personalized_article_email",
+      ...payload
+    })
+  });
+  if (!response.ok) throw new Error("Email webhook " + response.status);
+  const result = await response.json().catch(() => ({}));
+  return { status: safeString(result.status || "accepted", 40) };
 }
 
 
@@ -953,7 +991,9 @@ registerPersonalizedArticleRoutes(app, {
   firebaseRootPatch,
   safeString,
   sanitizeUrl,
-  requireApiKey
+  requireApiKey,
+  uploadArticleCoverFromInput,
+  dispatchPersonalizedArticleEmail
 });
 
 app.use((_req, res) => res.status(404).json({ ok: false, error: "Not found" }));

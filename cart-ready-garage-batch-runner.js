@@ -167,6 +167,7 @@ async function run(){
     const caption=t.body(v,c.usage)+"\n\nOpciones para comparar en Amazon (enlaces afiliados):\n"+links+"\n\nVerifica compatibilidad, medidas y especificaciones antes de comprar.";
     const fingerprint=["garage_batch_20260925",c.userId,v.year,v.make,v.model,t.id].join("_").toLowerCase().replace(/[^a-z0-9_]+/g,"_");
     const payload={
+      requestId:fingerprint,
       recipientUserId:c.userId,
       title:t.title(v),
       caption,
