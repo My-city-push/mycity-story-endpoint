@@ -1135,6 +1135,12 @@ function maybeRunAutomationWorker() {
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`mycity-story-endpoint listening on ${PORT}; firebaseMode=${firebaseMode}; publishEnabled=${ALLOW_PUBLISH}`);
+  if (process.env.CART_READY_CHAT_ENABLED === 'true') {
+    const chatWorker = spawn(process.execPath, ['cart-ready-chat-worker.js'], {stdio: 'inherit', env: process.env});
+    chatWorker.on('error', error => console.error('Cart Ready chat worker startup failed:', error.message));
+    chatWorker.on('exit', code => console.log(`Cart Ready chat worker exited: ${code}`));
+    process.once('SIGTERM', () => chatWorker.kill('SIGTERM'));
+  }
   maybeRunAutomationWorker();
   maybeRunPersonalizedTestOnce();
   maybeRunPersonalizedBatchOnce();
