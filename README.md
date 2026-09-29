@@ -56,3 +56,11 @@ curl -X POST https://YOUR-SERVICE.onrender.com/ai/story \
 - Plan: Free for initial testing
 
 Never commit Firebase service-account credentials or `MYCITY_ENDPOINT_KEY` to GitHub.
+
+## Cart Ready chat assistant (test user only)
+
+This repository also contains `cart-ready-chat-worker.js`, a separate long-running process for the test conversation between My City (629388) and Cart Ready (433069). It can answer in either direction but ignores its own messages to prevent a reply loop. It uses the Firebase service account to read the chat database and Garage database. With `CART_READY_CHAT_ENABLED=true`, `npm start` launches it as a separate child process alongside the story publisher. It verifies access to both databases before listening.
+
+For the initial test, keep the existing Render service and its `npm start` command. Set `CART_READY_CHAT_ENABLED=true` and `CART_READY_CHAT_TEST_USER_ID=629388`; the child process reuses the service's private `FIREBASE_SERVICE_ACCOUNT_JSON`. The ID is required; the worker cannot answer another account. Set the enabled flag to false and redeploy to disable it. A separate Background Worker using `npm run chat:cart-ready` remains an option for later scaling.
+
+When My City writes to Cart Ready, the worker answers text about inspection status and payment preference. It checks the live Garage status and never approves a vehicle or confirms a charge. When Cart Ready writes to My City, My City answers general process questions without disclosing another user's Garage data. Voice notes and images are marked for human review and receive no automated answer. The UI's existing chat notification webhook is not called by this worker; test replies appear in the chat when opened. Validate the test conversation before any wider release.
