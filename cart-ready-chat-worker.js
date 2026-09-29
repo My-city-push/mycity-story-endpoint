@@ -49,6 +49,24 @@ export function inspectionReply({text, status, previousMethod = '', hasRequest =
   return '';
 }
 
+export function myCityReply({text, hasRequest = false}) {
+  if (hasRequest || /inspecci[oó]n|inspection/i.test(text))
+    return 'My City recibió tu mensaje. La solicitud de inspección de cada usuario debe revisarse en Garage; la decisión corresponde al encargado. ¿Qué detalle necesitas verificar?';
+  if (/zelle|zell|efectivo|cash|tarjeta|card|pago/i.test(text))
+    return 'My City puede registrar la preferencia de pago del usuario, pero el encargado debe confirmar el monto y el cobro. ¿Qué información necesitas?';
+  if (/uber|lyft|turo|plataforma|app/i.test(text))
+    return 'My City puede orientar al usuario sobre el proceso de la plataforma. Dime cuál plataforma y qué parte del trámite quieres revisar.';
+  return 'My City recibió tu mensaje de prueba. ¿Qué necesitas saber sobre la inspección o la aplicación?';
+}
+
+export function isTestPairMessage(row, threadKey, testUserId) {
+  if (!row || row.source === 'cart-ready-chat-assistant') return false;
+  const senderId = clean(row.userId), responderId = clean(row.targetUserId);
+  return [[clean(testUserId), CART_READY_ID], [CART_READY_ID, clean(testUserId)]]
+    .some(([from, to]) => senderId === from && responderId === to) &&
+    clean(row.threadKey) === threadKey && pairKey(CART_READY_ID, testUserId) === threadKey;
+}
+
 function serviceAccount() {
   const raw = clean(process.env.FIREBASE_SERVICE_ACCOUNT_JSON);
   if (!raw) throw new Error('FIREBASE_SERVICE_ACCOUNT_JSON is required');
@@ -67,9 +85,8 @@ export function startCartReadyChatWorker({chatDb, garageDb, testUserId, now = Da
   let stopped = false;
 
   async function handleMessage(threadKey, otherUserId, messageId, row) {
-    if (stopped || clean(otherUserId) !== clean(testUserId) || !row || row.source === 'cart-ready-chat-assistant') return;
-    if (clean(row.userId) !== clean(testUserId) || clean(row.targetUserId) !== CART_READY_ID ||
-        clean(row.threadKey) !== threadKey || pairKey(CART_READY_ID, testUserId) !== threadKey) return;
+    if (stopped || clean(otherUserId) !== clean(testUserId) || !isTestPairMessage(row, threadKey, testUserId)) return;
+    const senderId = clean(row.userId), responderId = clean(row.targetUserId);
     if (Number(row.createdAt) < cutoff || Number(row.createdAt) > Date.now() + 60000) return;
     const marker = chatDb.ref(`cartReadyChatAssistant/processed/${nodeKey(messageId)}`);
     const claimed = await marker.transaction(value => value === null ? {state: 'processing', at: Date.now()} : undefined);
@@ -77,43 +94,51 @@ export function startCartReadyChatWorker({chatDb, garageDb, testUserId, now = Da
     try {
       const recentSnap = await chatDb.ref(`commentsByPost/${threadKey}`).limitToLast(30).get();
       const recent = Object.values(recentSnap.val() || {});
-      if (recent.some(m => clean(m.userId) === CART_READY_ID && Number(m.createdAt) > Number(row.createdAt))) {
+      if (recent.some(m => clean(m.userId) === responderId && Number(m.createdAt) > Number(row.createdAt))) {
         await marker.update({state: 'handled_by_person'}); return;
       }
       if (row.mediaUrl && !row.text && !row.encryptedText) {
         await marker.update({state: 'needs_human_media'}); return;
       }
       const text = decryptText(row, threadKey);
-      const garage = (await garageDb.ref(`userMetadata/${nodeKey(testUserId)}/garage`).get()).val() || {};
-      const vehicles = Object.values(garage).filter(v => v && typeof v === 'object');
       const hasRequest = row.requestType === 'vehicle_inspection_request';
-      const inspection = hasRequest ? vehicles.find(v => clean(v.inspection?.requestId) === clean(row.inspectionRequestId))?.inspection :
-        vehicles.find(v => v.inspection?.status === 'pending')?.inspection;
-      const status = clean(inspection?.status).toLowerCase();
-      const preferenceRef = chatDb.ref(`cartReadyChatAssistant/paymentPreference/${nodeKey(testUserId)}`);
-      const previousMethod = clean((await preferenceRef.get()).val()?.method);
-      const method = paymentMethod(text);
-      const answer = inspectionReply({text, status, previousMethod, hasRequest});
+      let answer = '';
+      let method = '';
+      let preferenceRef;
+      if (responderId === CART_READY_ID) {
+        const garage = (await garageDb.ref(`userMetadata/${nodeKey(testUserId)}/garage`).get()).val() || {};
+        const vehicles = Object.values(garage).filter(v => v && typeof v === 'object');
+        const inspection = hasRequest ? vehicles.find(v => clean(v.inspection?.requestId) === clean(row.inspectionRequestId))?.inspection :
+          vehicles.find(v => v.inspection?.status === 'pending')?.inspection;
+        preferenceRef = chatDb.ref(`cartReadyChatAssistant/paymentPreference/${nodeKey(testUserId)}`);
+        const previousMethod = clean((await preferenceRef.get()).val()?.method);
+        method = paymentMethod(text);
+        answer = inspectionReply({text, status: clean(inspection?.status).toLowerCase(), previousMethod, hasRequest});
+      } else {
+        answer = myCityReply({text, hasRequest});
+      }
       if (!answer) { await marker.update({state: 'no_reply'}); return; }
       if (method) await preferenceRef.set({method, at: Date.now(), sourceMessageId: messageId});
-      const id = `cart_ready_assistant_${nodeKey(messageId)}`;
+      const id = `mycity_chat_assistant_${nodeKey(messageId)}`;
       const time = Date.now();
-      const reply = {id, userId: CART_READY_ID, userName: 'Cart Ready', userAvatar: clean(process.env.CART_READY_AVATAR_URL),
-        targetUserId: clean(testUserId), targetName: clean(row.userName) || 'Usuario', threadKey,
+      const responderName = responderId === CART_READY_ID ? 'Cart Ready' : clean(process.env.MYCITY_USER_NAME) || 'My City';
+      const responderAvatar = responderId === CART_READY_ID ? clean(process.env.CART_READY_AVATAR_URL) : clean(process.env.MYCITY_USER_AVATAR);
+      const reply = {id, userId: responderId, userName: responderName, userAvatar: responderAvatar,
+        targetUserId: senderId, targetName: clean(row.userName) || 'Usuario', threadKey,
         text: '', encryptedText: encryptText(answer, threadKey), kind: 'message', source: 'cart-ready-chat-assistant',
         createdAt: time, createdAtISO: new Date(time).toISOString(), updatedAt: time, rating: 0, repliesCount: 0,
-        readByUser: {[CART_READY_ID]: true}};
+        readByUser: {[responderId]: true}};
       const write = await chatDb.ref(`commentsByPost/${threadKey}/${id}`).transaction(value => value === null ? reply : undefined);
       if (write.committed) {
         await chatDb.ref().update({
           [`profileChatMeta/threads/${threadKey}/meta/updatedAt`]: time,
           [`profileChatMeta/threads/${threadKey}/meta/lastText`]: answer,
-          [`profileChatMeta/threads/${threadKey}/meta/lastSenderId`]: CART_READY_ID,
-          [`profileChatMeta/threads/${threadKey}/meta/lastReceiverId`]: clean(testUserId),
+          [`profileChatMeta/threads/${threadKey}/meta/lastSenderId`]: responderId,
+          [`profileChatMeta/threads/${threadKey}/meta/lastReceiverId`]: senderId,
           [`profileChatMeta/threads/${threadKey}/meta/lastMessageId`]: id,
-          [`profileChatMeta/threadsByUser/${nodeKey(testUserId)}/${CART_READY_ID}`]: {
-            threadKey, otherUserId: CART_READY_ID, otherName: 'Cart Ready', otherAvatar: reply.userAvatar,
-            lastText: answer, lastMessageAt: time, lastSenderId: CART_READY_ID, unread: true}
+          [`profileChatMeta/threadsByUser/${nodeKey(senderId)}/${responderId}`]: {
+            threadKey, otherUserId: responderId, otherName: responderName, otherAvatar: reply.userAvatar,
+            lastText: answer, lastMessageAt: time, lastSenderId: responderId, unread: true}
         });
       }
       await marker.update({state: 'replied', replyId: id});
