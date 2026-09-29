@@ -183,6 +183,11 @@ if (process.argv[1] && import.meta.url === new URL(`file://${process.argv[1]}`).
   const credential = admin.credential.cert(serviceAccount());
   const chatApp = admin.initializeApp({credential, databaseURL: CHAT_DB_URL}, 'cart-ready-chat');
   const garageApp = admin.initializeApp({credential, databaseURL: GARAGE_DB_URL}, 'cart-ready-garage');
+  await Promise.all([
+    admin.database(chatApp).ref(`commentsByPost/${pairKey(CART_READY_ID, testUserId)}`).limitToLast(1).get(),
+    admin.database(garageApp).ref(`userMetadata/${nodeKey(testUserId)}/garage`).get()
+  ]);
+  console.log('Cart Ready chat Firebase access verified');
   const stop = startCartReadyChatWorker({chatDb: admin.database(chatApp), garageDb: admin.database(garageApp), testUserId});
   process.on('SIGTERM', () => { stop(); Promise.all([chatApp.delete(), garageApp.delete()]).finally(() => process.exit(0)); });
 }
