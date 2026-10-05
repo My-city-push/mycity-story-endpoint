@@ -52,3 +52,11 @@ Business evidence review still needs an administrator workflow; payment never se
 ## Validation
 
 `npm test` includes ownership, authentication, message retries, draft approval invalidation, entitlement expiry, report filtering and raw Stripe webhook tests, alongside the existing Garage/chat tests. Tests use local mocks, not live model requests, charges or mail. Run `npm run check` for syntax checks. Browser/device integration is pending until verified sign-in is available.
+
+## Native GoodBarber authentication
+
+The UI now asks `gb.user.getCurrent` immediately before each API request and sends the native JWT with its user ID. The server POSTs `{jwt,user_id}` to the official Classic `/publicapi/v1/general/auth/{webzine_id}/validate/` endpoint, authenticated with a server-only `token` header. Only HTTP success with `is_anonymous: false` grants owner access. No client name, email, admin flag or decoded JWT is trusted. No native JWT is saved in localStorage. Logout clears the private view; login reloads the current owner.
+
+Configure `PROMOTION_GOODBARBER_APP_ID` and `PROMOTION_GOODBARBER_API_TOKEN` on the server. Never put the Public API token in custom HTML. Native JWT delivery requires App API version 2/3 and a build after September 14, 2026. The Firebase binding flow remains available for an explicitly configured web provider.
+
+Official references: https://app.goodbarber.dev/v2/documentation/ and https://classic.goodbarber.dev/publicapi/v1/documentation/ (machine schemas `/api/schema_v2/` and `/api/schema_v1/`). The Classic example uses `token` in its body while the request schema specifies `jwt`; implementation follows the schema. A real My City native test must confirm this contract before enablement. Validate owner A/B isolation, logout, expired JWT, anonymous rejection, app mismatch and unavailable upstream. Mock tests do not replace that native test.

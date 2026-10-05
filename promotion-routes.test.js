@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import express from 'express';
-import {registerPromotionRoutes, registerPromotionWebhook, hasAccess, sanitizeBusiness, sanitizeCampaign, promotionIdentity} from './promotion-routes.js';
+import {registerPromotionRoutes, registerPromotionWebhook, hasAccess, sanitizeBusiness, sanitizeCampaign, promotionIdentity, goodbarberPromotionIdentity} from './promotion-routes.js';
 
 function memory(initial={}) {
   const state=structuredClone(initial);
@@ -123,4 +123,31 @@ test('failed assistant retry reuses saved human message',async()=>{
     const messages=Object.values(h.store.state.promotionByOwner.a.messages);
     assert.equal(messages.filter(m=>m.role==='user').length,1);
   });
+});
+
+test('native identity requires upstream confirmation for exact app and user',async()=> {
+  const env={PROMOTION_GOODBARBER_APP_ID:'123',PROMOTION_GOODBARBER_API_TOKEN:'server-secret'};
+  let sent;
+  const fetchImpl=async(url,options)=>{sent={url,options};return {ok:true,status:200,json:async()=>({is_anonymous:false})}};
+  const owner=await goodbarberPromotionIdentity('native-jwt','629388',{env,fetchImpl});
+  assert.equal(owner.id,'629388');assert.equal(owner.admin,false);
+  assert.equal(sent.url,'https://classic.goodbarber.dev/publicapi/v1/general/auth/123/validate/');
+  assert.deepEqual(JSON.parse(sent.options.body),{jwt:'native-jwt',user_id:'629388'});
+  assert.equal(sent.options.headers.token,'server-secret');
+  await assert.rejects(()=>goodbarberPromotionIdentity('native-jwt','629388',{env:{},fetchImpl}),e=>e.status===503);
+  for(const result of [{is_anonymous:true},{},{is_anonymous:false,error_code:'4002'}]){
+    await assert.rejects(()=>goodbarberPromotionIdentity('native-jwt','629388',{env,fetchImpl:async()=>({ok:true,status:200,json:async()=>result})}),e=>e.status===401);
+  }
+  await assert.rejects(()=>goodbarberPromotionIdentity('native-jwt','someone/else',{env,fetchImpl}),e=>e.status===401);
+  await assert.rejects(()=>goodbarberPromotionIdentity('native-jwt','629388',{env,fetchImpl:async()=>({ok:false,status:400})}),e=>e.status===401);
+  await assert.rejects(()=>goodbarberPromotionIdentity('native-jwt','629388',{env,fetchImpl:async()=>{throw Error('offline')}}),e=>e.status===503);
+});
+test('native route uses validated owner and fails closed on unavailable verifier',async()=>{
+ const store=memory(),app=express();app.use(express.json());
+ registerPromotionRoutes(app,{store,env:{PROMOTION_ENABLED:'true'},authenticate:async()=>{throw Error('Wrong verifier')},authenticateGoodbarber:async(token,id)=>{if(token!=='native'||id!=='42')throw Object.assign(Error('invalid'),{status:401});return{id:'42'}}});
+ await withServer(app,async request=>{
+   const response=await request('/api/promotion/session',null,'unused',{'Authorization':'GoodBarber native','X-MyCity-User-Id':'42'});
+   assert.equal(response.status,200);assert.equal((await response.json()).user.id,'42');
+   assert.equal((await request('/api/promotion/session',null,'unused',{'Authorization':'GoodBarber native','X-MyCity-User-Id':'43'})).status,401);
+ });
 });

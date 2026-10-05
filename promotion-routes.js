@@ -44,6 +44,25 @@ export function createPromotionStore(database) {
   };
 }
 
+// Never decode a front JWT as proof: GoodBarber validates it for this app and user.
+export async function goodbarberPromotionIdentity(token, userId, {env = process.env, fetchImpl = fetch} = {}) {
+  if (!/^\d{1,20}$/.test(String(userId || '')) || typeof token !== 'string' || token.length > 12000) throw fail(401, 'Sesión de My City inválida.');
+  if (!/^\d{1,20}$/.test(env.PROMOTION_GOODBARBER_APP_ID || '') || !env.PROMOTION_GOODBARBER_API_TOKEN) throw fail(503, 'La verificación de My City todavía necesita su conexión.');
+  let response;
+  try {
+    response = await fetchImpl(`https://classic.goodbarber.dev/publicapi/v1/general/auth/${env.PROMOTION_GOODBARBER_APP_ID}/validate/`, {
+      method:'POST', redirect:'error', signal:AbortSignal.timeout(10000),
+      headers:{'Content-Type':'application/json', token:env.PROMOTION_GOODBARBER_API_TOKEN},
+      body:JSON.stringify({jwt:token,user_id:String(userId)})
+    });
+  } catch { throw fail(503, 'No se pudo comprobar la sesión de My City.'); }
+  if (response.status === 400) throw fail(401, 'La sesión de My City no es válida.');
+  if (!response.ok) throw fail(503, 'La verificación de My City no está disponible.');
+  let result; try { result = await response.json(); } catch { throw fail(503, 'Respuesta de verificación inválida.'); }
+  if (result?.is_anonymous !== false || result.error_code) throw fail(401, 'Inicia sesión en tu cuenta de My City.');
+  return {id:String(userId),name:'',email:'',admin:false};
+}
+
 export async function promotionIdentity(admin, store, token) {
   const claims = await admin.auth().verifyIdToken(token, true);
   // Provision this binding through a trusted GoodBarber account-verification flow.
@@ -124,7 +143,7 @@ export function promotionStripe(env = process.env) {
 }
 
 export function registerPromotionRoutes(app, deps) {
-  const {store, authenticate, stripe = null, assistant = promotionAssistant, env = process.env, uploadMedia} = deps;
+  const {store, authenticate, stripe = null, assistant = promotionAssistant, env = process.env, uploadMedia, authenticateGoodbarber} = deps;
   const router = express.Router();
   router.use((req,res,next) => {
     res.set('Cache-Control','no-store');
@@ -132,17 +151,18 @@ export function registerPromotionRoutes(app, deps) {
     const allowed = (env.PROMOTION_ALLOWED_ORIGINS || 'https://www.mycity.city').split(',').map(x => x.trim());
     if (origin && !allowed.includes(origin)) return res.status(403).json({error:'Origen no autorizado'});
     if (origin) { res.set('Access-Control-Allow-Origin',origin); res.vary('Origin'); }
-    res.set('Access-Control-Allow-Headers','Authorization, Content-Type');
+    res.set('Access-Control-Allow-Headers','Authorization, Content-Type, X-MyCity-User-Id');
     res.set('Access-Control-Allow-Methods','GET, POST, OPTIONS');
     if (req.method === 'OPTIONS') return res.status(204).end();
     next();
   });
   router.use(async (req,res,next) => {
     if (env.PROMOTION_ENABLED !== 'true' || !store) return res.status(503).json({error:'Promoción todavía no está habilitada.'});
-    const token = /^Bearer (.+)$/.exec(req.get('authorization') || '')?.[1];
+    const auth = /^(Bearer|GoodBarber) (.+)$/.exec(req.get('authorization') || '');
+    const token = auth?.[2];
     if (!token) return res.status(401).json({error:'Inicia sesión en My City.'});
-    try { req.owner = await authenticate(token); if (!key(req.owner.id)) throw fail(403,'Cuenta inválida'); next(); }
-    catch (e) { res.status(e.status === 403 ? 403 : 401).json({error:e.status === 403 ? e.message : 'La sesión no es válida.'}); }
+    try { req.owner = auth[1] === 'GoodBarber' ? await (authenticateGoodbarber || goodbarberPromotionIdentity)(token, req.get('X-MyCity-User-Id'), {env}) : await authenticate(token); if (!key(req.owner.id)) throw fail(403,'Cuenta inválida'); next(); }
+    catch (e) { res.status([403,503].includes(e.status) ? e.status : 401).json({error:[403,503].includes(e.status) ? e.message : 'La sesión no es válida.'}); }
   });
   const route = fn => async (req,res,next) => { try { await fn(req,res); } catch(e) { next(e); } };
   const view = (owner,row = {}) => ({user:{id:owner.id,name:owner.name},entitlement:{active:hasAccess(row.billing),status:row.billing?.status||'inactive',expiresAt:row.billing?.expiresAt||null},business:row.business||{},campaign:row.campaign||{status:'draft'},messages:Object.values(row.messages||{}).sort((a,b)=>a.createdAt-b.createdAt).slice(-100),capabilities:{assistant:!!env.OPENAI_API_KEY,checkout:!!stripe,publishing:false}});
