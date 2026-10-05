@@ -4,7 +4,12 @@ import { spawn } from "node:child_process";
 import admin from "firebase-admin";
 import { registerPersonalizedArticleRoutes } from "./personalized-article-routes.js";
 
+import {createPromotionStore, promotionIdentity, promotionStripe, registerPromotionRoutes, registerPromotionWebhook} from './promotion-routes.js';
+
 const app = express();
+const promotionStore = createPromotionStore({ref: path => admin.app().database('https://mycity-24ac6-default-rtdb.firebaseio.com').ref(path)});
+const promotionPayments = promotionStripe();
+registerPromotionWebhook(app, {store: promotionStore, stripe: promotionPayments});
 app.use(express.json({ limit: "12mb" }));
 
 app.use(express.static("public"));
@@ -994,6 +999,23 @@ registerPersonalizedArticleRoutes(app, {
   requireApiKey,
   uploadArticleCoverFromInput,
   dispatchPersonalizedArticleEmail
+});
+
+registerPromotionRoutes(app, {
+  store: promotionStore,
+  stripe: promotionPayments,
+  authenticate: token => promotionIdentity(admin, promotionStore, token),
+  uploadMedia: async (file, ownerId) => {
+    const resource = file.mimetype.startsWith('video/') ? 'video' : 'image';
+    const form = new FormData();
+    form.set('file', new Blob([file.buffer], {type: file.mimetype}), 'promotion-media');
+    form.set('upload_preset', process.env.PROMOTION_CLOUDINARY_PRESET || 'mycity_chat');
+    form.set('folder', 'mycity/promotion/' + ownerId);
+    const response = await fetch('https://api.cloudinary.com/v1_1/' + encodeURIComponent(CLOUDINARY_CLOUD_NAME) + '/' + resource + '/upload', {method: 'POST', body: form, signal: AbortSignal.timeout(45000)});
+    if (!response.ok) throw Object.assign(new Error('No se pudo subir el material.'), {status: 502});
+    const result = await response.json();
+    return {url: result.secure_url, type: file.mimetype};
+  }
 });
 
 app.use((_req, res) => res.status(404).json({ ok: false, error: "Not found" }));
