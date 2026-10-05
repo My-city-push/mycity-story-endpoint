@@ -4,7 +4,10 @@ import { spawn } from "node:child_process";
 import admin from "firebase-admin";
 import { registerPersonalizedArticleRoutes } from "./personalized-article-routes.js";
 
+import {registerGoodbarberSessionCheck} from './goodbarber-session.js';
+
 const app = express();
+registerGoodbarberSessionCheck(app);
 app.use(express.json({ limit: "12mb" }));
 
 app.use(express.static("public"));
