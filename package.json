@@ -8,12 +8,14 @@
   },
   "scripts": {
     "start": "node index.js",
-    "check": "node --check index.js && node --check personalized-article-routes.js && node --check automation-story-worker.js && node --check automation-video-story-worker.js",
-    "test": "node --test personalized-article-routes.test.js cart-ready-chat-worker.test.js",
+    "check": "node --check index.js && node --check personalized-article-routes.js && node --check automation-story-worker.js && node --check automation-video-story-worker.js && node --check promotion-routes.js",
+    "test": "node --test personalized-article-routes.test.js cart-ready-chat-worker.test.js promotion-routes.test.js",
     "chat:cart-ready": "node cart-ready-chat-worker.js"
   },
   "dependencies": {
     "express": "^5.1.0",
-    "firebase-admin": "^13.4.0"
+    "firebase-admin": "^13.4.0",
+    "multer": "^2.4.0",
+    "stripe": "^22.6.0"
   }
 }
