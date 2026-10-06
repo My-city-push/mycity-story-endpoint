@@ -1,3 +1,4 @@
+import {createEncryptedPromotionIntake,registerPromotionIntake} from './promotion-intake.js';
 import {createPrivatePromotionMemory} from './promotion-private-memory.js';
 import {createPromotionEmailAuth, registerPromotionEmailAuth, sendPromotionVerification} from './promotion-email-auth.js';
 import express from "express";
@@ -192,6 +193,7 @@ function initFirebase() {
 }
 
 initFirebase();
+registerPromotionIntake(app,{store:createEncryptedPromotionIntake(db,process.env.PROMOTION_INTAKE_ENCRYPTION_KEY),authenticate:(token,userId)=>promotionEmailAuth.authenticate(token,userId)});
 
 function requireApiKey(req, res, next) {
   if (!ENDPOINT_KEY) return res.status(503).json({ ok: false, error: "MYCITY_ENDPOINT_KEY is not configured" });

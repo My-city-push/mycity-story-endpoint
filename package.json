@@ -8,12 +8,13 @@
   },
   "scripts": {
     "start": "node index.js",
-    "check": "node --check index.js && node --check personalized-article-routes.js && node --check automation-story-worker.js && node --check automation-video-story-worker.js && node --check goodbarber-session.js && node --check promotion-email-auth.js && node --check promotion-private-memory.js",
-    "test": "node --test personalized-article-routes.test.js cart-ready-chat-worker.test.js goodbarber-session.test.js promotion-email-auth.test.js promotion-private-memory.test.js",
+    "check": "node --check index.js && node --check personalized-article-routes.js && node --check automation-story-worker.js && node --check automation-video-story-worker.js && node --check goodbarber-session.js && node --check promotion-email-auth.js && node --check promotion-private-memory.js && node --check promotion-intake.js",
+    "test": "node --test personalized-article-routes.test.js cart-ready-chat-worker.test.js goodbarber-session.test.js promotion-email-auth.test.js promotion-private-memory.test.js promotion-intake.test.js",
     "chat:cart-ready": "node cart-ready-chat-worker.js"
   },
   "dependencies": {
     "express": "^5.1.0",
-    "firebase-admin": "^13.4.0"
+    "firebase-admin": "^13.4.0",
+    "multer": "^2.0.2"
   }
 }
