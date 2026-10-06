@@ -1,3 +1,4 @@
+import {createPromotionEmailAuth, registerPromotionEmailAuth, sendPromotionVerification} from './promotion-email-auth.js';
 import express from "express";
 import crypto from "node:crypto";
 import { spawn } from "node:child_process";
@@ -11,6 +12,8 @@ const promotionStore = createPromotionStore({ref: path => admin.app().database('
 const promotionPayments = promotionStripe();
 registerPromotionWebhook(app, {store: promotionStore, stripe: promotionPayments});
 app.use(express.json({ limit: "12mb" }));
+const promotionEmailAuth = createPromotionEmailAuth({store: promotionStore, deliver: sendPromotionVerification});
+registerPromotionEmailAuth(app, promotionEmailAuth);
 
 app.use(express.static("public"));
 
@@ -1003,6 +1006,7 @@ registerPersonalizedArticleRoutes(app, {
 
 registerPromotionRoutes(app, {
   store: promotionStore,
+  authenticateEmail: (token, userId) => promotionEmailAuth.authenticate(token, userId),
   stripe: promotionPayments,
   authenticate: token => promotionIdentity(admin, promotionStore, token),
   uploadMedia: async (file, ownerId) => {

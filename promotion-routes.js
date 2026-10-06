@@ -143,7 +143,7 @@ export function promotionStripe(env = process.env) {
 }
 
 export function registerPromotionRoutes(app, deps) {
-  const {store, authenticate, stripe = null, assistant = promotionAssistant, env = process.env, uploadMedia, authenticateGoodbarber} = deps;
+  const {store, authenticate, stripe = null, assistant = promotionAssistant, env = process.env, uploadMedia, authenticateGoodbarber, authenticateEmail} = deps;
   const router = express.Router();
   router.use((req,res,next) => {
     res.set('Cache-Control','no-store');
@@ -158,10 +158,10 @@ export function registerPromotionRoutes(app, deps) {
   });
   router.use(async (req,res,next) => {
     if (env.PROMOTION_ENABLED !== 'true' || !store) return res.status(503).json({error:'Promoción todavía no está habilitada.'});
-    const auth = /^(Bearer|GoodBarber) (.+)$/.exec(req.get('authorization') || '');
+    const auth = /^(Bearer|GoodBarber|Promotion) (.+)$/.exec(req.get('authorization') || '');
     const token = auth?.[2];
     if (!token) return res.status(401).json({error:'Inicia sesión en My City.'});
-    try { req.owner = auth[1] === 'GoodBarber' ? await (authenticateGoodbarber || goodbarberPromotionIdentity)(token, req.get('X-MyCity-User-Id'), {env}) : await authenticate(token); if (!key(req.owner.id)) throw fail(403,'Cuenta inválida'); next(); }
+    try { req.owner = auth[1] === 'Promotion' ? await authenticateEmail(token, req.get('X-MyCity-User-Id')) : auth[1] === 'GoodBarber' ? await (authenticateGoodbarber || goodbarberPromotionIdentity)(token, req.get('X-MyCity-User-Id'), {env}) : await authenticate(token); if (!key(req.owner.id)) throw fail(403,'Cuenta inválida'); next(); }
     catch (e) { res.status([403,503].includes(e.status) ? e.status : 401).json({error:[403,503].includes(e.status) ? e.message : 'La sesión no es válida.'}); }
   });
   const route = fn => async (req,res,next) => { try { await fn(req,res); } catch(e) { next(e); } };

@@ -60,3 +60,32 @@ The UI now asks `gb.user.getCurrent` immediately before each API request and sen
 Configure `PROMOTION_GOODBARBER_APP_ID` and `PROMOTION_GOODBARBER_API_TOKEN` on the server. Never put the Public API token in custom HTML. Native JWT delivery requires App API version 2/3 and a build after September 14, 2026. The Firebase binding flow remains available for an explicitly configured web provider.
 
 Official references: https://app.goodbarber.dev/v2/documentation/ and https://classic.goodbarber.dev/publicapi/v1/documentation/ (machine schemas `/api/schema_v2/` and `/api/schema_v1/`). The Classic example uses `token` in its body while the request schema specifies `jwt`; implementation follows the schema. A real My City native test must confirm this contract before enablement. Validate owner A/B isolation, logout, expired JWT, anonymous rejection, app mismatch and unavailable upstream. Mock tests do not replace that native test.
+
+## Email verification fallback
+Implemented in promotion-email-auth.js and commercial chat; disabled pending setup.
+Server queries the exact memberships prospect ID and verifies returned user_id.
+Only the server-returned email receives the code. Mailbox confirmation does not verify a business.
+Codes expire in 10 minutes, allow 5 failures, and are consumed atomically once.
+Resend cooldown: 60 seconds; 3/hour and 5/day per account, plus IP limits.
+Sessions: 24 hours, browser memory only, server stores token hashes, logout revokes.
+
+Dedicated Make scenario (inactive until tested):
+- Custom webhook with API Key authentication via x-make-apikey.
+- Filter action = promotion_verification_code, validate fields.
+- Existing Gmail connection Push@mycity.city; To = recipientEmail;
+  subject: Tu código de verificación de My City; text includes verificationCode,
+  expiration in 10 minutes and notice to ignore an unsolicited request.
+- Webhook response AFTER successful Gmail send: HTTP 200, application/json,
+  {"status":"sent","challengeId":"<mapped challengeId>"}.
+  Do not acknowledge delivery before Gmail succeeds.
+- Set PROMOTION_VERIFICATION_WEBHOOK_URL and matching KEY privately in Render.
+  Use a separate random PROMOTION_EMAIL_AUTH_SECRET of at least 32 characters.
+- Audit Firebase rules: promotionAuthChallenges, promotionAuthSessions and
+  promotionAuthLimits must deny all client reads/writes. An ancestor true rule
+  overrides child denial; relocate auth storage if needed. Establish expiry cleanup.
+- Enable only after these checks, exact Cart Ready lookup, and a real delivery test.
+
+POST /api/mycity/email-verification/start {userId}
+POST /api/mycity/email-verification/confirm {userId,challengeId,code}
+Promotion routes accept Authorization: Promotion <accessToken> and X-MyCity-User-Id.
+This does not enable billing, business verification or automatic publication.
