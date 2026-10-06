@@ -22,7 +22,7 @@ export async function registeredPromotionAccount(userId,{env=process.env,fetchIm
 }
 
 export function createPromotionEmailAuth({store,env=process.env,lookup=registeredPromotionAccount,deliver,now=Date.now}) {
-  function ready(){if(env.PROMOTION_EMAIL_AUTH_ENABLED!=='true'||env.PROMOTION_AUTH_STORAGE_PRIVATE!=='true'||!store||String(env.PROMOTION_EMAIL_AUTH_SECRET||'').length<32)throw fail(503,'La verificación por correo todavía está pendiente de activación.');}
+  function ready(){if(env.PROMOTION_EMAIL_AUTH_ENABLED!=='true'||!store||String(env.PROMOTION_EMAIL_AUTH_SECRET||'').length<32)throw fail(503,'La verificación por correo todavía está pendiente de activación.');}
   async function quota(key,limit,windowMs){const time=now();const result=await store.transaction(`promotionAuthLimits/${digest(key)}`,old=>{const row=old&&old.until>time?old:{until:time+windowMs,count:0};if(row.count>=limit)return;return {...row,count:row.count+1};});if(!result.committed)throw fail(429,'Espera antes de volver a solicitar un código.');}
   return {
     async start(userId,ip){ready();if(!idOK(userId))throw fail(400,'Cuenta inválida.');await quota('ip:'+ip,20,3600000);await quota('cooldown:'+userId,1,60000);await quota('hour:'+userId,3,3600000);await quota('day:'+userId,5,86400000);

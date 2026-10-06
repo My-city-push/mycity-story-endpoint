@@ -1,3 +1,4 @@
+import {createPrivatePromotionMemory} from './promotion-private-memory.js';
 import {createPromotionEmailAuth, registerPromotionEmailAuth, sendPromotionVerification} from './promotion-email-auth.js';
 import express from "express";
 import crypto from "node:crypto";
@@ -10,17 +11,8 @@ import {registerGoodbarberSessionCheck} from './goodbarber-session.js';
 const app = express();
 registerGoodbarberSessionCheck(app);
 app.use(express.json({ limit: "12mb" }));
-// Private account-verification records: disabled until their client access rules are audited.
-const promotionAuthDatabase = () => admin.app().database('https://mycity-24ac6-default-rtdb.firebaseio.com');
-const promotionAuthStore = {
-  get: async path => (await promotionAuthDatabase().ref(path).get()).val(),
-  set: (path, value) => promotionAuthDatabase().ref(path).set(value),
-  transaction: async (path, mutate) => {
-    const result = await promotionAuthDatabase().ref(path).transaction(mutate, undefined, false);
-    return {committed: result.committed, value: result.snapshot.val()};
-  }
-};
-const promotionEmailAuth = createPromotionEmailAuth({store: promotionAuthStore, deliver: sendPromotionVerification});
+// Test-mode authentication stays private even while Firebase client rules are open.
+const promotionEmailAuth = createPromotionEmailAuth({store: createPrivatePromotionMemory(), deliver: sendPromotionVerification});
 registerPromotionEmailAuth(app, promotionEmailAuth);
 
 app.use(express.static("public"));

@@ -1,0 +1,5 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createPrivatePromotionMemory} from './promotion-private-memory.js';
+test('auth records are isolated copies, expire, and are absent after restart',async()=>{let time=100;const store=createPrivatePromotionMemory({now:()=>time});const row={expiresAt:200,account:{id:'1'}};await store.set('session',row);row.account.id='other';assert.equal((await store.get('session')).account.id,'1');assert.equal(await createPrivatePromotionMemory().get('session'),null);time=201;assert.equal(await store.get('session'),null);});
+test('atomic counters and bounded memory fail closed',async()=>{const store=createPrivatePromotionMemory({now:()=>100,maxRecords:1});const results=await Promise.all([store.transaction('quota',row=>row?undefined:{until:200,count:1}),store.transaction('quota',row=>row?undefined:{until:200,count:1})]);assert.equal(results.filter(x=>x.committed).length,1);await assert.rejects(store.set('other',{expiresAt:200}),{status:503});});
