@@ -21,7 +21,7 @@ export function sanitizeCampaign(input = {}) {
     days, time, timezone, monthlyLimit: MONTHLY_LIMIT};
 }
 
-export async function promotionAssistant({business, campaign, messages, env = process.env}) {
+export async function promotionAssistant({business, campaign, messages, env = process.env, fetchImpl = fetch}) {
   if (!env.OPENAI_API_KEY || !env.PROMOTION_AI_MODEL) throw fail(503, 'El asistente todavía necesita su conexión de IA.');
   const fields = ['commercialName', 'responsibleName', 'activity', 'serviceArea', 'contact', 'presentation', 'language', 'type'];
   const schema = {type: 'object', additionalProperties: false, required: ['reply', 'business', 'campaign'], properties: {
@@ -32,14 +32,14 @@ export async function promotionAssistant({business, campaign, messages, env = pr
       days: {type: 'array', items: {type: 'integer'}}, time: {type: 'string'}, timezone: {type: 'string'}
     }}
   }};
-  const response = await fetch('https://api.openai.com/v1/responses', {
+  let response;try{response = await fetchImpl('https://api.openai.com/v1/responses', {
     method: 'POST', signal: AbortSignal.timeout(45000), headers: {'Authorization': `Bearer ${env.OPENAI_API_KEY}`, 'Content-Type': 'application/json'},
     body: JSON.stringify({model: env.PROMOTION_AI_MODEL, store: false, max_output_tokens: 2200,
       instructions: 'Eres My City, asistente exclusivamente de promoción en la app. Recopila datos del negocio por etapas, sin inventarlos: nombre comercial, responsable, actividad, local/domicilio/en línea, zona, contacto, materiales y presentación. Mantén datos previos salvo cambios explícitos. Propón borradores y horarios, hasta 8 publicaciones/mes por $9.99, prueba 14 días/2 publicaciones. Nunca afirmes publicar, verificar, cobrar ni enviar correos: solo preparas. No atiendas inspecciones ni trámites ajenos. Pregunta pocos datos cada vez. No prometas ventas. Las aperturas de correo no prueban lectura. Usa el idioma del usuario. La evidencia comercial se revisa por separado, pagar no verifica un negocio.',
       input: [{role:'developer',content: JSON.stringify({business,campaign})}, ...messages.slice(-20).map(m => ({role:m.role, content:clean(m.text,6000) || 'El usuario adjuntó material de promoción.'}))],
       text: {format: {type: 'json_schema', name: 'promotion_draft', strict: true, schema}}})
-  });
-  if (!response.ok) throw fail(502, 'No se pudo consultar el asistente. Tu mensaje está guardado; puedes reintentar.');
+  });}catch{console.warn('promotion-assistant network_error');throw fail(502,'La respuesta tardó demasiado. Tu mensaje está guardado; reintenta.');}
+  if (!response.ok){let code='unknown';try{const raw=(await response.json())?.error?.code;if(/^[a-z_]{1,60}$/.test(raw||''))code=raw;}catch{}console.warn('promotion-assistant upstream_status='+response.status+' error_code='+code);throw fail(502,code==='insufficient_quota'?'La conexión de IA necesita saldo disponible en OpenAI. Tu mensaje quedó guardado.':response.status===401?'La clave de OpenAI no fue aceptada. Tu mensaje quedó guardado.':'No se pudo consultar el asistente. Tu mensaje está guardado; puedes reintentar.');}
   const data = await response.json();
   const text = (data.output || []).flatMap(x => x.content || []).filter(x => x.type === 'output_text').map(x => x.text).join('');
   let parsed; try { parsed = JSON.parse(text); } catch { throw fail(502, 'La respuesta del asistente no pudo procesarse.'); }

@@ -1,3 +1,4 @@
+import {promotionAssistant} from './promotion-assistant.js';
 import {createEncryptedPromotionIntake,registerPromotionIntake} from './promotion-intake.js';
 import {createPrivatePromotionMemory} from './promotion-private-memory.js';
 import {createPromotionEmailAuth, registerPromotionEmailAuth, sendPromotionVerification} from './promotion-email-auth.js';
@@ -193,6 +194,7 @@ function initFirebase() {
 }
 
 initFirebase();
+if(process.env.PROMOTION_AI_ENABLED==='true'&&process.env.OPENAI_API_KEY&&process.env.PROMOTION_AI_MODEL){promotionAssistant({business:{},campaign:{},messages:[{role:'user',text:'Prueba técnica sin datos reales. Pregunta el nombre del negocio para comenzar.'}]}).then(()=>console.info('promotion-assistant connection_probe=ok')).catch(e=>console.warn('promotion-assistant connection_probe=failed status='+String(e.status||503)));}
 registerPromotionIntake(app,{store:createEncryptedPromotionIntake(db,process.env.PROMOTION_INTAKE_ENCRYPTION_KEY),authenticate:(token,userId)=>promotionEmailAuth.authenticate(token,userId)});
 
 function requireApiKey(req, res, next) {
