@@ -17,7 +17,12 @@ export function createEncryptedPromotionIntake(database,secret){
   function encode(row,path){const iv=crypto.randomBytes(12);const cipher=crypto.createCipheriv('aes-256-gcm',encryptionKey,iv);cipher.setAAD(Buffer.from(path));const data=Buffer.concat([cipher.update(JSON.stringify(row)),cipher.final()]);return {version:1,iv:iv.toString('base64'),tag:cipher.getAuthTag().toString('base64'),data:data.toString('base64')};}
   return {
     async get(owner){if(!valid(owner))throw fail(401,'Cuenta inválida.');const path=node(owner);return decode((await database.ref(path).get()).val(),path);},
-    async transaction(owner,mutate){if(!valid(owner))throw fail(401,'Cuenta inválida.');const path=node(owner);const result=await database.ref(path).transaction(value=>{const next=mutate(decode(value,path));return next===undefined?undefined:encode(next,path);},undefined,false);return {committed:result.committed,value:decode(result.snapshot.val(),path)};}
+    async transaction(owner,mutate){if(!valid(owner))throw fail(401,'Cuenta inválida.');const path=node(owner),ref=database.ref(path);let listener;
+      // Retain the server value: cold transactions may see null before synchronization.
+      try{await new Promise((resolve,reject)=>{listener=()=>resolve();ref.on('value',listener,reject);});
+        const result=await ref.transaction(value=>{const next=mutate(decode(value,path));return next===undefined?undefined:encode(next,path);},undefined,false);
+        return {committed:result.committed,value:decode(result.snapshot.val(),path)};
+      }finally{if(listener)ref.off('value',listener);}}
   };
 }
 
