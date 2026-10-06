@@ -13,8 +13,8 @@ export async function registeredPromotionAccount(userId,{env=process.env,fetchIm
   if(!idOK(appId)||!key) throw fail(503,'La conexión de verificación todavía está pendiente.');
   let response;
   try { response=await fetchImpl(`https://classic.goodbarber.dev/publicapi/v1/general/prospects/${appId}/prospect/${userId}/`,{headers:{token:key},redirect:'error',signal:AbortSignal.timeout(10000)}); }
-  catch { throw fail(503,'No se pudo consultar la cuenta de My City.'); }
-  if(!response.ok) throw fail(503,'No se pudo consultar la cuenta de My City.');
+  catch { console.warn('promotion-account-lookup network_error'); throw fail(503,'No se pudo consultar la cuenta de My City.'); }
+  if(!response.ok) {let errorCode=0;try{const error=await response.json();errorCode=Number(error.error_code)||0}catch{}console.warn('promotion-account-lookup upstream_status='+response.status+' error_code='+errorCode);throw fail(503,'No se pudo consultar la cuenta de My City.');}
   let account;try{account=await response.json()}catch{throw fail(503,'Respuesta de cuenta inválida.');}
   // Never trust an email, display name or internal note supplied by the client.
   if(String(account.user_id)!==String(userId)||account.is_active===false||!/^\S+@\S+\.\S+$/.test(account.email||'')) throw fail(503,'No se pudo consultar la cuenta de My City.');
@@ -62,3 +62,4 @@ export function registerPromotionEmailAuth(app,auth,{env=process.env}={}) {
   router.post('/logout',route(async req=>{await auth.logout(/^Promotion (.+)$/.exec(req.get('authorization')||'')?.[1]);return {ok:true};}));
   app.use('/api/mycity/email-verification',router);
 }
+
