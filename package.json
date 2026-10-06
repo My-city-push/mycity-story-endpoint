@@ -8,8 +8,8 @@
   },
   "scripts": {
     "start": "node index.js",
-    "check": "node --check index.js && node --check personalized-article-routes.js && node --check automation-story-worker.js && node --check automation-video-story-worker.js && node --check goodbarber-session.js",
-    "test": "node --test personalized-article-routes.test.js cart-ready-chat-worker.test.js goodbarber-session.test.js",
+    "check": "node --check index.js && node --check personalized-article-routes.js && node --check automation-story-worker.js && node --check automation-video-story-worker.js && node --check goodbarber-session.js && node --check promotion-email-auth.js",
+    "test": "node --test personalized-article-routes.test.js cart-ready-chat-worker.test.js goodbarber-session.test.js promotion-email-auth.test.js",
     "chat:cart-ready": "node cart-ready-chat-worker.js"
   },
   "dependencies": {
