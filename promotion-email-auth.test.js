@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createPromotionEmailAuth,registeredPromotionAccount,sendPromotionVerification} from './promotion-email-auth.js';
+import {createPromotionEmailAuth,registeredPromotionAccount,sendPromotionVerification,registerPromotionEmailAuth} from './promotion-email-auth.js';
 function fixture(){let time=1000000;const rows=new Map();let delivery;const store={get:async p=>rows.get(p),set:async(p,v)=>{v===null?rows.delete(p):rows.set(p,structuredClone(v));},transaction:async(p,fn)=>{const value=fn(structuredClone(rows.get(p)));if(value===undefined)return {committed:false,value:rows.get(p)};rows.set(p,structuredClone(value));return {committed:true,value};}};const env={PROMOTION_EMAIL_AUTH_ENABLED:'true',PROMOTION_AUTH_STORAGE_PRIVATE:'true',PROMOTION_EMAIL_AUTH_SECRET:'x'.repeat(32)};const auth=createPromotionEmailAuth({store,env,now:()=>time,lookup:async id=>({id,email:'registered@example.com',name:'Business',admin:false}),deliver:async data=>{delivery=data}});return {auth,rows,env,store,get delivery(){return delivery},advance:ms=>time+=ms};}
 test('only registered email is sent; code creates expiring owner-bound revocable session',async()=>{const f=fixture();const challenge=await f.auth.start('123','ip');assert.equal(f.delivery.recipientEmail,'registered@example.com');const verified=await f.auth.confirm(challenge.challengeId,f.delivery.verificationCode,'123','ip');assert.equal((await f.auth.authenticate(verified.accessToken,'123')).id,'123');await assert.rejects(f.auth.authenticate(verified.accessToken,'456'),{status:401});await assert.rejects(f.auth.confirm(challenge.challengeId,f.delivery.verificationCode,'123','ip'),{status:401});assert.ok(!JSON.stringify([...f.rows.values()]).includes(verified.accessToken));await f.auth.logout(verified.accessToken);await assert.rejects(f.auth.authenticate(verified.accessToken,'123'),{status:401});});
 test('five incorrect attempts lock the code even if the next code is correct',async()=>{const f=fixture(),c=await f.auth.start('123','ip');const wrong=f.delivery.verificationCode==='000000'?'000001':'000000';for(let i=0;i<5;i++)await assert.rejects(f.auth.confirm(c.challengeId,wrong,'123','ip'),{status:401});await assert.rejects(f.auth.confirm(c.challengeId,f.delivery.verificationCode,'123','ip'),{status:401});});
@@ -21,4 +21,13 @@ test('expired members resolve by exact user ID across subscription pages',async(
 });
 test('permission failures never fall back to membership lists',async()=>{
  let calls=0;await assert.rejects(registeredPromotionAccount('123',{env:{GOODBARBER_APP_ID:'2817182',GOODBARBER_READ_TOKEN:'secret'},fetchImpl:async()=>{calls++;return {ok:false,status:403,json:async()=>({error_code:1998})}}}),{status:503});assert.equal(calls,1);
+});
+
+test('public OTP CORS supports native origins without opening promotion data routes',async()=>{
+ const {default:express}=await import('express');const app=express();app.use(express.json());registerPromotionEmailAuth(app,{start:async()=>({ok:true})},{env:{PROMOTION_EMAIL_AUTH_ALLOWED_ORIGINS:'*',PROMOTION_ALLOWED_ORIGINS:'https://www.mycity.city'}});
+ const server=app.listen(0,'127.0.0.1');await new Promise(r=>server.once('listening',r));try{
+ const url=`http://127.0.0.1:${server.address().port}`;
+ const response=await fetch(url+'/api/mycity/email-verification/start',{method:'OPTIONS',headers:{Origin:'gbcustom://app','Access-Control-Request-Method':'POST'}});assert.equal(response.status,204);assert.equal(response.headers.get('access-control-allow-origin'),'*');assert.equal(response.headers.get('access-control-allow-credentials'),null);
+ assert.equal((await fetch(url+'/api/promotion/session',{headers:{Origin:'gbcustom://app'}})).status,404);
+ }finally{await new Promise(r=>server.close(r));}
 });
