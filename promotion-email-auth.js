@@ -73,11 +73,11 @@ export function createPromotionEmailAuth({store,env=process.env,lookup=registere
 
 export async function sendPromotionVerification(payload,{env=process.env,fetchImpl=fetch}={}) {
   const url=env.PROMOTION_VERIFICATION_WEBHOOK_URL,key=env.PROMOTION_VERIFICATION_WEBHOOK_KEY;
-  if(!url||!key)throw fail(503,'Envío de verificación pendiente.');
+  if(!url||!key){console.warn('promotion-email-delivery missing_configuration');throw fail(503,'Envío de verificación pendiente.');}
   const target=new URL(url);if(target.protocol!=='https:'||!/^hook\.(?:[a-z0-9-]+\.)?make\.com$/.test(target.hostname))throw fail(503,'Conexión de correo inválida.');
-  const response=await fetchImpl(target,{method:'POST',redirect:'error',signal:AbortSignal.timeout(20000),headers:{'Content-Type':'application/json','x-make-apikey':key},body:JSON.stringify(payload)});
-  if(!response.ok)throw fail(503,'Envío de verificación fallido.');
-  const result=await response.json();if(result?.status!=='sent'||result.challengeId!==payload.challengeId)throw fail(503,'El envío no fue confirmado.');
+  let response;try{response=await fetchImpl(target,{method:'POST',redirect:'error',signal:AbortSignal.timeout(20000),headers:{'Content-Type':'application/json','x-make-apikey':key},body:JSON.stringify(payload)});}catch{console.warn('promotion-email-delivery network_error');throw fail(503,'Envío de verificación fallido.');}
+  if(!response.ok){console.warn('promotion-email-delivery upstream_status='+response.status);throw fail(503,'Envío de verificación fallido.');}
+  let result;try{result=await response.json()}catch{console.warn('promotion-email-delivery invalid_acknowledgement');throw fail(503,'El envío no fue confirmado.');}if(result?.status!=='sent'||result.challengeId!==payload.challengeId){console.warn('promotion-email-delivery acknowledgement_mismatch');throw fail(503,'El envío no fue confirmado.');}
 }
 
 export function registerPromotionEmailAuth(app,auth,{env=process.env}={}) {
