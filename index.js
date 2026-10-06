@@ -1,3 +1,5 @@
+import {createPromotionPayments,createPromotionBilling,registerPromotionPaymentWebhook} from './promotion-billing.js';
+import {createPromotionAutomation,promotionArticle} from './promotion-automation.js';
 import {promotionAssistant} from './promotion-assistant.js';
 import {createEncryptedPromotionIntake,registerPromotionIntake} from './promotion-intake.js';
 import {createPrivatePromotionMemory} from './promotion-private-memory.js';
@@ -12,6 +14,7 @@ import {registerGoodbarberSessionCheck} from './goodbarber-session.js';
 
 const app = express();
 registerGoodbarberSessionCheck(app);
+registerPromotionPaymentWebhook(app,{billing:{ready:()=>!!promotionBilling?.ready(),syncSubscription:id=>promotionBilling.syncSubscription(id)},stripe:createPromotionPayments()});
 app.use(express.json({ limit: "12mb" }));
 // Test-mode authentication stays private even while Firebase client rules are open.
 const promotionEmailAuth = createPromotionEmailAuth({store: createPrivatePromotionMemory(), deliver: sendPromotionVerification});
@@ -195,7 +198,18 @@ function initFirebase() {
 
 initFirebase();
 if(process.env.PROMOTION_AI_ENABLED==='true'&&process.env.OPENAI_API_KEY&&process.env.PROMOTION_AI_MODEL){promotionAssistant({business:{},campaign:{},messages:[{role:'user',text:'Prueba técnica sin datos reales. Pregunta el nombre del negocio para comenzar.'}]}).then(()=>console.info('promotion-assistant connection_probe=ok')).catch(e=>console.warn('promotion-assistant connection_probe=failed status='+String(e.status||503)));}
-registerPromotionIntake(app,{store:createEncryptedPromotionIntake(db,process.env.PROMOTION_INTAKE_ENCRYPTION_KEY),authenticate:(token,userId)=>promotionEmailAuth.authenticate(token,userId)});
+const promotionStore=createEncryptedPromotionIntake(db,process.env.PROMOTION_INTAKE_ENCRYPTION_KEY);
+const promotionPayments=createPromotionPayments();
+const promotionBilling=createPromotionBilling({store:promotionStore,stripe:promotionPayments});
+const promotionAutomation=createPromotionAutomation({store:promotionStore,billing:promotionBilling,relationships:async owner=>{
+ const get=async base=>{const u=new URL(base+'/'+owner+'.json');if(process.env.FIREBASE_RELATION_AUTH_TOKEN)u.searchParams.set('auth',process.env.FIREBASE_RELATION_AUTH_TOKEN);const r=await fetch(u,{signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('Relationship read failed');return r.json();};
+ const [followers,following]=await Promise.all([get('https://followers-by-user.firebaseio.com'),get('https://following-by-user.firebaseio.com')]);return {followers,following};
+},publish:async payload=>{const article=promotionArticle(payload);const existing=await firebaseGet('storyVitrine/'+payload.id);if(existing?.ownerUserId===payload.owner)return;
+ const updates={['storyVitrine/'+payload.id]:article,['storyVitrineFeed/'+payload.id]:article,['storyVitrineByUser/'+payload.owner+'/'+payload.id]:article};for(const id of payload.recipients)updates['storyVitrineTargetByUser/'+id+'/'+payload.id]=article;await firebaseRootPatch(updates);
+}});
+registerPromotionIntake(app,{store:promotionStore,billing:promotionBilling,automation:promotionAutomation,authenticate:(token,userId)=>promotionEmailAuth.authenticate(token,userId)});
+promotionAutomation.start();
+console.info('promotion-billing key_configured='+String(!!process.env.PROMOTION_STRIPE_KEY)+' webhook_configured='+String(!!process.env.PROMOTION_STRIPE_WEBHOOK_SECRET));
 
 function requireApiKey(req, res, next) {
   if (!ENDPOINT_KEY) return res.status(503).json({ ok: false, error: "MYCITY_ENDPOINT_KEY is not configured" });

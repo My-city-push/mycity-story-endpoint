@@ -1,3 +1,4 @@
+import {hasPromotionAccess} from './promotion-billing.js';
 import {promotionAssistant,sanitizeBusiness,sanitizeCampaign,preparePromotionFlow} from './promotion-assistant.js';
 import crypto from 'node:crypto';
 import express from 'express';
@@ -15,18 +16,22 @@ export function createEncryptedPromotionIntake(database,secret){
     catch{throw fail(503,'No se pudo leer la conversación guardada.');}
   }
   function encode(row,path){const iv=crypto.randomBytes(12);const cipher=crypto.createCipheriv('aes-256-gcm',encryptionKey,iv);cipher.setAAD(Buffer.from(path));const data=Buffer.concat([cipher.update(JSON.stringify(row)),cipher.final()]);return {version:1,iv:iv.toString('base64'),tag:cipher.getAuthTag().toString('base64'),data:data.toString('base64')};}
+  const customerPath=id=>'promotionStripeBindingsEncrypted/'+crypto.createHmac('sha256',encryptionKey).update(String(id)).digest('hex');
   return {
+    async bindCustomer(id,owner){const path=customerPath(id);await database.ref(path).set(encode({owner},path));},
+    async ownerForCustomer(id){const path=customerPath(id);return decode((await database.ref(path).get()).val(),path).owner||null;},
+    async listOwners(){const values=(await database.ref('promotionIntakeEncrypted').get()).val()||{};return Object.entries(values).map(([id,value])=>{try{const row=decode(value,'promotionIntakeEncrypted/'+id);return valid(row.ownerId)&&node(row.ownerId)==='promotionIntakeEncrypted/'+id?row.ownerId:null;}catch{console.warn('promotion-intake encrypted_record=unreadable');return null;}}).filter(Boolean);},
     async get(owner){if(!valid(owner))throw fail(401,'Cuenta inválida.');const path=node(owner);return decode((await database.ref(path).get()).val(),path);},
     async transaction(owner,mutate){if(!valid(owner))throw fail(401,'Cuenta inválida.');const path=node(owner),ref=database.ref(path);let listener;
       // Retain the server value: cold transactions may see null before synchronization.
       try{await new Promise((resolve,reject)=>{listener=()=>resolve();ref.on('value',listener,reject);});
-        const result=await ref.transaction(value=>{const next=mutate(decode(value,path));return next===undefined?undefined:encode(next,path);},undefined,false);
+        const result=await ref.transaction(value=>{const next=mutate(decode(value,path));if(next===undefined)return;next.ownerId=owner;return encode(next,path);},undefined,false);
         return {committed:result.committed,value:decode(result.snapshot.val(),path)};
       }finally{if(listener)ref.off('value',listener);}}
   };
 }
 
-export function registerPromotionIntake(app,{store,authenticate,env=process.env,assistant=promotionAssistant}){
+export function registerPromotionIntake(app,{store,authenticate,env=process.env,assistant=promotionAssistant,billing=null,automation=null}){
   const aiReady=()=>env.PROMOTION_AI_ENABLED==='true'&&!!env.OPENAI_API_KEY&&!!env.PROMOTION_AI_MODEL;
   console.info('promotion-assistant configuration_enabled='+String(env.PROMOTION_AI_ENABLED==='true')+' key_configured='+String(!!env.OPENAI_API_KEY)+' model_configured='+String(!!env.PROMOTION_AI_MODEL));
   const router=express.Router();
@@ -35,7 +40,7 @@ export function registerPromotionIntake(app,{store,authenticate,env=process.env,
     if(env.PROMOTION_INTAKE_ENABLED!=='true'||!store)return res.status(503).json({error:'Recepción de promociones pendiente de activación.'});
     try{const token=/^Promotion ([A-Za-z0-9_-]{43})$/.exec(req.get('authorization')||'')?.[1];if(!token)throw fail(401,'Verifica tu cuenta para abrir Promoción.');req.owner=await authenticate(token,req.get('X-MyCity-User-Id'));next();}catch(e){res.status(e.status||401).json({error:e.status?e.message:'Vuelve a verificar tu cuenta.'});}
   });
-  const view=(owner,row)=>({user:{id:owner.id,name:owner.name},entitlement:{active:false,status:'inactive'},business:row.business||{verificationStatus:'pending'},campaign:row.campaign||{status:'draft'},messages:row.messages||[],preparation:row.preparation||{stage:'collect_business'},capabilities:{assistant:aiReady(),checkout:false,publishing:false,intake:true}});
+  const view=(owner,row)=>({user:{id:owner.id,name:owner.name},entitlement:{active:hasPromotionAccess(row.billing),status:row.billing?.status||'inactive',expiresAt:row.billing?.expiresAt||null},business:row.business||{verificationStatus:'pending'},campaign:row.campaign||{status:'draft'},messages:row.messages||[],preparation:row.preparation||{stage:'collect_business'},capabilities:{assistant:aiReady(),checkout:!!billing?.ready(),publishing:!!automation?.ready(),intake:true}});
   router.get('/session',async(req,res,next)=>{try{res.json(view(req.owner,await store.get(req.owner.id)));}catch(e){next(e);}});
   const parse=multer({limits:{fields:3,fieldSize:24000,files:0}}).none();
   router.post('/messages',parse,async(req,res,next)=>{
@@ -61,7 +66,7 @@ export function registerPromotionIntake(app,{store,authenticate,env=process.env,
           const row=claimed.value;const answer=await assistant({business:row.business||{},campaign:row.campaign?.draft||{},preparation:row.preparation||{},messages:row.messages,env});
           const business=sanitizeBusiness(answer.business);const flow=preparePromotionFlow({previous:row.business||{},business,preparation:row.preparation||{},text,reply:answer.reply});
           const reply={id:'assistant_'+id,role:'assistant',text:flow.reply,createdAt:Date.now()};
-          const committed=await store.transaction(req.owner.id,current=>{if(current.requests?.[id]?.status==='done')return current;if(current.lease?.id!==lease)return;current.messages=[...current.messages,reply].slice(-100);current.preparation=flow.preparation;current.business={...business,verificationStatus:'pending'};current.campaign={status:'draft',draft:sanitizeCampaign(answer.campaign),updatedAt:Date.now()};current.requests[id]={status:'done',messages:[user,reply]};const ids=Object.keys(current.requests);for(const old of ids.slice(0,Math.max(0,ids.length-100)))delete current.requests[old];current.lease=null;current.updatedAt=Date.now();return current;});
+          const committed=await store.transaction(req.owner.id,current=>{if(current.requests?.[id]?.status==='done')return current;if(current.lease?.id!==lease)return;current.messages=[...current.messages,reply].slice(-100);current.preparation=flow.preparation;current.business={...business,verificationStatus:'pending'};const draft=sanitizeCampaign(answer.campaign);const changed=JSON.stringify(draft)!==JSON.stringify(current.campaign?.draft);current.campaign={...current.campaign,status:changed?'draft':current.campaign?.status||'draft',draft,...(changed?{approvedHash:null}:{}),updatedAt:Date.now()};current.requests[id]={status:'done',messages:[user,reply]};const ids=Object.keys(current.requests);for(const old of ids.slice(0,Math.max(0,ids.length-100)))delete current.requests[old];current.lease=null;current.updatedAt=Date.now();return current;});
           if(!committed.committed&&committed.value.requests?.[id]?.status!=='done')throw fail(409,'La conversación cambió. Reintenta el envío.');console.info('promotion-chat phase=done');return res.json({messages:[user,reply]});
         }catch(error){await store.transaction(req.owner.id,row=>{if(row.requests?.[id]?.status==='failed')return row;if(row.lease?.id!==lease)return;row.lease=null;row.requests[id]={status:'failed'};return row;});throw error;}
       }
@@ -75,9 +80,16 @@ export function registerPromotionIntake(app,{store,authenticate,env=process.env,
       res.json({messages:result.value.requests[id]});
     }catch(e){console.warn('promotion-chat phase=failed status='+String(e.status||503));next(e);}
   });
-  router.get('/reports/:report',async(req,res,next)=>{try{const row=await store.get(req.owner.id);res.json({items:req.params.report==='publications'&&row.campaign?.draft?[{title:row.campaign.draft.title||'Borrador de promoción',summary:[row.campaign.draft.offer,'Audiencia: '+row.campaign.draft.audience,row.campaign.draft.time+' · '+row.campaign.draft.timezone].filter(Boolean).join(' · '),status:'Borrador · publicación pendiente'}]:req.params.report==='business'&&row.business?[{name:row.business.commercialName||'Negocio pendiente',summary:[row.business.activity,row.business.serviceArea,row.business.presentation].filter(Boolean).join(' · '),status:'Verificación comercial pendiente'}]:[],updatedAt:row.updatedAt||null,status:'pending'});}catch(e){next(e);}});
-  router.post('/campaign/actions',(_req,res)=>res.status(503).json({error:'La programación de publicaciones todavía no está activada.'}));
-  router.post('/billing/:action',(_req,res)=>res.status(503).json({error:'Los cobros todavía no están activados.'}));
+  router.get('/reports/:report',async(req,res,next)=>{try{
+    const row=await store.get(req.owner.id);const panel=req.params.report;if(!['results','audience','publications','deliveries','business'].includes(panel))throw fail(404,'Panel desconocido.');
+    const since=Date.now()-(req.query.period==='30d'?30:7)*86400000;const publications=Object.values(row.publications||{}).filter(p=>p.createdAt>=since);
+    const draft=row.campaign?.draft;const days=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+    let items=panel==='publications'?[...(draft?[{title:draft.title||'Borrador de promoción',summary:[draft.offer,'Audiencia: '+draft.audience,(draft.days||[]).map(d=>days[d]).join(', '),draft.time+' · '+draft.timezone].filter(Boolean).join(' · '),status:row.campaign.status==='active'?'Programación activa':row.campaign.status==='approved'?'Borrador aprobado · activa tu plan y pulsa Reactivar':'Borrador · pendiente de aprobación'}]:[]),...publications]:panel==='business'&&row.business?[{name:row.business.commercialName||'Negocio pendiente',summary:[row.business.activity,row.business.serviceArea,row.business.contact,row.business.presentation].filter(Boolean).join(' · '),status:row.preparation?.confirmedFingerprint?'Datos confirmados · revisión comercial pendiente':'Datos pendientes de confirmar'}]:panel==='results'?[{title:'Publicaciones realizadas',summary:String(publications.length)+' publicaciones; '+publications.reduce((n,p)=>n+(p.recipientCount||0),0)+' destinos en total (pueden repetirse entre publicaciones)',status:'Registros del servidor'}]:[];
+    const q=String(req.query.q||'').toLowerCase();items=items.filter(x=>!q||[x.name,x.title,x.summary].join(' ').toLowerCase().includes(q));
+    res.json({items,updatedAt:row.updatedAt||null,status:panel==='deliveries'?'email_pending':'ready',nextRunAt:row.campaign?.nextRunAt||null});
+  }catch(e){next(e);}});
+  router.post('/campaign/actions',async(req,res,next)=>{try{if(!automation)throw fail(503,'La programación sigue pendiente.');await automation.action(req.owner,req.body?.action);res.json(view(req.owner,await store.get(req.owner.id)));}catch(e){next(e);}});
+  router.post('/billing/:action',async(req,res,next)=>{try{if(!billing||!['checkout','portal'].includes(req.params.action))throw fail(503,'Falta completar la conexión de Stripe.');res.json(await billing[req.params.action](req.owner));}catch(e){next(e);}});
   router.use((error,_req,res,_next)=>res.status(error.status||503).json({error:error.status?error.message:'No se pudo guardar la solicitud. Si adjuntaste un archivo, envía primero el texto; los adjuntos siguen pendientes.'}));
   app.use('/api/promotion',router);
 }
