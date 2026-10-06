@@ -11,11 +11,37 @@ export async function registeredPromotionAccount(userId,{env=process.env,fetchIm
   const appId=env.PROMOTION_GOODBARBER_APP_ID||env.GOODBARBER_APP_ID;
   const key=env.PROMOTION_GOODBARBER_API_TOKEN||env.GOODBARBER_READ_TOKEN;
   if(!idOK(appId)||!key) throw fail(503,'La conexión de verificación todavía está pendiente.');
-  let response;
-  try { response=await fetchImpl(`https://classic.goodbarber.dev/publicapi/v1/general/prospects/${appId}/prospect/${userId}/`,{headers:{token:key},redirect:'error',signal:AbortSignal.timeout(10000)}); }
-  catch { console.warn('promotion-account-lookup network_error'); throw fail(503,'No se pudo consultar la cuenta de My City.'); }
-  if(!response.ok) {let errorCode=0;try{const error=await response.json();errorCode=Number(error.error_code)||0}catch{}console.warn('promotion-account-lookup upstream_status='+response.status+' error_code='+errorCode);throw fail(503,'No se pudo consultar la cuenta de My City.');}
-  let account;try{account=await response.json()}catch{throw fail(503,'Respuesta de cuenta inválida.');}
+  const signal=AbortSignal.timeout(20000);
+  const request=async path=>{
+    let response;
+    try {response=await fetchImpl('https://classic.goodbarber.dev'+path,{headers:{token:key},redirect:'error',signal});}
+    catch {console.warn('promotion-account-lookup network_error');throw fail(503,'No se pudo consultar la cuenta de My City.');}
+    if(response.status===404)return null;
+    if(!response.ok){let errorCode=0;try{errorCode=Number((await response.json()).error_code)||0}catch{}console.warn('promotion-account-lookup upstream_status='+response.status+' error_code='+errorCode);throw fail(503,'No se pudo consultar la cuenta de My City.');}
+    try{return await response.json()}catch{throw fail(503,'Respuesta de cuenta inválida.');}
+  };
+  let account=await request(`/publicapi/v1/general/prospects/${appId}/prospect/${userId}/`);
+  // Memberships moves subscribers out of prospects. Subscription IDs are not user IDs.
+  if(!account){
+    for(const state of ['active','expired']){
+      for(let page=1;page<=25;page++){
+        const result=await request(`/publicapi/v1/general/subscriptions/${appId}/${state}/?page=${page}&per_page=100`);
+        if(!result||!Array.isArray(result.subscriptions))throw fail(503,'No se pudo consultar la cuenta de My City.');
+        const matches=result.subscriptions.filter(row=>String(row.user?.id)===String(userId));
+        if(matches.length){
+          const user=matches[0].user;
+          if(matches.some(row=>row.user.email!==user.email))throw fail(503,'Respuesta de cuenta inválida.');
+          account={...user,user_id:user.id};
+          console.info('promotion-account-lookup matched_membership_state='+state);
+          break;
+        }
+        if(!result.next)break;
+        if(page===25)throw fail(503,'No se pudo consultar la cuenta de My City.');
+      }
+      if(account)break;
+    }
+  }
+  if(!account)throw fail(503,'No se pudo consultar la cuenta de My City.');
   // Never trust an email, display name or internal note supplied by the client.
   if(String(account.user_id)!==String(userId)||account.is_active===false||!/^\S+@\S+\.\S+$/.test(account.email||'')) throw fail(503,'No se pudo consultar la cuenta de My City.');
   return {id:String(account.user_id),email:account.email,name:[account.first_name,account.last_name].filter(Boolean).join(' ').slice(0,180),admin:false};
@@ -62,4 +88,3 @@ export function registerPromotionEmailAuth(app,auth,{env=process.env}={}) {
   router.post('/logout',route(async req=>{await auth.logout(/^Promotion (.+)$/.exec(req.get('authorization')||'')?.[1]);return {ok:true};}));
   app.use('/api/mycity/email-verification',router);
 }
-

@@ -10,3 +10,15 @@ test('resend cooldown blocks repeat requests',async()=>{const f=fixture();await 
 test('unconfirmed delivery deletes the unusable challenge',async()=>{const f=fixture();const auth=createPromotionEmailAuth({store:f.store,env:f.env,lookup:async id=>({id,email:'registered@example.com'}),deliver:async()=>{throw Error('mail failed')}});await assert.rejects(auth.start('123','ip'),{status:503});assert.equal([...f.rows.keys()].filter(x=>x.startsWith('promotionAuthChallenges/')).length,0);});
 test('upstream must return the requested identifier',async()=>{const env={GOODBARBER_APP_ID:'2817182',GOODBARBER_READ_TOKEN:'server-secret'};let request;await assert.rejects(registeredPromotionAccount('123',{env,fetchImpl:async(url,options)=>{request={url,options};return{ok:true,json:async()=>({user_id:456,email:'other@example.com'})}}}),{status:503});assert.ok(request.url.endsWith('/prospect/123/'));assert.equal(request.options.headers.token,'server-secret');});
 test('Make accepted webhook is insufficient: require matching sent acknowledgement',async()=>{const env={PROMOTION_VERIFICATION_WEBHOOK_URL:'https://hook.us1.make.com/test',PROMOTION_VERIFICATION_WEBHOOK_KEY:'key'};await assert.rejects(sendPromotionVerification({challengeId:'a'},{env,fetchImpl:async()=>({ok:true,json:async()=>({status:'accepted'})})}),{status:503});await sendPromotionVerification({challengeId:'a'},{env,fetchImpl:async()=>({ok:true,json:async()=>({status:'sent',challengeId:'a'})})});});
+
+test('expired members resolve by exact user ID across subscription pages',async()=>{
+ const env={GOODBARBER_APP_ID:'2817182',GOODBARBER_READ_TOKEN:'secret'};const paths=[];
+ const account=await registeredPromotionAccount('433069',{env,fetchImpl:async url=>{
+ paths.push(url);if(url.includes('/prospect/'))return {ok:false,status:404};
+ const subscriptions=url.includes('/expired/')&&url.includes('page=2&')?[{id:178681,user:{id:433069,email:'registered@example.com',first_name:'Cart',last_name:'Ready'}}]:[{id:433069,user:{id:456,email:'other@example.com'}}];
+ return {ok:true,status:200,json:async()=>({subscriptions,next:url.includes('/expired/')&&url.includes('page=1&')?'next':null})};
+ }});assert.equal(account.id,'433069');assert.equal(account.email,'registered@example.com');assert.equal(paths.length,4);
+});
+test('permission failures never fall back to membership lists',async()=>{
+ let calls=0;await assert.rejects(registeredPromotionAccount('123',{env:{GOODBARBER_APP_ID:'2817182',GOODBARBER_READ_TOKEN:'secret'},fetchImpl:async()=>{calls++;return {ok:false,status:403,json:async()=>({error_code:1998})}}}),{status:503});assert.equal(calls,1);
+});
