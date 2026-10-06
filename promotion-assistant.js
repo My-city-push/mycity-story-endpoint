@@ -1,3 +1,4 @@
+import {createHash} from 'node:crypto';
 const clean=(v,max=6000)=>String(v??'').trim().slice(0,max);
 const fail=(status,message)=>Object.assign(new Error(message),{status});
 const MONTHLY_LIMIT=8;
@@ -21,7 +22,7 @@ export function sanitizeCampaign(input = {}) {
     days, time, timezone, monthlyLimit: MONTHLY_LIMIT};
 }
 
-export async function promotionAssistant({business, campaign, messages, env = process.env, fetchImpl = fetch}) {
+export async function promotionAssistant({business, campaign, preparation = {}, messages, env = process.env, fetchImpl = fetch}) {
   if (!env.OPENAI_API_KEY || !env.PROMOTION_AI_MODEL) throw fail(503, 'El asistente todavía necesita su conexión de IA.');
   const fields = ['commercialName', 'responsibleName', 'activity', 'serviceArea', 'contact', 'presentation', 'language', 'type'];
   const schema = {type: 'object', additionalProperties: false, required: ['reply', 'business', 'campaign'], properties: {
@@ -35,8 +36,8 @@ export async function promotionAssistant({business, campaign, messages, env = pr
   let response;try{response = await fetchImpl('https://api.openai.com/v1/responses', {
     method: 'POST', signal: AbortSignal.timeout(45000), headers: {'Authorization': `Bearer ${env.OPENAI_API_KEY}`, 'Content-Type': 'application/json'},
     body: JSON.stringify({model: env.PROMOTION_AI_MODEL, store: false, max_output_tokens: 6000,
-      instructions: 'Eres My City, asistente exclusivamente de promoción en la app. Recopila datos del negocio por etapas, sin inventarlos: nombre comercial, responsable, actividad, local/domicilio/en línea, zona, contacto, materiales y presentación. Mantén datos previos salvo cambios explícitos. Propón borradores y horarios, hasta 8 publicaciones/mes por $9.99, prueba 14 días/2 publicaciones. Nunca afirmes publicar, verificar, cobrar ni enviar correos: solo preparas. No atiendas inspecciones ni trámites ajenos. Pregunta pocos datos cada vez. No prometas ventas. Las aperturas de correo no prueban lectura. Usa el idioma del usuario. La evidencia comercial se revisa por separado, pagar no verifica un negocio.',
-      input: [{role:'developer',content: JSON.stringify({business,campaign})}, ...messages.slice(-20).map(m => ({role:m.role, content:clean(m.text,6000) || 'El usuario adjuntó material de promoción.'}))],
+      instructions: 'Eres My City, asistente exclusivamente de promoción en la app. Recopila datos del negocio por etapas, sin inventarlos: nombre comercial, responsable, actividad, local/domicilio/en línea, zona, contacto, materiales y presentación. Mantén datos previos salvo cambios explícitos. Propón borradores y horarios, hasta 8 publicaciones/mes por $9.99, prueba 14 días/2 publicaciones. Nunca afirmes publicar, verificar, cobrar ni enviar correos: solo preparas. No atiendas inspecciones ni trámites ajenos. Verificación inicial sencilla: pide únicamente nombre comercial, actividad, zona de servicio y contacto, como máximo dos preguntas por turno. No repitas datos ya guardados. Responsable, modalidad, materiales y presentación se recopilan más adelante cuando sean útiles; no bloquean el borrador inicial. Muestra un resumen del perfil y pide confirmación antes de preparar la promoción. Después pregunta la oferta, audiencia (seguidores, seguidos o ambos), días y horario; presenta propuestas como propuestas, nunca como horarios aprobados. Si faltan materiales, puedes preparar un borrador de texto. No pidas documentos de identidad, datos bancarios ni datos fiscales por chat. Los datos nuevos por futuras funciones se solicitan solo cuando hagan falta, explicando su propósito. Una confirmación de datos no es verificación comercial. Pregunta pocos datos cada vez. No prometas ventas. Las aperturas de correo no prueban lectura. Usa el idioma del usuario. La evidencia comercial se revisa por separado, pagar no verifica un negocio.',
+      input: [{role:'developer',content: JSON.stringify({business,campaign,preparation})}, ...messages.slice(-20).map(m => ({role:m.role, content:clean(m.text,6000) || 'El usuario adjuntó material de promoción.'}))],
       text: {format: {type: 'json_schema', name: 'promotion_draft', strict: true, schema}}})
   });}catch{console.warn('promotion-assistant network_error');throw fail(502,'La respuesta tardó demasiado. Tu mensaje está guardado; reintenta.');}
   if (!response.ok){let code='unknown';try{const raw=(await response.json())?.error?.code;if(/^[a-z_]{1,60}$/.test(raw||''))code=raw;}catch{}console.warn('promotion-assistant upstream_status='+response.status+' error_code='+code);throw fail(502,code==='insufficient_quota'?'La conexión de IA necesita saldo disponible en OpenAI. Tu mensaje quedó guardado.':response.status===401?'La clave de OpenAI no fue aceptada. Tu mensaje quedó guardado.':'No se pudo consultar el asistente. Tu mensaje está guardado; puedes reintentar.');}
@@ -47,3 +48,20 @@ export async function promotionAssistant({business, campaign, messages, env = pr
   return {reply: clean(parsed.reply), business: sanitizeBusiness(parsed.business), campaign: sanitizeCampaign(parsed.campaign)};
 }
 
+
+const coreFields=['commercialName','activity','serviceArea','contact'];
+const fingerprint=business=>createHash('sha256').update(JSON.stringify(coreFields.map(k=>clean(business?.[k],300)))).digest('hex');
+export function preparePromotionFlow({previous={},business,preparation={},text,reply,now=Date.now()}) {
+  const missing=coreFields.filter(k=>!clean(business[k]));
+  const signature=fingerprint(business);
+  const explicit=/^(confirmo|confirmo los datos|confirmo el perfil|datos correctos|todo correcto|confirm|i confirm|the details are correct)[.!\s]*$/i.test(clean(text));
+  const awaiting=preparation.stage==='confirm_business'&&preparation.presentedFingerprint===fingerprint(previous);
+  const confirmed=!missing.length&&(preparation.confirmedFingerprint===signature||(explicit&&awaiting&&fingerprint(previous)===signature));
+  const english=/^en(?:-|$)/i.test(business.language||'');
+  const state={stage:missing.length?'collect_business':confirmed?'collect_campaign':'confirm_business',missingFields:missing,confirmedFingerprint:confirmed?signature:null,confirmedAt:confirmed?(preparation.confirmedFingerprint===signature?preparation.confirmedAt:now):null,presentedFingerprint:!missing.length&&!confirmed?signature:null};
+  if(state.stage==='confirm_business')reply=english?
+    `Please review your business details:\nBusiness: ${business.commercialName}\nActivity: ${business.activity}\nService area: ${business.serviceArea}\nContact: ${business.contact}\n\nReply “I confirm” if these are correct, or tell me what to change. This confirms your details; commercial verification remains pending.`:
+    `Revisa los datos de tu negocio:\nNombre: ${business.commercialName}\nActividad: ${business.activity}\nZona de servicio: ${business.serviceArea}\nContacto: ${business.contact}\n\nEscribe «Confirmo los datos» si están correctos, o dime qué deseas cambiar. Esto confirma tus datos; la verificación comercial sigue pendiente.`;
+  else if(confirmed&&explicit&&awaiting)reply=english?'Your business details are confirmed. What product, service or offer would you like to promote first?':'Tus datos quedaron confirmados. ¿Qué producto, servicio u oferta quieres promocionar primero?';
+  return {reply,preparation:state};
+}

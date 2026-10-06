@@ -1,4 +1,4 @@
-import {promotionAssistant,sanitizeBusiness,sanitizeCampaign} from './promotion-assistant.js';
+import {promotionAssistant,sanitizeBusiness,sanitizeCampaign,preparePromotionFlow} from './promotion-assistant.js';
 import crypto from 'node:crypto';
 import express from 'express';
 import multer from 'multer';
@@ -35,7 +35,7 @@ export function registerPromotionIntake(app,{store,authenticate,env=process.env,
     if(env.PROMOTION_INTAKE_ENABLED!=='true'||!store)return res.status(503).json({error:'Recepción de promociones pendiente de activación.'});
     try{const token=/^Promotion ([A-Za-z0-9_-]{43})$/.exec(req.get('authorization')||'')?.[1];if(!token)throw fail(401,'Verifica tu cuenta para abrir Promoción.');req.owner=await authenticate(token,req.get('X-MyCity-User-Id'));next();}catch(e){res.status(e.status||401).json({error:e.status?e.message:'Vuelve a verificar tu cuenta.'});}
   });
-  const view=(owner,row)=>({user:{id:owner.id,name:owner.name},entitlement:{active:false,status:'inactive'},business:row.business||{verificationStatus:'pending'},campaign:row.campaign||{status:'draft'},messages:row.messages||[],capabilities:{assistant:aiReady(),checkout:false,publishing:false,intake:true}});
+  const view=(owner,row)=>({user:{id:owner.id,name:owner.name},entitlement:{active:false,status:'inactive'},business:row.business||{verificationStatus:'pending'},campaign:row.campaign||{status:'draft'},messages:row.messages||[],preparation:row.preparation||{stage:'collect_business'},capabilities:{assistant:aiReady(),checkout:false,publishing:false,intake:true}});
   router.get('/session',async(req,res,next)=>{try{res.json(view(req.owner,await store.get(req.owner.id)));}catch(e){next(e);}});
   const parse=multer({limits:{fields:3,fieldSize:24000,files:0}}).none();
   router.post('/messages',parse,async(req,res,next)=>{
@@ -58,9 +58,10 @@ export function registerPromotionIntake(app,{store,authenticate,env=process.env,
         if(!claimed.committed){const previous=claimed.value.requests[id];return res.json({messages:Array.isArray(previous)?previous:previous.messages});}
         try{
           console.info('promotion-chat phase=assistant');
-          const row=claimed.value;const answer=await assistant({business:row.business||{},campaign:row.campaign?.draft||{},messages:row.messages,env});
-          const reply={id:'assistant_'+id,role:'assistant',text:answer.reply,createdAt:Date.now()};
-          const committed=await store.transaction(req.owner.id,current=>{if(current.requests?.[id]?.status==='done')return current;if(current.lease?.id!==lease)return;current.messages=[...current.messages,reply].slice(-100);current.business={...sanitizeBusiness(answer.business),verificationStatus:'pending'};current.campaign={status:'draft',draft:sanitizeCampaign(answer.campaign),updatedAt:Date.now()};current.requests[id]={status:'done',messages:[user,reply]};const ids=Object.keys(current.requests);for(const old of ids.slice(0,Math.max(0,ids.length-100)))delete current.requests[old];current.lease=null;current.updatedAt=Date.now();return current;});
+          const row=claimed.value;const answer=await assistant({business:row.business||{},campaign:row.campaign?.draft||{},preparation:row.preparation||{},messages:row.messages,env});
+          const business=sanitizeBusiness(answer.business);const flow=preparePromotionFlow({previous:row.business||{},business,preparation:row.preparation||{},text,reply:answer.reply});
+          const reply={id:'assistant_'+id,role:'assistant',text:flow.reply,createdAt:Date.now()};
+          const committed=await store.transaction(req.owner.id,current=>{if(current.requests?.[id]?.status==='done')return current;if(current.lease?.id!==lease)return;current.messages=[...current.messages,reply].slice(-100);current.preparation=flow.preparation;current.business={...business,verificationStatus:'pending'};current.campaign={status:'draft',draft:sanitizeCampaign(answer.campaign),updatedAt:Date.now()};current.requests[id]={status:'done',messages:[user,reply]};const ids=Object.keys(current.requests);for(const old of ids.slice(0,Math.max(0,ids.length-100)))delete current.requests[old];current.lease=null;current.updatedAt=Date.now();return current;});
           if(!committed.committed&&committed.value.requests?.[id]?.status!=='done')throw fail(409,'La conversación cambió. Reintenta el envío.');console.info('promotion-chat phase=done');return res.json({messages:[user,reply]});
         }catch(error){await store.transaction(req.owner.id,row=>{if(row.requests?.[id]?.status==='failed')return row;if(row.lease?.id!==lease)return;row.lease=null;row.requests[id]={status:'failed'};return row;});throw error;}
       }
