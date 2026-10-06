@@ -40,8 +40,10 @@ export function registerPromotionIntake(app,{store,authenticate,env=process.env,
       const now=Date.now(),user={id:'user_'+id,role:'user',text,createdAt:now};
       if(aiReady()){
         const lease=crypto.randomUUID();
+        console.info('promotion-chat phase=claim');
         const claimed=await store.transaction(req.owner.id,row=>{
           if(Array.isArray(row.requests?.[id])||row.requests?.[id]?.status==='done')return;
+          if(row.lease?.id===lease)return row;
           if(row.lease?.until>now)throw fail(429,'Espera a que termine la respuesta.');
           const day=new Date(now).toISOString().slice(0,10),count=row.usage?.day===day?row.usage.count:0;
           if(count>=60)throw fail(429,'Has alcanzado el límite de solicitudes de hoy.');
@@ -50,11 +52,12 @@ export function registerPromotionIntake(app,{store,authenticate,env=process.env,
         });
         if(!claimed.committed){const previous=claimed.value.requests[id];return res.json({messages:Array.isArray(previous)?previous:previous.messages});}
         try{
+          console.info('promotion-chat phase=assistant');
           const row=claimed.value;const answer=await assistant({business:row.business||{},campaign:row.campaign?.draft||{},messages:row.messages,env});
           const reply={id:'assistant_'+id,role:'assistant',text:answer.reply,createdAt:Date.now()};
-          const committed=await store.transaction(req.owner.id,current=>{if(current.lease?.id!==lease)return;current.messages=[...current.messages,reply].slice(-100);current.business={...sanitizeBusiness(answer.business),verificationStatus:'pending'};current.campaign={status:'draft',draft:sanitizeCampaign(answer.campaign),updatedAt:Date.now()};current.requests[id]={status:'done',messages:[user,reply]};const ids=Object.keys(current.requests);for(const old of ids.slice(0,Math.max(0,ids.length-100)))delete current.requests[old];current.lease=null;current.updatedAt=Date.now();return current;});
-          if(!committed.committed)throw fail(409,'La conversación cambió. Reintenta el envío.');return res.json({messages:[user,reply]});
-        }catch(error){await store.transaction(req.owner.id,row=>{if(row.lease?.id!==lease)return;row.lease=null;row.requests[id]={status:'failed'};return row;});throw error;}
+          const committed=await store.transaction(req.owner.id,current=>{if(current.requests?.[id]?.status==='done')return current;if(current.lease?.id!==lease)return;current.messages=[...current.messages,reply].slice(-100);current.business={...sanitizeBusiness(answer.business),verificationStatus:'pending'};current.campaign={status:'draft',draft:sanitizeCampaign(answer.campaign),updatedAt:Date.now()};current.requests[id]={status:'done',messages:[user,reply]};const ids=Object.keys(current.requests);for(const old of ids.slice(0,Math.max(0,ids.length-100)))delete current.requests[old];current.lease=null;current.updatedAt=Date.now();return current;});
+          if(!committed.committed&&committed.value.requests?.[id]?.status!=='done')throw fail(409,'La conversación cambió. Reintenta el envío.');console.info('promotion-chat phase=done');return res.json({messages:[user,reply]});
+        }catch(error){await store.transaction(req.owner.id,row=>{if(row.requests?.[id]?.status==='failed')return row;if(row.lease?.id!==lease)return;row.lease=null;row.requests[id]={status:'failed'};return row;});throw error;}
       }
       const reply={id:'assistant_'+id,role:'assistant',text:'Tu solicitud quedó guardada en esta conversación. Para preparar tu promoción, envía el nombre del negocio, qué ofreces, la zona donde atiendes y cómo quieres que te contacten. La revisión del negocio y la programación de publicaciones siguen pendientes; este mensaje todavía no se ha publicado.',createdAt:now+1};
       const result=await store.transaction(req.owner.id,row=>{
@@ -64,7 +67,7 @@ export function registerPromotionIntake(app,{store,authenticate,env=process.env,
         row.messages=[...(row.messages||[]),user,reply].slice(-100);row.requests={...(row.requests||{}),[id]:[user,reply]};const ids=Object.keys(row.requests);for(const old of ids.slice(0,Math.max(0,ids.length-100)))delete row.requests[old];row.usage={day,count:count+1};row.status='received';row.updatedAt=now;return row;
       });
       res.json({messages:result.value.requests[id]});
-    }catch(e){next(e);}
+    }catch(e){console.warn('promotion-chat phase=failed status='+String(e.status||503));next(e);}
   });
   router.get('/reports/:report',async(req,res,next)=>{try{const row=await store.get(req.owner.id);res.json({items:req.params.report==='publications'&&row.campaign?.draft?[{title:row.campaign.draft.title||'Borrador de promoción',summary:[row.campaign.draft.offer,'Audiencia: '+row.campaign.draft.audience,row.campaign.draft.time+' · '+row.campaign.draft.timezone].filter(Boolean).join(' · '),status:'Borrador · publicación pendiente'}]:req.params.report==='business'&&row.business?[{name:row.business.commercialName||'Negocio pendiente',summary:[row.business.activity,row.business.serviceArea,row.business.presentation].filter(Boolean).join(' · '),status:'Verificación comercial pendiente'}]:[],updatedAt:row.updatedAt||null,status:'pending'});}catch(e){next(e);}});
   router.post('/campaign/actions',(_req,res)=>res.status(503).json({error:'La programación de publicaciones todavía no está activada.'}));
