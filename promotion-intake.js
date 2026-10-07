@@ -42,6 +42,24 @@ export function registerPromotionIntake(app,{store,authenticate,env=process.env,
   });
   const view=(owner,row)=>({user:{id:owner.id,name:owner.name},entitlement:{active:hasPromotionAccess(row.billing),status:row.billing?.status||'inactive',expiresAt:row.billing?.expiresAt||null},business:row.business||{verificationStatus:'pending'},geofences:Object.values(row.geofences||{}),campaign:row.campaign||{status:'draft'},messages:row.messages||[],preparation:row.preparation||{stage:'collect_business'},capabilities:{assistant:aiReady(),checkout:!!billing?.ready(),publishing:!!automation?.ready(),intake:true}});
   router.get('/session',async(req,res,next)=>{try{res.json(view(req.owner,await store.get(req.owner.id)));}catch(e){next(e);}});
+  router.post('/geofences/drafts',async(req,res,next)=>{try{
+    const id=req.body?.clientRequestId,name=String(req.body?.name||'').trim().slice(0,120),address=String(req.body?.address||'').trim().slice(0,240),latitude=Number(req.body?.latitude),longitude=Number(req.body?.longitude),radius=Number(req.body?.radius);
+    if(!valid(id)||!name||!address||!Number.isFinite(latitude)||!Number.isFinite(longitude)||Math.abs(latitude)>90||Math.abs(longitude)>180||!Number.isFinite(radius)||radius<100||radius>150)throw fail(400,'Confirma nombre, dirección, coordenadas y radio entre 100 y 150 metros.');
+    const createdAt=Date.now();const result=await store.transaction(req.owner.id,row=>{const key='draft_'+id;if(row.geofences?.[key])return row;if(Object.keys(row.geofences||{}).length>=50)throw fail(400,'Has alcanzado el límite de ubicaciones preparadas.');row.geofences={...row.geofences,[key]:{id:key,ownerId:req.owner.id,name,address,latitude,longitude,observedRadiusMeters:radius,bindingStatus:'draft',commercialProvisioningStatus:'pending',managementMode:'backoffice',createdAt}};row.messages=[...(row.messages||[]),{id:'geo_draft_'+id,role:'assistant',text:'Guardé la propuesta de ubicación «'+name+'». Aún no está creada en GoodBarber ni pagada. Podemos preparar su mensaje.',createdAt}].slice(-100);return row;});res.json(view(req.owner,result.value));
+  }catch(e){next(e);}});
+  router.post('/geofences/:id/actions',async(req,res,next)=>{try{
+    const zoneId=req.params.id,action=req.body?.action,requestId=req.body?.clientRequestId;
+    if(!valid(zoneId)||!valid(requestId)||!['pause','activate','edit_message','edit_schedule'].includes(action))throw fail(400,'Solicitud inválida.');
+    const createdAt=Date.now();const result=await store.transaction(req.owner.id,row=>{
+      const zone=row.geofences?.[zoneId];if(!zone)throw fail(404,'Ubicación no vinculada a tu cuenta.');
+      if(row.geofenceRequests?.[requestId])return row;
+      const text=String(req.body?.message||'').trim().slice(0,240);if(action==='edit_message'&&!text)throw fail(400,'Escribe el mensaje propuesto.');
+      row.geofenceRequests={...row.geofenceRequests,[requestId]:{id:requestId,zoneId,action,message:text,status:'pending',createdAt}};
+      row.geofences[zoneId]={...zone,pendingAction:action,pendingRequestId:requestId,...(action==='edit_message'?{proposedMessage:text}:{})};
+      const label={pause:'pausar',activate:'activar',edit_message:'actualizar el mensaje de',edit_schedule:'revisar los horarios de'}[action];
+      row.messages=[...(row.messages||[]),{id:'geo_'+requestId,role:'assistant',text:'Recibí tu solicitud para '+label+' '+zone.name+'. Está pendiente de aplicar y comprobar en GoodBarber. El aviso existente de inspecciones se conserva.',createdAt}].slice(-100);return row;
+    });res.json(view(req.owner,result.value));
+  }catch(e){next(e);}});
   const parse=multer({limits:{fields:3,fieldSize:24000,files:0}}).none();
   router.post('/messages',parse,async(req,res,next)=>{
     try{
@@ -63,10 +81,10 @@ export function registerPromotionIntake(app,{store,authenticate,env=process.env,
         if(!claimed.committed){const previous=claimed.value.requests[id];return res.json({messages:Array.isArray(previous)?previous:previous.messages});}
         try{
           console.info('promotion-chat phase=assistant');
-          const row=claimed.value;const answer=await assistant({business:row.business||{},campaign:row.campaign?.draft||{},preparation:row.preparation||{},messages:row.messages,env});
-          const business=sanitizeBusiness(answer.business);const flow=preparePromotionFlow({previous:row.business||{},business,preparation:row.preparation||{},text,reply:answer.reply});
+          const row=claimed.value;const answer=await assistant({business:row.business||{},campaign:row.campaign?.draft||{},preparation:row.preparation||{},messages:row.messages,geofences:Object.values(row.geofences||{}),env});
+          const business=sanitizeBusiness(answer.business);const flow=env.PROMOTION_GEO_CHAT_ENABLED==='true'?{reply:answer.reply,preparation:row.preparation||{}}:preparePromotionFlow({previous:row.business||{},business,preparation:row.preparation||{},text,reply:answer.reply});
           const reply={id:'assistant_'+id,role:'assistant',text:flow.reply,createdAt:Date.now()};
-          const committed=await store.transaction(req.owner.id,current=>{if(current.requests?.[id]?.status==='done')return current;if(current.lease?.id!==lease)return;current.messages=[...current.messages,reply].slice(-100);current.preparation=flow.preparation;current.business={...business,verificationStatus:'pending'};const draft=sanitizeCampaign(answer.campaign);const changed=JSON.stringify(draft)!==JSON.stringify(current.campaign?.draft);current.campaign={...current.campaign,status:changed?'draft':current.campaign?.status||'draft',draft,...(changed?{approvedHash:null}:{}),updatedAt:Date.now()};current.requests[id]={status:'done',messages:[user,reply]};const ids=Object.keys(current.requests);for(const old of ids.slice(0,Math.max(0,ids.length-100)))delete current.requests[old];current.lease=null;current.updatedAt=Date.now();return current;});
+          const committed=await store.transaction(req.owner.id,current=>{if(current.requests?.[id]?.status==='done')return current;if(current.lease?.id!==lease)return;current.messages=[...current.messages,reply].slice(-100);current.preparation=flow.preparation;current.business={...business,verificationStatus:'pending'};const draft=env.PROMOTION_GEO_CHAT_ENABLED==='true'?current.campaign?.draft:sanitizeCampaign(answer.campaign);const changed=JSON.stringify(draft)!==JSON.stringify(current.campaign?.draft);current.campaign={...current.campaign,status:changed?'draft':current.campaign?.status||'draft',draft,...(changed?{approvedHash:null}:{}),updatedAt:Date.now()};current.requests[id]={status:'done',messages:[user,reply]};const ids=Object.keys(current.requests);for(const old of ids.slice(0,Math.max(0,ids.length-100)))delete current.requests[old];current.lease=null;current.updatedAt=Date.now();return current;});
           if(!committed.committed&&committed.value.requests?.[id]?.status!=='done')throw fail(409,'La conversación cambió. Reintenta el envío.');console.info('promotion-chat phase=done');return res.json({messages:[user,reply]});
         }catch(error){await store.transaction(req.owner.id,row=>{if(row.requests?.[id]?.status==='failed')return row;if(row.lease?.id!==lease)return;row.lease=null;row.requests[id]={status:'failed'};return row;});throw error;}
       }
