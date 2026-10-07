@@ -31,3 +31,6 @@ test('public OTP CORS supports native origins without opening promotion data rou
  assert.equal((await fetch(url+'/api/promotion/session',{headers:{Origin:'gbcustom://app'}})).status,404);
  }finally{await new Promise(r=>server.close(r));}
 });
+
+test('successful verifications do not exhaust resend quota across repeated sessions',async()=>{const f=fixture();for(let i=0;i<7;i++){const c=await f.auth.start('123','ip');await f.auth.confirm(c.challengeId,f.delivery.verificationCode,'123','ip');f.advance(60001);}});
+test('hourly resend limit reports remaining wait and expires',async()=>{const f=fixture();for(let i=0;i<3;i++){await f.auth.start('123','ip');f.advance(60001);}await assert.rejects(f.auth.start('123','ip'),e=>e.status===429&&e.retryAfterSeconds>3000&&/minuto/.test(e.message));f.advance(3600000);await f.auth.start('123','ip');});
