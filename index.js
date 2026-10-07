@@ -1,3 +1,4 @@
+import {bindPromotionGeofencePilot} from './promotion-geofence-pilot.js';
 import {createPromotionPayments,createPromotionBilling,registerPromotionPaymentWebhook} from './promotion-billing.js';
 import {createPromotionAutomation,promotionArticle} from './promotion-automation.js';
 import {promotionAssistant} from './promotion-assistant.js';
@@ -199,6 +200,7 @@ const promotionEmailAuth = createPromotionEmailAuth({store:createEncryptedPromot
 registerPromotionEmailAuth(app,promotionEmailAuth);
 if(process.env.PROMOTION_AI_ENABLED==='true'&&process.env.OPENAI_API_KEY&&process.env.PROMOTION_AI_MODEL){promotionAssistant({business:{},campaign:{},messages:[{role:'user',text:'Prueba técnica sin datos reales. Pregunta el nombre del negocio para comenzar.'}]}).then(()=>console.info('promotion-assistant connection_probe=ok')).catch(e=>console.warn('promotion-assistant connection_probe=failed status='+String(e.status||503)));}
 const promotionStore=createEncryptedPromotionIntake(db,process.env.PROMOTION_INTAKE_ENCRYPTION_KEY);
+bindPromotionGeofencePilot(promotionStore).then(linked=>console.info('promotion-geofence pilot_linked='+String(linked))).catch(()=>console.warn('promotion-geofence pilot_link_failed'));
 const promotionPayments=createPromotionPayments();
 const promotionBilling=createPromotionBilling({store:promotionStore,stripe:promotionPayments});
 const promotionAutomation=createPromotionAutomation({store:promotionStore,billing:promotionBilling,relationships:async owner=>{
