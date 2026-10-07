@@ -8,8 +8,8 @@
   },
   "scripts": {
     "start": "node index.js",
-    "check": "node --check index.js && node --check personalized-article-routes.js && node --check automation-story-worker.js && node --check automation-video-story-worker.js && node --check goodbarber-session.js && node --check promotion-email-auth.js && node --check promotion-private-memory.js && node --check promotion-intake.js && node --check promotion-billing.js && node --check promotion-automation.js && node --check promotion-geofence-queue.js && node --check promotion-geofence-flow.js",
-    "test": "node --test personalized-article-routes.test.js cart-ready-chat-worker.test.js goodbarber-session.test.js promotion-email-auth.test.js promotion-private-memory.test.js promotion-intake.test.js promotion-billing.test.js promotion-automation.test.js promotion-geofence-queue.test.js promotion-geofence-flow.test.js",
+    "check": "node --check index.js && node --check personalized-article-routes.js && node --check automation-story-worker.js && node --check automation-video-story-worker.js && node --check goodbarber-session.js && node --check promotion-email-auth.js && node --check promotion-private-memory.js && node --check promotion-intake.js && node --check promotion-billing.js && node --check promotion-automation.js && node --check promotion-geofence-queue.js && node --check promotion-geofence-flow.js && node --check promotion-geocoding.js",
+    "test": "node --test personalized-article-routes.test.js cart-ready-chat-worker.test.js goodbarber-session.test.js promotion-email-auth.test.js promotion-private-memory.test.js promotion-intake.test.js promotion-billing.test.js promotion-automation.test.js promotion-geofence-queue.test.js promotion-geofence-flow.test.js promotion-geocoding.test.js",
     "chat:cart-ready": "node cart-ready-chat-worker.js"
   },
   "dependencies": {

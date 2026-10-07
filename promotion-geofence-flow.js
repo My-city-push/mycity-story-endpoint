@@ -7,7 +7,7 @@ export function sanitizeGeofenceProposal(input,zones=[]){
  if(action!=='create'&&!zone)return null;
  const message=clean(input.message),name=clean(input.name,120),address=clean(input.address);
  const latitude=input.latitude,longitude=input.longitude,radius=input.radius;
- if(action==='create'&&(!name||!address||typeof latitude!=='number'||typeof longitude!=='number'||!Number.isFinite(latitude)||!Number.isFinite(longitude)||Math.abs(latitude)>90||Math.abs(longitude)>180||![100,150].includes(radius)))return null;
+ if(action==='create'&&(!name||!address||typeof latitude!=='number'||typeof longitude!=='number'||!Number.isFinite(latitude)||!Number.isFinite(longitude)||Math.abs(latitude)>90||Math.abs(longitude)>180||typeof radius!=='number'||!Number.isFinite(radius)||radius<100||radius>150))return null;
  if(['create','edit_message'].includes(action)&&!message)return null;
  const schedule=input.schedule;
  if(['create','edit_schedule'].includes(action)&&(!schedule||!['entry','exit','dwell'].includes(schedule.trigger)||!['always','window'].includes(schedule.mode)||!Array.isArray(schedule.days)||!schedule.days.length||schedule.days.some(d=>!Number.isInteger(d)||d<0||d>6)||!['reentry','once','12h','24h','2d','3d','2w','1mo'].includes(schedule.repeat)||!clean(schedule.destination,1000)))return null;
