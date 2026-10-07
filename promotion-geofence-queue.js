@@ -31,11 +31,13 @@ export function createGeofenceQueue({store,locks,now=Date.now}){
  if(!lock||lock.ownerId!==ownerId||lock.id!==id||lock.token!==token)throw fail(409,'Esta solicitud no está asignada al asistente.');
  await store.transaction(ownerId,current=>{const job=current.geofenceRequests?.[id];if(job?.claimToken!==token||job.status!=='processing')throw fail(409,'Solicitud no disponible.');const zone=current.geofences[job.zoneId];if(status==='completed'&&String(evidence.notificationId)===String(zone.existingNotificationId)&&zone.existingNotificationPurpose==='inspections')throw fail(400,'La notificación de inspecciones debe conservarse.');job.status=status;job.finishedAt=now();job.summary=summary.trim();job.evidence=status==='completed'?evidence:null;
  if(status==='completed'&&((job.action==='pause'&&evidence.state!=='paused')||(job.action==='activate'&&evidence.state!=='active')||(job.action==='create'&&evidence.state!=='paused')))throw fail(400,'El estado comprobado no coincide con la acción aprobada.');
- if(status==='completed')Object.assign(zone,{commercialGeofenceId:String(evidence.geofenceId),commercialNotificationId:String(evidence.notificationId),commercialProvisioningStatus:evidence.state,verifiedAt:evidence.verifiedAt});
+ if(status==='completed')Object.assign(zone,{commercialGeofenceId:String(evidence.geofenceId),commercialNotificationId:String(evidence.notificationId),commercialProvisioningStatus:evidence.state,bindingStatus:'linked',verifiedAt:evidence.verifiedAt});
+ if(status==='failed')zone.commercialProvisioningStatus='failed';
  if(zone.pendingRequestId===id){delete zone.pendingRequestId;delete zone.pendingAction;}
  if(status==='completed'&&job.action==='create'&&job.activateAfterCreate){const nextId=id+'_activate';current.geofenceRequests[nextId]||={id:nextId,zoneId:job.zoneId,action:'activate',message:job.message,schedule:job.schedule,status:'pending',createdAt:now(),approvedAt:job.approvedAt,approvalSource:job.approvalSource,sourceMessageId:job.sourceMessageId};zone.pendingRequestId=nextId;zone.pendingAction='activate';}
 
- current.messages=[...(current.messages||[]),{id:'geo_result_'+id,role:'assistant',text:(status==='completed'?'Configuración comprobada en GoodBarber. ':'No se pudo completar la solicitud. ')+summary.trim(),createdAt:job.finishedAt}].slice(-100);return current;});
+ const trigger={entry:'al entrar en la zona',exit:'al salir de la zona',dwell:'tras permanecer '+job.schedule?.dwellMinutes+' minutos en la zona'}[job.schedule?.trigger]||'según tus ajustes';const doneText=status==='completed'&&evidence.state==='active'?'Listo. Tu notificación en '+zone.name+' está activa '+trigger+'. Podrán recibirla los usuarios de My City que tengan habilitadas las notificaciones y la ubicación, según la repetición elegida. ':status==='completed'?'Configuración comprobada en GoodBarber. ':'No se pudo completar la solicitud. ';
+ current.messages=[...(current.messages||[]),{id:'geo_result_'+id,role:'assistant',text:doneText+summary.trim(),createdAt:job.finishedAt}].slice(-100);return current;});
  await locks.transaction(LOCK,current=>current?.token===token?null:undefined);return {status};
  }};
 }

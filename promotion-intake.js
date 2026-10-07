@@ -1,3 +1,4 @@
+import {submitGeofenceCheckout} from './promotion-geofence-checkout.js';
 import {createGeocoding} from './promotion-geocoding.js';
 import {applyGeofenceChatFlow} from './promotion-geofence-flow.js';
 import {hasPromotionAccess} from './promotion-billing.js';
@@ -46,13 +47,17 @@ export function registerPromotionIntake(app,{store,authenticate,env=process.env,
   router.get('/session',async(req,res,next)=>{try{res.json(view(req.owner,await store.get(req.owner.id)));}catch(e){next(e);}});
   const geocode=createGeocoding({env});
   router.get('/geofences/search',async(req,res,next)=>{try{res.json({results:await geocode(req.query.q)});}catch(e){next(e);}});
+  router.post('/geofences/checkout',async(req,res,next)=>{try{
+    if(env.PROMOTION_GEOFENCE_FREE_PILOT!=='true')throw fail(503,'El pago de ubicaciones todavía no está habilitado.');
+    const result=await store.transaction(req.owner.id,row=>submitGeofenceCheckout(row,req.body,{ownerId:req.owner.id}));res.json(view(req.owner,result.value));
+  }catch(e){next(e);}});
   router.post('/geofences/drafts',async(req,res,next)=>{try{
     const id=req.body?.clientRequestId,name=String(req.body?.name||'').trim().slice(0,120),address=String(req.body?.address||'').trim().slice(0,240),latitude=Number(req.body?.latitude),longitude=Number(req.body?.longitude),radius=Number(req.body?.radius);
     if(req.body?.pointConfirmed===false||typeof req.body?.latitude!=='number'||typeof req.body?.longitude!=='number'||!valid(id)||!name||!address||!Number.isFinite(latitude)||!Number.isFinite(longitude)||Math.abs(latitude)>90||Math.abs(longitude)>180||!Number.isFinite(radius)||radius<100||radius>150)throw fail(400,'Confirma nombre, dirección, coordenadas y radio entre 100 y 150 metros.');
     const createdAt=Date.now();const result=await store.transaction(req.owner.id,row=>{const key='draft_'+id;if(row.geofences?.[key])return row;if(Object.keys(row.geofences||{}).length>=50)throw fail(400,'Has alcanzado el límite de ubicaciones preparadas.');row.geofences={...row.geofences,[key]:{id:key,ownerId:req.owner.id,name,address,latitude,longitude,observedRadiusMeters:radius,bindingStatus:'draft',commercialProvisioningStatus:'pending',managementMode:'backoffice',coordinateSource:req.body?.coordinateSource==='user_map'?'user_map':'provided',pointConfirmedAt:req.body?.pointConfirmed===true?createdAt:null,createdAt}};row.messages=[...(row.messages||[]),{id:'geo_draft_'+id,role:'assistant',text:'Guardé la propuesta de ubicación «'+name+(env.PROMOTION_GEOFENCE_FREE_PILOT==='true'?'». La prueba es gratuita. Falta crearla en GoodBarber; podemos preparar su mensaje.':'». Aún no está creada en GoodBarber ni pagada. Podemos preparar su mensaje.'),createdAt}].slice(-100);return row;});res.json(view(req.owner,result.value));
   }catch(e){next(e);}});
   router.post('/geofences/:id/actions',async(req,res,next)=>{try{
-    const zoneId=req.params.id,action=req.body?.action,requestId=req.body?.clientRequestId;
+    const zoneId=req.params.id,action=req.body?.action,requestId=req.body?.clientRequestId;if(action==='edit_schedule')throw fail(400,'Los horarios personalizados estarán disponibles más adelante.');
     if(!valid(zoneId)||!valid(requestId)||!['pause','activate','edit_message','edit_schedule'].includes(action))throw fail(400,'Solicitud inválida.');
     const createdAt=Date.now();const result=await store.transaction(req.owner.id,row=>{
       const zone=row.geofences?.[zoneId];if(!zone)throw fail(404,'Ubicación no vinculada a tu cuenta.');

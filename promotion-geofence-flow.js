@@ -21,7 +21,7 @@ export function applyGeofenceChatFlow({row,answer,text,requestId,now=Date.now()}
  const match=/^confirmo solicitud ([A-F0-9]{8})[.!\s]*$/i.exec(text.trim());
  if(match){
  if(!pending||pending.code!==match[1].toUpperCase()||pending.expiresAt<now)return 'Esta propuesta ya no está disponible. Pídeme que prepare el resumen de nuevo.';
- const p=sanitizeGeofenceProposal(pending.proposal,Object.values(row.geofences||{}));if(!p)return 'Los datos de la ubicación cambiaron. Revisemos la propuesta antes de enviarla.';
+ const p=sanitizeGeofenceProposal(pending.proposal,Object.values(row.geofences||{}));if(p&&(p.action==='edit_schedule'||p.schedule&&(p.schedule.mode!=='always'||p.schedule.days.length!==7)))return 'Los horarios personalizados estarán disponibles más adelante. Usa ＋ Agregar para preparar tu aviso sin horarios.';if(!p)return 'Los datos de la ubicación cambiaron. Revisemos la propuesta antes de enviarla.';
  const id='chat_'+requestId;row.geofenceRequests||={};if(row.geofenceRequests[id])return 'La solicitud '+id+' ya está registrada.';
  let zoneId=p.zoneId;if(p.action==='create'){
  if(Object.keys(row.geofences||{}).length>=50)return 'Has alcanzado el límite de ubicaciones preparadas.';
@@ -32,7 +32,7 @@ export function applyGeofenceChatFlow({row,answer,text,requestId,now=Date.now()}
  }
  // Any intervening message invalidates the old approval, even if the model cannot prepare a replacement.
  row.geofenceProposal=null;const p=sanitizeGeofenceProposal(answer.geofenceProposal,Object.values(row.geofences||{}));if(!p)return answer.reply+'\n\nAún no hay una nueva solicitud registrada en la cola: falta completar y confirmar la propuesta.';
- const code=signature(p);row.geofenceProposal={proposal:p,code,expiresAt:now+86400000,presentedAt:now};
+ if(p.action==='edit_schedule'||p.schedule&&(p.schedule.mode!=='always'||p.schedule.days.length!==7))return 'Los horarios personalizados estarán disponibles más adelante. Usa ＋ Agregar para preparar tu aviso sin horarios.';const code=signature(p);row.geofenceProposal={proposal:p,code,expiresAt:now+86400000,presentedAt:now};
  const labels={create:'Crear ubicación y notificación comercial',activate:'Activar notificación comercial',pause:'Pausar notificación comercial',edit_message:'Editar mensaje comercial',edit_schedule:'Editar horario comercial'};
  const details=[labels[p.action], 'Negocio: '+p.name];if(p.action==='create')details.push('Dirección: '+p.address,'Coordenadas: '+p.latitude+', '+p.longitude,'Radio: '+p.radius+' metros');if(p.message)details.push('Mensaje: '+p.message);if(p.schedule)details.push('Activación: '+p.schedule.trigger+(p.schedule.trigger==='dwell'?' después de '+p.schedule.dwellMinutes+' minutos':''),'Horario: '+(p.schedule.mode==='always'?'Todo el día':p.schedule.start+'–'+p.schedule.end)+' · America/New_York','Días (0 domingo, 6 sábado): '+p.schedule.days.join(', '),'Repetición: '+p.schedule.repeat,'Destino: '+p.schedule.destination);
  return details.join('\n')+'\n\nEsto es una propuesta; aún no se ha configurado. Para enviarla a la cola escribe «Confirmo solicitud '+code+'», o dime qué quieres cambiar.';
