@@ -2,7 +2,7 @@ import {createPromotionPayments,createPromotionBilling,registerPromotionPaymentW
 import {createPromotionAutomation,promotionArticle} from './promotion-automation.js';
 import {promotionAssistant} from './promotion-assistant.js';
 import {createEncryptedPromotionIntake,registerPromotionIntake} from './promotion-intake.js';
-import {createPrivatePromotionMemory} from './promotion-private-memory.js';
+import {createEncryptedPromotionAuthStore} from './promotion-auth-store.js';
 import {createPromotionEmailAuth, registerPromotionEmailAuth, sendPromotionVerification} from './promotion-email-auth.js';
 import express from "express";
 import crypto from "node:crypto";
@@ -16,9 +16,7 @@ const app = express();
 registerGoodbarberSessionCheck(app);
 registerPromotionPaymentWebhook(app,{billing:{ready:()=>!!promotionBilling?.ready(),syncSubscription:id=>promotionBilling.syncSubscription(id)},stripe:createPromotionPayments()});
 app.use(express.json({ limit: "12mb" }));
-// Test-mode authentication stays private even while Firebase client rules are open.
-const promotionEmailAuth = createPromotionEmailAuth({store: createPrivatePromotionMemory(), deliver: sendPromotionVerification});
-registerPromotionEmailAuth(app, promotionEmailAuth);
+
 
 app.use(express.static("public"));
 
@@ -197,6 +195,8 @@ function initFirebase() {
 }
 
 initFirebase();
+const promotionEmailAuth = createPromotionEmailAuth({store:createEncryptedPromotionAuthStore(db,process.env.PROMOTION_INTAKE_ENCRYPTION_KEY),deliver:sendPromotionVerification});
+registerPromotionEmailAuth(app,promotionEmailAuth);
 if(process.env.PROMOTION_AI_ENABLED==='true'&&process.env.OPENAI_API_KEY&&process.env.PROMOTION_AI_MODEL){promotionAssistant({business:{},campaign:{},messages:[{role:'user',text:'Prueba técnica sin datos reales. Pregunta el nombre del negocio para comenzar.'}]}).then(()=>console.info('promotion-assistant connection_probe=ok')).catch(e=>console.warn('promotion-assistant connection_probe=failed status='+String(e.status||503)));}
 const promotionStore=createEncryptedPromotionIntake(db,process.env.PROMOTION_INTAKE_ENCRYPTION_KEY);
 const promotionPayments=createPromotionPayments();

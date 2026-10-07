@@ -49,7 +49,7 @@ export async function registeredPromotionAccount(userId,{env=process.env,fetchIm
 
 export function createPromotionEmailAuth({store,env=process.env,lookup=registeredPromotionAccount,deliver,now=Date.now}) {
   function ready(){if(env.PROMOTION_EMAIL_AUTH_ENABLED!=='true'||!store||String(env.PROMOTION_EMAIL_AUTH_SECRET||'').length<32)throw fail(503,'La verificación por correo todavía está pendiente de activación.');}
-  async function quota(key,limit,windowMs){const time=now();const result=await store.transaction(`promotionAuthLimits/${digest(key)}`,old=>{const row=old&&old.until>time?old:{until:time+windowMs,count:0};if(row.count>=limit)return;return {...row,count:row.count+1};});if(!result.committed){const row=await store.get(`promotionAuthLimits/${digest(key)}`);const retryAfterSeconds=Math.max(1,Math.ceil(((row?.until||time+windowMs)-time)/1000));throw Object.assign(fail(429,`Espera ${Math.ceil(retryAfterSeconds/60)} minuto(s) antes de volver a solicitar un código.`),{retryAfterSeconds});}}
+  async function quota(key,limit,windowMs){const time=now(),requestId=crypto.randomUUID();const result=await store.transaction(`promotionAuthLimits/${digest(key)}`,old=>{const row=old&&old.until>time?old:{until:time+windowMs,count:0};if(row.lastRequestId===requestId)return row;if(row.count>=limit)return;return {...row,count:row.count+1,lastRequestId:requestId};});if(!result.committed){const row=await store.get(`promotionAuthLimits/${digest(key)}`);const retryAfterSeconds=Math.max(1,Math.ceil(((row?.until||time+windowMs)-time)/1000));throw Object.assign(fail(429,`Espera ${Math.ceil(retryAfterSeconds/60)} minuto(s) antes de volver a solicitar un código.`),{retryAfterSeconds});}}
   return {
     async start(userId,ip){ready();if(!idOK(userId))throw fail(400,'Cuenta inválida.');await quota('ip:'+ip,20,3600000);await quota('cooldown:'+userId,1,60000);await quota('hour:'+userId,3,3600000);await quota('day:'+userId,5,86400000);
       const account=await lookup(String(userId),{env});const challengeId=crypto.randomBytes(24).toString('hex');const code=String(crypto.randomInt(0,1000000)).padStart(6,'0');const expiresAt=now()+600000;
@@ -58,17 +58,19 @@ export function createPromotionEmailAuth({store,env=process.env,lookup=registere
       catch {await store.set(`promotionAuthChallenges/${challengeId}`,null);throw fail(503,'No se pudo enviar el código. Inténtalo más tarde.');}
       return {challengeId,expiresAt,message:'Enviamos un código al correo registrado en tu cuenta de My City.'};
     },
-    async confirm(challengeId,code,userId,ip){ready();await quota('confirm:'+ip,60,3600000);if(!/^[a-f0-9]{48}$/.test(challengeId||'')||!/^\d{6}$/.test(code||'')||!idOK(userId))throw invalid();
-      const expected=codeHash(env.PROMOTION_EMAIL_AUTH_SECRET,challengeId,code);let accepted=false;
-      const result=await store.transaction(`promotionAuthChallenges/${challengeId}`,row=>{accepted=false;if(!row||!row.delivered||row.used||row.expiresAt<=now()||row.attempts>=5||row.account.id!==String(userId))return;accepted=crypto.timingSafeEqual(Buffer.from(row.hash,'hex'),Buffer.from(expected,'hex'));return {...row,attempts:row.attempts+1,used:accepted};});
+    async confirm(challengeId,code,userId,ip,deviceId=null){ready();await quota('confirm:'+ip,60,3600000);if(!/^[a-f0-9]{48}$/.test(challengeId||'')||!/^\d{6}$/.test(code||'')||!idOK(userId))throw invalid();
+      const expected=codeHash(env.PROMOTION_EMAIL_AUTH_SECRET,challengeId,code),attemptId=crypto.randomUUID();let accepted=false;
+      const result=await store.transaction(`promotionAuthChallenges/${challengeId}`,row=>{accepted=false;if(row?.lastAttemptId===attemptId){accepted=row.used===true;return row;}if(!row||!row.delivered||row.used||row.expiresAt<=now()||row.attempts>=5||row.account.id!==String(userId))return;accepted=crypto.timingSafeEqual(Buffer.from(row.hash,'hex'),Buffer.from(expected,'hex'));return {...row,attempts:row.attempts+1,used:accepted,lastAttemptId:attemptId};});
       if(!result.committed||!accepted||!result.value.used)throw invalid();
       // Completed verification must not accumulate resend limits across legitimate sessions.
       for(const scope of ['hour:','day:'])await store.set(`promotionAuthLimits/${digest(scope+String(userId))}`,null);
-      const token=crypto.randomBytes(32).toString('base64url');const expiresAt=now()+86400000;
-      await store.set(`promotionAuthSessions/${digest(token)}`,{account:result.value.account,expiresAt,challengeId});
+      const token=crypto.randomBytes(32).toString('base64url');const expiresAt=now()+30*86400000,absoluteExpiresAt=now()+90*86400000;
+      if(deviceId!==null&&!/^[A-Za-z0-9_-]{20,80}$/.test(deviceId))throw fail(400,'Dispositivo inválido.');
+      await store.set(`promotionAuthSessions/${digest(token)}`,{account:result.value.account,expiresAt,absoluteExpiresAt,lastSeenAt:now(),deviceId,challengeId});
       return {verified:true,user:{id:result.value.account.id,name:result.value.account.name},accessToken:token,expiresAt};
     },
     async authenticate(token,userId){ready();if(!/^[A-Za-z0-9_-]{43}$/.test(token||''))throw fail(401,'Vuelve a verificar tu cuenta.');const row=await store.get(`promotionAuthSessions/${digest(token)}`);if(!row||row.expiresAt<=now()||row.account.id!==String(userId))throw fail(401,'Vuelve a verificar tu cuenta.');return row.account;},
+    async resume(token,userId,deviceId){ready();if(!/^[A-Za-z0-9_-]{43}$/.test(token||''))throw fail(401,'Vuelve a verificar tu cuenta.');const result=await store.transaction(`promotionAuthSessions/${digest(token)}`,row=>{if(!row||row.account.id!==String(userId)||row.expiresAt<=now()||!row.absoluteExpiresAt||row.absoluteExpiresAt<=now()||!row.deviceId||row.deviceId!==deviceId)return;return {...row,lastSeenAt:now(),expiresAt:Math.min(now()+30*86400000,row.absoluteExpiresAt)};});if(!result.committed)throw fail(401,'Vuelve a verificar tu cuenta.');return {verified:true,user:{id:result.value.account.id,name:result.value.account.name},expiresAt:result.value.expiresAt};},
     async logout(token){if(/^[A-Za-z0-9_-]{43}$/.test(token||''))await store.set(`promotionAuthSessions/${digest(token)}`,null);}
   };
 }
@@ -86,7 +88,8 @@ export function registerPromotionEmailAuth(app,auth,{env=process.env}={}) {
   const router=express.Router();router.use((req,res,next)=>{res.set('Cache-Control','no-store');const origin=req.get('origin');const allowed=(env.PROMOTION_EMAIL_AUTH_ALLOWED_ORIGINS||env.PROMOTION_ALLOWED_ORIGINS||'https://www.mycity.city').split(',').map(x=>x.trim());const publicOrigins=allowed.includes('*');if(origin&&!publicOrigins&&!allowed.includes(origin))return res.status(403).json({error:'Origen no autorizado'});if(origin){res.set('Access-Control-Allow-Origin',publicOrigins?'*':origin);res.vary('Origin');}res.set('Access-Control-Allow-Headers','Content-Type, Authorization, X-MyCity-User-Id');res.set('Access-Control-Allow-Methods','POST, OPTIONS');if(req.method==='OPTIONS')return res.status(204).end();next();});
   const route=fn=>async(req,res)=>{try{res.json(await fn(req));}catch(e){if(e.retryAfterSeconds)res.set('Retry-After',String(e.retryAfterSeconds));res.status([400,401,429,503].includes(e.status)?e.status:503).json({error:e.status?e.message:'Verificación temporalmente no disponible.',...(e.retryAfterSeconds?{retryAfterSeconds:e.retryAfterSeconds}:{})});}};
   router.post('/start',route(req=>auth.start(req.body?.userId,req.ip)));
-  router.post('/confirm',route(req=>auth.confirm(req.body?.challengeId,req.body?.code,req.body?.userId,req.ip)));
+  router.post('/confirm',route(req=>auth.confirm(req.body?.challengeId,req.body?.code,req.body?.userId,req.ip,req.body?.deviceId)));
+  router.post('/resume',route(req=>auth.resume(/^Promotion (.+)$/.exec(req.get('authorization')||'')?.[1],req.body?.userId,req.body?.deviceId)));
   router.post('/logout',route(async req=>{await auth.logout(/^Promotion (.+)$/.exec(req.get('authorization')||'')?.[1]);return {ok:true};}));
   app.use('/api/mycity/email-verification',router);
 }
