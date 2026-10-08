@@ -1,0 +1,5 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {validateJob} from './policy.js';
+const job=()=>({action:'pause',message:'Cambio de aceite',zone:{bindingStatus:'linked',proposedMessage:'Cambio de aceite',commercialNotificationId:'29645',commercialGeofenceId:'28298'}});
+test('supports only linked pause/activate',()=>{assert.equal(validateJob(job()).active,false);const j=job();j.action='activate';assert.equal(validateJob(j).active,true);j.action='create';assert.throws(()=>validateJob(j));});
+test('protects inspections and rejects changed offers',()=>{const j=job();j.zone.existingNotificationId='29645';j.zone.existingNotificationPurpose='inspections';assert.throws(()=>validateJob(j));const k=job();k.message='Cambio de aceite gratis';assert.throws(()=>validateJob(k));});
+test('rejects unlinked or injected identifiers',()=>{const j=job();j.zone.commercialNotificationId='../other';assert.throws(()=>validateJob(j));j.zone.commercialNotificationId='29645';j.zone.bindingStatus='draft';assert.throws(()=>validateJob(j));});
