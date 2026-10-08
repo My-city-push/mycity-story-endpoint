@@ -15,21 +15,21 @@ if(new URL(base).origin!=='https://mycity-story-endpoint.onrender.com')throw Err
 await fs.mkdir(data,{recursive:true,mode:0o700});
 const journal=path.join(data,'inflight.json');
 let enabled=false,running=false,status='Waiting for protected access and GoodBarber login',context,page,stopping=false;
-const children=[];
+const children=[],desktopSockets=new Set();
 function launch(command,args){const child=spawn(command,args,{stdio:'ignore'});children.push(child);child.on('error',()=>{enabled=false;status='Desktop startup failed';});return child;}
 launch('Xvfb',[':99','-screen','0','1280x800x24','-nolisten','tcp']);
-launch('x11vnc',['-display',':99','-localhost','-forever','-shared','-nopw','-rfbport','5900']);
+launch('x11vnc',['-display',':99','-localhost','-forever','-shared','-nopw','-rfbport','5900','-loop','1000']);
 launch('websockify',['--web=/usr/share/novnc','127.0.0.1:6080','127.0.0.1:5900']);
 function auth(req){if(password.length<24)return false;const supplied=Buffer.from((req.headers.authorization||'').replace(/^Basic /,''),'base64').toString();const expected=Buffer.from('mycity:'+password),actual=Buffer.from(supplied);return expected.length===actual.length&&crypto.timingSafeEqual(expected,actual);}
 app.get('/healthz',(_,res)=>res.json({ok:true}));
-app.use((req,res,next)=>{res.set('Cache-Control','no-store');if(!auth(req)){res.set('WWW-Authenticate','Basic realm="My City executor"');return res.status(password.length<24?503:401).send('Protected access is not configured or requires authentication.');}next();});
+app.use((req,res,next)=>{res.set('Cache-Control','no-store');res.set('X-Frame-Options','DENY');res.set('X-Content-Type-Options','nosniff');if(!auth(req)){res.set('WWW-Authenticate','Basic realm="My City executor"');return res.status(password.length<24?503:401).send('Protected access is not configured or requires authentication.');}next();});
 app.use(express.urlencoded({extended:false,limit:'2kb'}));
 const csrf=crypto.randomBytes(32).toString('hex');
 app.use((req,res,next)=>{if(req.method==='POST'&&req.body.csrf!==csrf)return res.sendStatus(403);next();});
 function escape(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 app.get('/',(_,res)=>res.send(`<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>My City · Ejecutor</title><style>body{font:18px system-ui;max-width:750px;margin:45px auto;padding:20px}button,a{display:inline-block;padding:14px;margin:8px;background:#125cff;color:white;border:0;border-radius:10px}p{line-height:1.5}</style><h1>My City · Navegador autorizado</h1><p>${escape(status)}</p><p>Ejecutor: ${enabled?'habilitado':'detenido'}. Antes de iniciar sesión o usar el navegador manualmente, detén el ejecutor.</p><a href="/desktop/vnc.html?autoconnect=true&path=desktop/websockify">Abrir navegador</a><form method="post" action="/enable"><input type="hidden" name="csrf" value="${csrf}"><button>Habilitar pausa y activación</button></form><form method="post" action="/disable"><input type="hidden" name="csrf" value="${csrf}"><button>Detener ejecutor</button></form><p>Solo procesa ubicaciones comerciales ya vinculadas. Los cambios de mensaje y nuevas ubicaciones requieren revisión.</p></html>`));
 app.use('/desktop',(req,res)=>{if(enabled||running)return res.status(409).send('Stop executor before using desktop.');req.url=req.originalUrl.slice('/desktop'.length);proxy.web(req,res);});
-server.on('upgrade',(req,socket,head)=>{if(!auth(req)||enabled||running||!req.url.startsWith('/desktop/'))return socket.destroy();req.url=req.url.slice('/desktop'.length);proxy.ws(req,socket,head);});
+server.on('upgrade',(req,socket,head)=>{if(!auth(req)||enabled||running||!req.url.startsWith('/desktop/'))return socket.destroy();desktopSockets.add(socket);socket.on('close',()=>desktopSockets.delete(socket));req.url=req.url.slice('/desktop'.length);proxy.ws(req,socket,head);});
 proxy.on('error',(_,req,res)=>{if(res?.writeHead){res.writeHead(503);res.end('Desktop temporarily unavailable');}});
 async function queue(endpoint,body){const response=await fetch(base+'/api/promotion-operator/'+endpoint,{method:body?'POST':'GET',headers:{'X-MyCity-Operator-Key':key,'Content-Type':'application/json'},body:body?JSON.stringify(body):undefined,signal:AbortSignal.timeout(45000)});if(!response.ok)throw Error('Queue returned '+response.status);return response.json();}
 async function saveJournal(value){const temporary=journal+'.tmp';await fs.writeFile(temporary,JSON.stringify(value),{mode:0o600});await fs.rename(temporary,journal);}
@@ -39,7 +39,7 @@ async function readState(expected){await page.goto(GOODBARBER_ORIGIN+'/manage/us
  const row=link.locator('xpath=ancestor::tr');const location=row.locator(`a[href="/manage/users/geopush/geofences/circular/${expected.geofenceId}/"]`);if(await location.count()!==1)throw Error('LOCATION_MISMATCH');
  const checkbox=row.locator('#enable-push-'+expected.notificationId);await checkbox.waitFor({state:'visible'});return {row,checked:await checkbox.isChecked()};
 }
-app.post('/enable',async(_,res)=>{if(!context||key.length<32)return res.status(503).send('Browser or queue access is not ready');try{await fs.access(journal);return res.status(409).send('An unfinished claim requires operator review.');}catch{}if(running)return res.sendStatus(409);try{await page.goto(GOODBARBER_ORIGIN+'/manage/users/geopush/',{waitUntil:'domcontentloaded'});await page.locator('a[href="/manage/users/geopush/new/"]').waitFor({state:'visible',timeout:15000});enabled=true;status='Ready to process linked pause/activate requests';res.redirect('/');}catch{status='Sign in to GoodBarber in the protected desktop first';res.status(409).send(status);}});
+app.post('/enable',async(_,res)=>{if(!context||key.length<32)return res.status(503).send('Browser or queue access is not ready');try{await fs.access(journal);return res.status(409).send('An unfinished claim requires operator review.');}catch{}if(running)return res.sendStatus(409);try{await page.goto(GOODBARBER_ORIGIN+'/manage/users/geopush/',{waitUntil:'domcontentloaded'});await page.locator('a[href="/manage/users/geopush/new/"]').waitFor({state:'visible',timeout:15000});for(const socket of desktopSockets)socket.destroy();enabled=true;status='Ready to process linked pause/activate requests';res.redirect('/');}catch{status='Sign in to GoodBarber in the protected desktop first';res.status(409).send(status);}});
 app.post('/disable',(_,res)=>{enabled=false;status=running?'Stopping after current request':'Stopped';res.redirect('/');});
 async function tick(){if(!enabled||running||stopping)return;running=true;let job;try{
  const pending=await queue('queue');const candidate=pending.jobs.find(j=>j.status==='pending');if(!candidate)return;
