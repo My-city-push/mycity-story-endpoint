@@ -82,14 +82,16 @@ try{
   status='Solicitud comprobada y confirmada en el chat. Ejecutor detenido.';console.log('Retained claim confirmed; no mutation repeated');
  }
 }catch(error){if(error.code!=='ENOENT'){console.error('Retained claim still requires review');status='Solicitud pendiente de revisión. No se repitió ninguna acción.';}}
-// Inspect only unsaved new-geofence form controls; never submit.
+// Exercise geometry controls only in an unsaved form.
 if(process.env.EXECUTOR_INSPECT_CREATE==='1'&&page){try{
  await page.goto(GOODBARBER_ORIGIN+'/manage/users/geopush/new/',{waitUntil:'domcontentloaded'});
  await page.locator('#geofencing_id').selectOption('');
- console.log('CREATE_MAP_SECTION',JSON.stringify(await page.locator('#new_geofence').evaluate(n=>Array.from(n.parentElement.parentElement.parentElement.querySelectorAll('input,a,button,[role=button]')).map(e=>({tag:e.tagName,id:e.id,type:e.getAttribute('type'),text:e.tagName==='INPUT'?e.getAttribute('placeholder'):e.textContent.trim().slice(0,150),title:e.getAttribute('title'),label:e.getAttribute('aria-label'),class:e.className,href:e.getAttribute('href')})))));
- await page.goto(GOODBARBER_ORIGIN+'/manage/users/geopush/geofences/circular/28298/',{waitUntil:'domcontentloaded'});
- console.log('GEOFENCE_EDIT_CONTROLS',JSON.stringify(await page.locator('input:not([type=password]),a,button').evaluateAll(nodes=>nodes.filter(n=>(n.type!=='hidden')&&(n.tagName==='INPUT'||!!(n.offsetWidth||n.offsetHeight||n.getClientRects().length))).map(n=>({tag:n.tagName,id:n.id,name:n.getAttribute('name'),type:n.type,label:n.labels?.[0]?.textContent?.trim()||n.getAttribute('placeholder')||'',text:n.tagName==='INPUT'?'':n.textContent.trim().slice(0,120),href:n.getAttribute('href'),title:n.getAttribute('title')})).filter(n=>n.tag==='INPUT'||/enregistrer|guardar|save|radio|avanz|radius|geofence|crear/i.test(n.text||'')))));
-
-}catch{console.error('CREATE_EDITOR_INSPECTION_FAILED');}}
+ await page.locator('a[title="Draw a circle"]').click();
+ const map=page.locator('.leaflet-container'),box=await map.boundingBox();
+ if(!box)throw Error('MAP_NOT_VISIBLE');await page.mouse.move(box.x+box.width/2,box.y+box.height/2);await page.mouse.down();await page.mouse.move(box.x+box.width/2+45,box.y+box.height/2,{steps:10});await page.mouse.up();
+ await page.mouse.click(box.x+box.width/2,box.y+box.height/2);
+ console.log('CREATE_CIRCLE_UI',JSON.stringify(await page.locator('#radius-form-radius,#radius-form-lat,#radius-form-lng,button,a,svg path').evaluateAll(nodes=>nodes.filter(n=>!!(n.offsetWidth||n.offsetHeight||n.getClientRects().length)).map(n=>({tag:n.tagName,id:n.id,text:n.textContent.trim().slice(0,120),title:n.getAttribute('title'),class:n.getAttribute('class'),href:n.getAttribute('href'),value:n.tagName==='INPUT'?n.value:undefined})).filter(n=>n.tag==='INPUT'||n.tag==='path'||/modifier|modificar|guardar|save|radio|radius|crear|ok/i.test(n.text)||n.id).slice(-35))));
+ console.log('CREATE_CIRCLE_DATA',JSON.stringify(await page.locator('#zones').inputValue()));
+}catch(error){console.error('CREATE_EDITOR_INSPECTION_FAILED',error.name);}}
 const timer=setInterval(()=>void tick(),15000);
 process.on('SIGTERM',async()=>{stopping=true;enabled=false;clearInterval(timer);for(let i=0;i<25&&running;i++)await new Promise(r=>setTimeout(r,1000));await context?.close();children.forEach(c=>c.kill('SIGTERM'));server.close();process.exit(0);});
