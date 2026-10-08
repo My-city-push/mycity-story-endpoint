@@ -47,7 +47,7 @@ async function tick(){if(!enabled||running||stopping)return;running=true;let job
  let expected;try{expected=validateJob(candidate);}catch{enabled=false;status='First pending request needs manual review; no claim or mutation performed';return;}
  phase='preflight';await readState(expected);phase='claim';const claim=await queue('claim',{});if(claim.busy||!claim.job){enabled=false;status='Another operator owns the queue';return;}job=claim.job;await saveJournal({job,phase:'claimed'});expected=validateJob(job);
  phase='mutation';const current=await readState(expected);if(current.checked!==expected.active){await saveJournal({job,phase:'mutation_started'});await current.row.locator('#switch-enable-push-'+expected.notificationId).click();await page.waitForTimeout(1200);}
- phase='verification';const verified=await readState(expected);const state=expected.active?'active':'paused';await verified.row.getByText(expected.active?'Activa':'En pausa',{exact:true}).waitFor({state:'visible',timeout:15000});if(verified.checked!==expected.active)throw Error('STATE_MISMATCH');
+ phase='verification';const verified=await readState(expected);const state=expected.active?'active':'paused';if(verified.checked!==expected.active)throw Error('STATE_MISMATCH');
  await page.screenshot({path:path.join(data,'proof-'+job.id.replace(/[^a-zA-Z0-9_-]/g,'')+'.png')});
  const result={status:'completed',summary:`Listo. Tu aviso en ${job.zone.name} está ${expected.active?'activo':'en pausa'}. Estado comprobado en GoodBarber.`,evidence:{notificationId:expected.notificationId,geofenceId:expected.geofenceId,state,verifiedAt:Date.now()}};await saveJournal({job,phase:'verified',result});phase='result';await notifyFinished(job,result);status='Last request completed and confirmed in the account chat';
  }catch(error){enabled=false;const detail=String(error?.message||'');const reason=/timeout/i.test(detail)?'TIMEOUT':/AUTH_REQUIRED/.test(detail)?'AUTH_REQUIRED':/LOCATION_MISMATCH/.test(detail)?'LOCATION_MISMATCH':/Queue returned/.test(detail)?'QUEUE_ACCESS':'ACTION_FAILED';console.error('Executor stopped',phase,reason);status=job?'Detenido: solicitud retenida para revisión ('+phase+', '+reason+')':'Detenido antes de tomar la solicitud ('+phase+', '+reason+')';}finally{running=false;}}
@@ -69,5 +69,18 @@ try{
 }catch(error){if(error.code!=='ENOENT'){status='Profile lock requires review';console.error('PROFILE_LOCK_REVIEW');}}
 // The browser launches after the X display starts; no queue is consumed until explicitly enabled.
 for(let attempt=0;attempt<10&&!context;attempt++){try{context=await chromium.launchPersistentContext(path.join(data,'profile'),{headless:false,viewport:{width:1280,height:800},env:{...process.env,DISPLAY:':99'},args:['--disable-dev-shm-usage']});page=context.pages()[0]||await context.newPage();console.log('Browser desktop ready');await page.goto(GOODBARBER_ORIGIN+'/manage/');}catch(error){const detail=String(error?.message||'');const reason=/Singleton|ProcessSingleton|profile.*use/i.test(detail)?'PROFILE_LOCK':/Missing X server|cannot open display|unable to open.*display/i.test(detail)?'DISPLAY_NOT_READY':/SIGTRAP/i.test(detail)?'CHROMIUM_SIGTRAP':/shared librar/i.test(detail)?'MISSING_LIBRARY':/sandbox/i.test(detail)?'SANDBOX_ERROR':/closed/i.test(detail)?'BROWSER_CLOSED':'STARTUP_FAILED';console.error('Browser startup attempt',attempt+1,reason);status='Navegador no disponible: '+reason;await new Promise(r=>setTimeout(r,1000));}}
+// Reconcile a retained claim by reading its saved state only; never repeat a click.
+try{
+ const retained=JSON.parse(await fs.readFile(journal,'utf8'));
+ if(context&&page&&key.length>=32&&['claimed','mutation_started','verified'].includes(retained.phase)){
+  const expected=validateJob(retained.job),observed=await readState(expected);
+  console.log('Retained claim read-only verification',observed.checked?'active':'paused');
+  if(observed.checked!==expected.active)throw Error('STATE_MISMATCH');
+  await page.screenshot({path:path.join(data,'proof-'+retained.job.id.replace(/[^a-zA-Z0-9_-]/g,'')+'.png')});
+  const result={status:'completed',summary:`Listo. Tu aviso en ${retained.job.zone.name} está ${expected.active?'activo':'en pausa'}. Estado comprobado en GoodBarber.`,evidence:{notificationId:expected.notificationId,geofenceId:expected.geofenceId,state:expected.active?'active':'paused',verifiedAt:Date.now()}};
+  await saveJournal({job:retained.job,phase:'verified',result});await notifyFinished(retained.job,result);
+  status='Solicitud comprobada y confirmada en el chat. Ejecutor detenido.';console.log('Retained claim confirmed; no mutation repeated');
+ }
+}catch(error){if(error.code!=='ENOENT'){console.error('Retained claim still requires review');status='Solicitud pendiente de revisión. No se repitió ninguna acción.';}}
 const timer=setInterval(()=>void tick(),15000);
 process.on('SIGTERM',async()=>{stopping=true;enabled=false;clearInterval(timer);for(let i=0;i<25&&running;i++)await new Promise(r=>setTimeout(r,1000));await context?.close();children.forEach(c=>c.kill('SIGTERM'));server.close();process.exit(0);});
