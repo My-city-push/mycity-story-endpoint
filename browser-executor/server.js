@@ -82,5 +82,12 @@ try{
   status='Solicitud comprobada y confirmada en el chat. Ejecutor detenido.';console.log('Retained claim confirmed; no mutation repeated');
  }
 }catch(error){if(error.code!=='ENOENT'){console.error('Retained claim still requires review');status='Solicitud pendiente de revisión. No se repitió ninguna acción.';}}
+// Read-only inventory for building the authorized create workflow; no form submission.
+if(process.env.EXECUTOR_INSPECT_CREATE==='1'&&page){try{
+ await page.goto(GOODBARBER_ORIGIN+'/manage/users/geopush/',{waitUntil:'domcontentloaded'});
+ console.log('CREATE_EDITOR_LINKS',JSON.stringify(await page.locator('a[href]').evaluateAll(nodes=>nodes.filter(n=>n.getAttribute('href').includes('geofence')).map(n=>({text:n.textContent.trim(),href:n.getAttribute('href').split('?')[0]})))));
+ await page.goto(GOODBARBER_ORIGIN+'/manage/users/geopush/new/',{waitUntil:'domcontentloaded'});
+ console.log('CREATE_EDITOR_FIELDS',JSON.stringify(await page.locator('input:not([type=hidden]):not([type=password]),select,textarea,button').evaluateAll(nodes=>nodes.map(n=>({tag:n.tagName,type:n.getAttribute('type'),id:n.id,name:n.getAttribute('name'),label:n.labels?.[0]?.textContent?.trim()||n.getAttribute('aria-label')||n.getAttribute('placeholder')||'',text:n.tagName==='BUTTON'?n.textContent.trim():'',options:n.tagName==='SELECT'?Array.from(n.options).map(o=>({text:o.textContent,value:o.value})):undefined})))));
+}catch{console.error('CREATE_EDITOR_INSPECTION_FAILED');}}
 const timer=setInterval(()=>void tick(),15000);
 process.on('SIGTERM',async()=>{stopping=true;enabled=false;clearInterval(timer);for(let i=0;i<25&&running;i++)await new Promise(r=>setTimeout(r,1000));await context?.close();children.forEach(c=>c.kill('SIGTERM'));server.close();process.exit(0);});
