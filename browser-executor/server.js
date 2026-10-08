@@ -86,10 +86,13 @@ try{
  }
 }catch(error){if(error.code!=='ENOENT'){console.error('Retained claim still requires review');status='Solicitud pendiente de revisión. No se repitió ninguna acción.';}}
 try{const review=JSON.parse(await fs.readFile(journal,'utf8'));if(review.job.action==='create'&&review.phase==='create_submitting'){
- await page.goto(GOODBARBER_ORIGIN+'/manage/users/geopush/',{waitUntil:'domcontentloaded'});
- console.log('CREATE_REVIEW_NOTIFICATIONS',JSON.stringify(await page.locator('tr').evaluateAll((nodes,marker)=>nodes.filter(n=>n.textContent.toLowerCase().includes('cart ready')||n.textContent.includes(marker)).map(n=>({text:n.textContent.trim().slice(0,500),links:Array.from(n.querySelectorAll('a[href]')).map(a=>({text:a.textContent.trim(),href:a.getAttribute('href'),title:a.getAttribute('title')}))})),review.name)));
- await page.goto(GOODBARBER_ORIGIN+'/manage/users/geopush/geofences/',{waitUntil:'domcontentloaded'});
- console.log('CREATE_REVIEW_GEOFENCES',JSON.stringify(await page.locator('a[href*="/geofences/circular/"]').evaluateAll(nodes=>nodes.filter(n=>/cart ready/i.test(n.textContent)).map(n=>({text:n.textContent.trim(),href:n.getAttribute('href'),title:n.getAttribute('title')})))));
+ await page.goto(GOODBARBER_ORIGIN+'/manage/users/geopush/',{waitUntil:'domcontentloaded'});await page.waitForTimeout(2500);
+ console.log('CREATE_REVIEW_LIST',JSON.stringify(await page.locator('tr').evaluateAll(nodes=>nodes.map(n=>({text:n.textContent.trim().slice(0,350),links:Array.from(n.querySelectorAll('a[href]')).map(a=>({text:a.textContent.trim(),href:a.getAttribute('href')}))})).filter(n=>n.links.some(a=>/geopush\/\d+\//.test(a.href))))));
+ console.log('CREATE_REVIEW_PAGE',await page.locator('body').innerText().then(t=>t.slice(-4500)));
+ await page.goto(GOODBARBER_ORIGIN+'/manage/users/geopush/geofences/',{waitUntil:'domcontentloaded'});await page.waitForTimeout(1500);
+ console.log('CREATE_REVIEW_GEO_PAGE',await page.locator('body').innerText().then(t=>t.slice(-2200)));
+ console.log('CREATE_REVIEW_PAGING',JSON.stringify(await page.locator('a,button').evaluateAll(nodes=>nodes.filter(n=>/^[1-9]$|suivant|next|siguiente/i.test(n.textContent.trim())).map(n=>({text:n.textContent.trim(),href:n.getAttribute('href'),class:n.className})))));
+
 }}catch{console.error('CREATE_REVIEW_FAILED');}
 const timer=setInterval(()=>void tick(),15000);
 if(process.env.EXECUTOR_CREATE_PILOT_ID&&context&&!running){try{const q=await queue('queue');const first=q.jobs.find(j=>j.status==='pending');if(first?.id===process.env.EXECUTOR_CREATE_PILOT_ID){validateCreate(first);for(const socket of desktopSockets)socket.destroy();enabled=true;await tick();}}catch{enabled=false;console.error('CREATE_PILOT_NOT_READY');}}
