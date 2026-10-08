@@ -18,7 +18,7 @@ let enabled=false,running=false,status='Waiting for protected access and GoodBar
 const children=[],desktopSockets=new Set();
 function launch(command,args){const child=spawn(command,args,{stdio:'ignore'});children.push(child);child.on('error',()=>{enabled=false;status='Desktop startup failed';});return child;}
 launch('Xvfb',[':99','-screen','0','1280x800x24','-nolisten','tcp']);
-launch('x11vnc',['-display',':99','-localhost','-forever','-shared','-nopw','-rfbport','5900','-loop','1000']);
+launch('x11vnc',['-display',':99','-listen','127.0.0.1','-noipv6','-forever','-shared','-nopw','-rfbport','5900','-loop','1000']);
 launch('websockify',['--web=/usr/share/novnc','127.0.0.1:6080','127.0.0.1:5900']);
 function auth(req){if(password.length<24)return false;const supplied=Buffer.from((req.headers.authorization||'').replace(/^Basic /,''),'base64').toString();const expected=Buffer.from('mycity:'+password),actual=Buffer.from(supplied);return expected.length===actual.length&&crypto.timingSafeEqual(expected,actual);}
 app.get('/healthz',(_,res)=>res.json({ok:true}));
