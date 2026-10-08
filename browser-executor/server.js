@@ -9,7 +9,7 @@ import httpProxy from 'http-proxy';
 import {chromium} from 'playwright';
 import {validateJob,GOODBARBER_ORIGIN} from './policy.js';
 import {validateCreate} from './create-policy.js';
-import {createLocation} from './create-workflow.js';
+import {createLocation,resolveCreatedBinding,verifyCreated} from './create-workflow.js';
 
 const app=express(),server=http.createServer(app),proxy=httpProxy.createProxyServer({target:'http://127.0.0.1:6080',ws:true});
 const data=process.env.EXECUTOR_DATA_DIR||'/data',password=process.env.EXECUTOR_ADMIN_PASSWORD||'',key=process.env.PROMOTION_GEOFENCE_OPERATOR_KEY||'';
@@ -75,6 +75,7 @@ for(let attempt=0;attempt<10&&!context;attempt++){try{context=await chromium.lau
 try{
  let retained=JSON.parse(await fs.readFile(journal,'utf8'));console.log('Retained phase',retained.phase);
  if(retained.job.action==='create'&&retained.phase==='claimed'&&retained.job.id===process.env.EXECUTOR_CREATE_PILOT_ID){running=true;for(const socket of desktopSockets)socket.destroy();try{const result=await createLocation({page,job:retained.job,saveJournal,readState,proofPath:path.join(data,'proof-'+retained.job.id.replace(/[^a-zA-Z0-9_-]/g,''))});await saveJournal({job:retained.job,phase:'create_verified',result});await notifyFinished(retained.job,result);enabled=true;console.log('Create preparation verified and confirmed');retained=null;}catch(error){console.error('Create preparation stopped',error.name,String(error.message).match(/locator\('([^']+)'\)/)?.[1]?.slice(0,80)||String(error.message).match(/CREATE_[A-Z_]+/)?.[0]||'UNCLASSIFIED');throw error;}finally{running=false;}}
+ if(retained&&retained.job.action==='create'&&['create_submitting','create_created','create_pause_started'].includes(retained.phase)&&retained.job.id===process.env.EXECUTOR_CREATE_PILOT_ID){running=true;for(const socket of desktopSockets)socket.destroy();try{const expected=retained.expected||await resolveCreatedBinding(page,retained.name);await saveJournal({...retained,phase:'create_created',expected});const result=await verifyCreated({page,job:retained.job,expected,saveJournal,readState,proofPath:path.join(data,'proof-'+retained.job.id.replace(/[^a-zA-Z0-9_-]/g,''))});await saveJournal({job:retained.job,phase:'create_verified',result});await notifyFinished(retained.job,result);enabled=true;console.log('Existing created location verified and confirmed; no creation repeated');retained=null;}catch(error){console.error('Created location review stopped',error.name,String(error.message).match(/locator\('([^']+)'\)/)?.[1]?.slice(0,80)||String(error.message).match(/CREATE_[A-Z_]+/)?.[0]||'UNCLASSIFIED');throw error;}finally{running=false;}}
  if(retained&&context&&page&&key.length>=32&&['claimed','mutation_started','verified'].includes(retained.phase)){
   const expected=validateJob(retained.job),observed=await readState(expected);
   console.log('Retained claim read-only verification',observed.checked?'active':'paused');
@@ -85,15 +86,6 @@ try{
   status='Solicitud comprobada y confirmada en el chat. Ejecutor detenido.';console.log('Retained claim confirmed; no mutation repeated');
  }
 }catch(error){if(error.code!=='ENOENT'){console.error('Retained claim still requires review');status='Solicitud pendiente de revisión. No se repitió ninguna acción.';}}
-try{const review=JSON.parse(await fs.readFile(journal,'utf8'));if(review.job.action==='create'&&review.phase==='create_submitting'){
- await page.goto(GOODBARBER_ORIGIN+'/manage/users/geopush/',{waitUntil:'domcontentloaded'});await page.waitForTimeout(2500);
- console.log('CREATE_REVIEW_LIST',JSON.stringify(await page.locator('tr').evaluateAll(nodes=>nodes.map(n=>({text:n.textContent.trim().slice(0,350),links:Array.from(n.querySelectorAll('a[href]')).map(a=>({text:a.textContent.trim(),href:a.getAttribute('href')}))})).filter(n=>n.links.some(a=>/geopush\/\d+\//.test(a.href))))));
- console.log('CREATE_REVIEW_PAGE',await page.locator('body').innerText().then(t=>t.slice(-4500)));
- await page.goto(GOODBARBER_ORIGIN+'/manage/users/geopush/geofences/',{waitUntil:'domcontentloaded'});await page.waitForTimeout(1500);
- console.log('CREATE_REVIEW_GEO_PAGE',await page.locator('body').innerText().then(t=>t.slice(-2200)));
- console.log('CREATE_REVIEW_PAGING',JSON.stringify(await page.locator('a,button').evaluateAll(nodes=>nodes.filter(n=>/^[1-9]$|suivant|next|siguiente/i.test(n.textContent.trim())).map(n=>({text:n.textContent.trim(),href:n.getAttribute('href'),class:n.className})))));
-
-}}catch{console.error('CREATE_REVIEW_FAILED');}
 const timer=setInterval(()=>void tick(),15000);
 if(process.env.EXECUTOR_CREATE_PILOT_ID&&context&&!running){try{const q=await queue('queue');const first=q.jobs.find(j=>j.status==='pending');if(first?.id===process.env.EXECUTOR_CREATE_PILOT_ID){validateCreate(first);for(const socket of desktopSockets)socket.destroy();enabled=true;await tick();}}catch{enabled=false;console.error('CREATE_PILOT_NOT_READY');}}
 process.on('SIGTERM',async()=>{stopping=true;enabled=false;clearInterval(timer);for(let i=0;i<25&&running;i++)await new Promise(r=>setTimeout(r,1000));await context?.close();children.forEach(c=>c.kill('SIGTERM'));server.close();process.exit(0);});

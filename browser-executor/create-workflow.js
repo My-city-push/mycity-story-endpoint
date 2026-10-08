@@ -24,26 +24,36 @@ export async function createLocation({page,job,saveJournal,readState,proofPath})
  if(await page.locator('#message').inputValue()!==p.message||await page.locator('#link').inputValue()!==p.destination)throw Error('CREATE_FORM_MISMATCH');
  console.log('Create step submit');await saveJournal({job,phase:'create_submitting',name});
  await page.locator('#send-push-btn').click();await page.waitForTimeout(1800);
- console.log('Create step binding');await page.goto(root,{waitUntil:'domcontentloaded'});
+ const expected=await resolveCreatedBinding(page,name);
+ await saveJournal({job,phase:'create_created',name,expected});
+ return verifyCreated({page,job,expected,saveJournal,readState,proofPath});
+}
+export async function resolveCreatedBinding(page,name){
+ await page.goto(root,{waitUntil:'domcontentloaded'});
  const location=page.locator('a[href*="/geofences/circular/"]').filter({hasText:name});
+ await location.first().waitFor({state:'visible',timeout:30000});
  if(await location.count()!==1)throw Error('CREATE_BINDING_NOT_UNIQUE');
  const geofenceId=(await location.getAttribute('href')).match(/circular\/(\d+)\//)?.[1];
  const row=location.locator('xpath=ancestor::tr');
- const notificationLinks=await row.locator('a[href]').evaluateAll(nodes=>nodes.map(n=>n.getAttribute('href')).filter(h=>/^\/manage\/users\/geopush\/\d+\/$/.test(h)));
- const notificationId=[...new Set(notificationLinks)].map(h=>h.match(/\/(\d+)\/$/)[1]);
- if(notificationId.length!==1||!geofenceId)throw Error('CREATE_BINDING_MISSING');
- const expected={geofenceId,notificationId:notificationId[0],active:false};
- await saveJournal({job,phase:'create_created',name,expected});
- const current=await readState(expected);if(current.checked){await saveJournal({job,phase:'create_pause_started',name,expected});await current.row.locator('#switch-enable-push-'+expected.notificationId).click();await page.waitForTimeout(1200);}
- const paused=await readState(expected);if(paused.checked)throw Error('CREATE_PAUSE_FAILED');
- await page.goto(root+'geofences/circular/'+geofenceId+'/',{waitUntil:'domcontentloaded'});
+ const links=await row.locator('a[href]').evaluateAll(nodes=>nodes.map(n=>n.getAttribute('href')).filter(h=>/^\/manage\/users\/geopush\/\d+\/$/.test(h)));
+ const notificationIds=[...new Set(links)].map(h=>h.match(/\/(\d+)\/$/)[1]);
+ if(notificationIds.length!==1||!geofenceId)throw Error('CREATE_BINDING_MISSING');
+ return {geofenceId,notificationId:notificationIds[0],active:false};
+}
+export async function verifyCreated({page,job,expected,saveJournal,readState,proofPath}){
+ const p=validateCreate(job),name=p.name+' · '+p.marker;
+ if(!/^\d+$/.test(expected.geofenceId)||!/^\d+$/.test(expected.notificationId)||expected.notificationId==='28462'||expected.geofenceId==='27074')throw Error('CREATE_PROTECTED_BINDING');
+ await page.goto(root+'geofences/circular/'+expected.geofenceId+'/',{waitUntil:'domcontentloaded'});
+ await page.locator('#name').waitFor({state:'visible'});
  if(await page.locator('#name').inputValue()!==name)throw Error('CREATE_NAME_MISMATCH');
  assertGeometry(JSON.parse(await page.locator('#zones').inputValue()),p);
  await page.screenshot({path:proofPath+'-map.png'});
  await page.goto(root+expected.notificationId+'/',{waitUntil:'domcontentloaded'});
- for(const [selector,value] of [['#message',p.message],['#link',p.destination],['#linktype','extern'],['#send_on',p.sendOn],['#timing',''],['#send_delay',p.sendDelay],['#geofencing_id','circular-'+geofenceId]])if(await page.locator(selector).inputValue()!==value)throw Error('CREATE_SETTINGS_MISMATCH');
+ await page.locator('#message').waitFor({state:'visible'});
+ for(const [selector,value] of [['#message',p.message],['#link',p.destination],['#linktype','extern'],['#send_on',p.sendOn],['#timing',''],['#send_delay',p.sendDelay],['#geofencing_id','circular-'+expected.geofenceId]])if(await page.locator(selector).inputValue()!==value)throw Error('CREATE_SETTINGS_MISMATCH');
  if(!await page.locator('#multiple').isChecked())throw Error('CREATE_REPEAT_MISMATCH');
  if(p.sendOn==='3'&&Number(await page.locator('#send_after').inputValue())!==p.schedule.dwellMinutes)throw Error('CREATE_DWELL_MISMATCH');
+ const current=await readState(expected);if(current.checked){await saveJournal({job,phase:'create_pause_started',name,expected});await current.row.locator('#switch-enable-push-'+expected.notificationId).click();await page.waitForTimeout(1200);}
  const final=await readState(expected);if(final.checked)throw Error('CREATE_PAUSE_FAILED');await page.screenshot({path:proofPath+'-notification.png'});
- return {status:'completed',summary:`Ubicación ${p.name} creada y comprobada con ${p.radius} metros. Mensaje «${p.message}» preparado; se inicia la activación solicitada.`,evidence:{...expected,state:'paused',verifiedAt:Date.now()}};
+ return {status:'completed',summary:`Ubicación ${p.name} creada y comprobada con ${p.radius} metros. Mensaje «${p.message}» preparado; se inicia la activación solicitada.`,evidence:{geofenceId:expected.geofenceId,notificationId:expected.notificationId,state:'paused',verifiedAt:Date.now()}};
 }
