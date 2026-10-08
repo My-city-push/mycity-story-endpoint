@@ -87,7 +87,10 @@ if(process.env.EXECUTOR_INSPECT_CREATE==='1'&&page){try{
  await page.goto(GOODBARBER_ORIGIN+'/manage/users/geopush/',{waitUntil:'domcontentloaded'});
  console.log('CREATE_EDITOR_LINKS',JSON.stringify(await page.locator('a[href]').evaluateAll(nodes=>nodes.filter(n=>n.getAttribute('href').includes('geofence')).map(n=>({text:n.textContent.trim(),href:n.getAttribute('href').split('?')[0]})))));
  await page.goto(GOODBARBER_ORIGIN+'/manage/users/geopush/new/',{waitUntil:'domcontentloaded'});
- console.log('CREATE_EDITOR_FIELDS',JSON.stringify(await page.locator('input:not([type=hidden]):not([type=password]),select,textarea,button').evaluateAll(nodes=>nodes.map(n=>({tag:n.tagName,type:n.getAttribute('type'),id:n.id,name:n.getAttribute('name'),label:n.labels?.[0]?.textContent?.trim()||n.getAttribute('aria-label')||n.getAttribute('placeholder')||'',text:n.tagName==='BUTTON'?n.textContent.trim():'',options:n.tagName==='SELECT'?Array.from(n.options).map(o=>({text:o.textContent,value:o.value})):undefined})))));
+ console.log('CREATE_EDITOR_GEOMETRY',JSON.stringify(await page.locator('#new_geofence,#address_0,#radius-form-radius,#radius-form-lat,#radius-form-lng,#target-all,#multiple,#send_on,#timing,#send_delay,input[type=hidden]').evaluateAll(nodes=>nodes.filter(n=>n.type!=='hidden'||/lat|lng|radius|geofenc|enable/.test(n.name)).map(n=>({id:n.id,name:n.name,type:n.type,value:n.value,checked:n.checked,visible:!!(n.offsetWidth||n.offsetHeight||n.getClientRects().length),parent:n.closest('form')?.id,html:n.outerHTML.replace(/value="[^"]*"/g,'')})))));
+ await page.goto(GOODBARBER_ORIGIN+'/manage/users/geopush/geofences/',{waitUntil:'domcontentloaded'});
+ console.log('CREATE_GEOFENCE_LINKS',JSON.stringify(await page.locator('a[href]').evaluateAll(nodes=>nodes.filter(n=>n.getAttribute('href').includes('circular')&&n.textContent.trim()).map(n=>({text:n.textContent.trim(),href:n.getAttribute('href').split('?')[0]})))));
+
 }catch{console.error('CREATE_EDITOR_INSPECTION_FAILED');}}
 const timer=setInterval(()=>void tick(),15000);
 process.on('SIGTERM',async()=>{stopping=true;enabled=false;clearInterval(timer);for(let i=0;i<25&&running;i++)await new Promise(r=>setTimeout(r,1000));await context?.close();children.forEach(c=>c.kill('SIGTERM'));server.close();process.exit(0);});
