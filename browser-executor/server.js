@@ -4,6 +4,7 @@ import crypto from 'node:crypto';
 import {spawn} from 'node:child_process';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import os from 'node:os';
 import httpProxy from 'http-proxy';
 import {chromium} from 'playwright';
 import {validateJob,GOODBARBER_ORIGIN} from './policy.js';
@@ -52,7 +53,21 @@ async function tick(){if(!enabled||running||stopping)return;running=true;let job
  }catch{enabled=false;status=job?'Stopped: unfinished request retained for review; no automatic retry':'Stopped: login or queue requires review';}finally{running=false;}}
 server.listen(Number(process.env.PORT||10000),'0.0.0.0');
 try{await fs.access(journal);status='Unfinished request found. Manual review required before resuming.';}catch{}
+// Render mounts this disk on one instance only. Preserve stale Chromium lock links
+// left by a previous container without deleting cookies or profile contents.
+const profile=path.join(data,'profile');
+try{
+ const owner=await fs.readlink(path.join(profile,'SingletonLock'));
+ const separator=owner.lastIndexOf('-'),host=owner.slice(0,separator),pid=Number(owner.slice(separator+1));
+ if(separator<1||!Number.isInteger(pid)||pid<1)throw Error('Unknown profile lock');
+ let live=host===os.hostname();
+ if(live){try{process.kill(pid,0);}catch(error){if(error.code==='ESRCH')live=false;else throw error;}}
+ if(live)throw Error('Profile has a live owner');
+ const backup=path.join(data,'stale-locks-'+crypto.randomUUID());await fs.mkdir(backup,{mode:0o700});
+ for(const name of ['SingletonLock','SingletonSocket','SingletonCookie']){try{await fs.rename(path.join(profile,name),path.join(backup,name));}catch(error){if(error.code!=='ENOENT')throw error;}}
+ console.log('Stale Chromium lock links preserved; profile retained');
+}catch(error){if(error.code!=='ENOENT'){status='Profile lock requires review';console.error('PROFILE_LOCK_REVIEW');}}
 // The browser launches after the X display starts; no queue is consumed until explicitly enabled.
-for(let attempt=0;attempt<10&&!context;attempt++){try{context=await chromium.launchPersistentContext(path.join(data,'profile'),{headless:false,viewport:{width:1280,height:800},env:{...process.env,DISPLAY:':99'},args:['--disable-dev-shm-usage']});page=context.pages()[0]||await context.newPage();await page.goto(GOODBARBER_ORIGIN+'/manage/');}catch(error){const detail=String(error?.message||'');const reason=/Singleton|ProcessSingleton|profile.*use/i.test(detail)?'PROFILE_LOCK':/Missing X server|cannot open display|unable to open.*display/i.test(detail)?'DISPLAY_NOT_READY':/SIGTRAP/i.test(detail)?'CHROMIUM_SIGTRAP':/shared librar/i.test(detail)?'MISSING_LIBRARY':/sandbox/i.test(detail)?'SANDBOX_ERROR':/closed/i.test(detail)?'BROWSER_CLOSED':'STARTUP_FAILED';console.error('Browser startup attempt',attempt+1,reason);status='Navegador no disponible: '+reason;await new Promise(r=>setTimeout(r,1000));}}
+for(let attempt=0;attempt<10&&!context;attempt++){try{context=await chromium.launchPersistentContext(path.join(data,'profile'),{headless:false,viewport:{width:1280,height:800},env:{...process.env,DISPLAY:':99'},args:['--disable-dev-shm-usage']});page=context.pages()[0]||await context.newPage();console.log('Browser desktop ready');await page.goto(GOODBARBER_ORIGIN+'/manage/');}catch(error){const detail=String(error?.message||'');const reason=/Singleton|ProcessSingleton|profile.*use/i.test(detail)?'PROFILE_LOCK':/Missing X server|cannot open display|unable to open.*display/i.test(detail)?'DISPLAY_NOT_READY':/SIGTRAP/i.test(detail)?'CHROMIUM_SIGTRAP':/shared librar/i.test(detail)?'MISSING_LIBRARY':/sandbox/i.test(detail)?'SANDBOX_ERROR':/closed/i.test(detail)?'BROWSER_CLOSED':'STARTUP_FAILED';console.error('Browser startup attempt',attempt+1,reason);status='Navegador no disponible: '+reason;await new Promise(r=>setTimeout(r,1000));}}
 const timer=setInterval(()=>void tick(),15000);
 process.on('SIGTERM',async()=>{stopping=true;enabled=false;clearInterval(timer);for(let i=0;i<25&&running;i++)await new Promise(r=>setTimeout(r,1000));await context?.close();children.forEach(c=>c.kill('SIGTERM'));server.close();process.exit(0);});
