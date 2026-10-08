@@ -90,8 +90,11 @@ if(process.env.EXECUTOR_INSPECT_CREATE==='1'&&page){try{
  const map=page.locator('.leaflet-container'),box=await map.boundingBox();
  if(!box)throw Error('MAP_NOT_VISIBLE');await page.mouse.move(box.x+box.width/2,box.y+box.height/2);await page.mouse.down();await page.mouse.move(box.x+box.width/2+45,box.y+box.height/2,{steps:10});await page.mouse.up();
  await page.mouse.click(box.x+box.width/2,box.y+box.height/2);
- console.log('CREATE_CIRCLE_UI',JSON.stringify(await page.locator('#radius-form-radius,#radius-form-lat,#radius-form-lng,button,a,svg path').evaluateAll(nodes=>nodes.filter(n=>!!(n.offsetWidth||n.offsetHeight||n.getClientRects().length)).map(n=>({tag:n.tagName,id:n.id,text:n.textContent.trim().slice(0,120),title:n.getAttribute('title'),class:n.getAttribute('class'),href:n.getAttribute('href'),value:n.tagName==='INPUT'?n.value:undefined})).filter(n=>n.tag==='INPUT'||n.tag==='path'||/modifier|modificar|guardar|save|radio|radius|crear|ok/i.test(n.text)||n.id).slice(-35))));
- console.log('CREATE_CIRCLE_DATA',JSON.stringify(await page.locator('#zones').inputValue()));
+ console.log('CIRCLE_FORM_STRUCTURE',JSON.stringify(await page.locator('#radius-form-lat,#send-push-btn').evaluateAll(nodes=>nodes.map(n=>({id:n.id,formId:n.closest('form')?.id,action:n.closest('form')?.getAttribute('action'),parent:n.parentElement.textContent.trim().slice(0,300),html:n.id==='send-push-btn'?n.outerHTML:undefined})))));
+ await page.locator('#radius-form-radius').fill('150');await page.locator('#radius-form-lat').fill('38.1374581');await page.locator('#radius-form-lng').fill('-85.7938975');await page.locator('#radius-form-lng').press('Tab');
+ console.log('CIRCLE_AFTER_FILL',await page.locator('#zones').inputValue());
+ console.log('CIRCLE_FORM_BUTTONS',JSON.stringify(await page.locator('#radius-form-lat').evaluate(n=>Array.from(n.closest('form')?.querySelectorAll('button,a,input[type=submit]')||[]).map(e=>({tag:e.tagName,id:e.id,text:e.textContent.trim(),type:e.type,href:e.getAttribute('href')})))));
+
 }catch(error){console.error('CREATE_EDITOR_INSPECTION_FAILED',error.name);}}
 const timer=setInterval(()=>void tick(),15000);
 process.on('SIGTERM',async()=>{stopping=true;enabled=false;clearInterval(timer);for(let i=0;i<25&&running;i++)await new Promise(r=>setTimeout(r,1000));await context?.close();children.forEach(c=>c.kill('SIGTERM'));server.close();process.exit(0);});
