@@ -10,7 +10,8 @@ export async function createLocation({page,job,saveJournal,readState,proofPath})
  console.log('Create step destination');await page.locator('#linktype').selectOption('extern');await page.locator('#link').fill(p.destination);
  console.log('Create step trigger');await page.locator('#send_on').selectOption(p.sendOn);
  if(p.sendOn==='3')await page.locator('#send_after').fill(String(p.schedule.dwellMinutes));
- console.log('Create step timing');await page.locator('#timing').selectOption('');await page.locator('#timezone').selectOption('America/New_York');
+ console.log('Create step timing');await page.locator('#timing').selectOption('');// Always-on notifications do not use the hidden hours/timezone control.
+
  console.log('Create step repeat');await page.locator('#multiple').check({force:true});await page.locator('#send_delay').selectOption(p.sendDelay);
  if(!await page.locator('#multiple').isChecked())throw Error('CREATE_REPEAT_MISMATCH');
  console.log('Create step location');await page.locator('#geofencing_id').selectOption('');await page.locator('#new_geofence').fill(name);
