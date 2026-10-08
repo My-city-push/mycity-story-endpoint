@@ -8,6 +8,8 @@ import os from 'node:os';
 import httpProxy from 'http-proxy';
 import {chromium} from 'playwright';
 import {validateJob,GOODBARBER_ORIGIN} from './policy.js';
+import {validateCreate} from './create-policy.js';
+import {createLocation} from './create-workflow.js';
 
 const app=express(),server=http.createServer(app),proxy=httpProxy.createProxyServer({target:'http://127.0.0.1:6080',ws:true});
 const data=process.env.EXECUTOR_DATA_DIR||'/data',password=process.env.EXECUTOR_ADMIN_PASSWORD||'',key=process.env.PROMOTION_GEOFENCE_OPERATOR_KEY||'';
@@ -28,7 +30,7 @@ app.use(express.urlencoded({extended:false,limit:'2kb'}));
 const csrf=crypto.randomBytes(32).toString('hex');
 app.use((req,res,next)=>{if(req.method==='POST'&&req.body.csrf!==csrf)return res.sendStatus(403);next();});
 function escape(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-app.get('/',(_,res)=>res.send(`<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><meta http-equiv="refresh" content="10"><title>My City · Ejecutor</title><style>body{font:18px system-ui;max-width:750px;margin:45px auto;padding:20px}button,a{display:inline-block;padding:14px;margin:8px;background:#125cff;color:white;border:0;border-radius:10px}p{line-height:1.5}</style><h1>My City · Navegador autorizado</h1><p>${escape(status)}</p><p>Ejecutor: ${enabled?'habilitado':'detenido'}. Antes de iniciar sesión o usar el navegador manualmente, detén el ejecutor.</p><a href="/desktop/vnc.html?autoconnect=true&path=desktop/websockify">Abrir navegador</a><form method="post" action="/enable"><input type="hidden" name="csrf" value="${csrf}"><button>Habilitar pausa y activación</button></form><form method="post" action="/disable"><input type="hidden" name="csrf" value="${csrf}"><button>Detener ejecutor</button></form><p>Solo procesa ubicaciones comerciales ya vinculadas. Los cambios de mensaje y nuevas ubicaciones requieren revisión.</p></html>`));
+app.get('/',(_,res)=>res.send(`<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><meta http-equiv="refresh" content="10"><title>My City · Ejecutor</title><style>body{font:18px system-ui;max-width:750px;margin:45px auto;padding:20px}button,a{display:inline-block;padding:14px;margin:8px;background:#125cff;color:white;border:0;border-radius:10px}p{line-height:1.5}</style><h1>My City · Navegador autorizado</h1><p>${escape(status)}</p><p>Ejecutor: ${enabled?'habilitado':'detenido'}. Antes de iniciar sesión o usar el navegador manualmente, detén el ejecutor.</p><a href="/desktop/vnc.html?autoconnect=true&path=desktop/websockify">Abrir navegador</a><form method="post" action="/enable"><input type="hidden" name="csrf" value="${csrf}"><button>Habilitar gestión de ubicaciones</button></form><form method="post" action="/disable"><input type="hidden" name="csrf" value="${csrf}"><button>Detener ejecutor</button></form><p>Crea ubicaciones confirmadas en el mapa y gestiona pausa y activación. Los cambios de mensaje requieren revisión.</p></html>`));
 app.use('/desktop',(req,res)=>{if(enabled||running)return res.status(409).send('Stop executor before using desktop.');req.url=req.originalUrl.slice('/desktop'.length);proxy.web(req,res);});
 server.on('upgrade',(req,socket,head)=>{if(!auth(req)||enabled||running||!req.url.startsWith('/desktop/'))return socket.destroy();desktopSockets.add(socket);socket.on('close',()=>desktopSockets.delete(socket));req.url=req.url.slice('/desktop'.length);proxy.ws(req,socket,head);});
 proxy.on('error',(_,req,res)=>{if(res?.writeHead){res.writeHead(503);res.end('Desktop temporarily unavailable');}});
@@ -44,8 +46,8 @@ app.post('/enable',async(_,res)=>{if(!context||key.length<32)return res.status(5
 app.post('/disable',(_,res)=>{enabled=false;status=running?'Stopping after current request':'Stopped';res.redirect('/');});
 async function tick(){if(!enabled||running||stopping)return;running=true;let job,phase='queue';try{
  const pending=await queue('queue');const candidate=pending.jobs.find(j=>j.status==='pending');if(!candidate)return;
- let expected;try{expected=validateJob(candidate);}catch{enabled=false;status='First pending request needs manual review; no claim or mutation performed';return;}
- phase='preflight';await readState(expected);phase='claim';const claim=await queue('claim',{});if(claim.busy||!claim.job){enabled=false;status='Another operator owns the queue';return;}job=claim.job;await saveJournal({job,phase:'claimed'});expected=validateJob(job);
+ let expected;try{expected=candidate.action==='create'?validateCreate(candidate):validateJob(candidate);}catch{enabled=false;status='First pending request needs manual review; no claim or mutation performed';return;}
+ phase='preflight';if(candidate.action==='create'){await page.goto(GOODBARBER_ORIGIN+'/manage/users/geopush/new/',{waitUntil:'domcontentloaded'});await page.locator('#message').waitFor({state:'visible'});}else await readState(expected);phase='claim';const claim=await queue('claim',{});if(claim.busy||!claim.job){enabled=false;status='Another operator owns the queue';return;}job=claim.job;await saveJournal({job,phase:'claimed'});if(job.action==='create'){phase='create';const result=await createLocation({page,job,saveJournal,readState,proofPath:path.join(data,'proof-'+job.id.replace(/[^a-zA-Z0-9_-]/g,''))});await saveJournal({job,phase:'create_verified',result});await notifyFinished(job,result);status='Ubicación creada y confirmada en el chat';return;}expected=validateJob(job);
  phase='mutation';const current=await readState(expected);if(current.checked!==expected.active){await saveJournal({job,phase:'mutation_started'});await current.row.locator('#switch-enable-push-'+expected.notificationId).click();await page.waitForTimeout(1200);}
  phase='verification';const verified=await readState(expected);const state=expected.active?'active':'paused';if(verified.checked!==expected.active)throw Error('STATE_MISMATCH');
  await page.screenshot({path:path.join(data,'proof-'+job.id.replace(/[^a-zA-Z0-9_-]/g,'')+'.png')});
@@ -82,19 +84,6 @@ try{
   status='Solicitud comprobada y confirmada en el chat. Ejecutor detenido.';console.log('Retained claim confirmed; no mutation repeated');
  }
 }catch(error){if(error.code!=='ENOENT'){console.error('Retained claim still requires review');status='Solicitud pendiente de revisión. No se repitió ninguna acción.';}}
-// Exercise geometry controls only in an unsaved form.
-if(process.env.EXECUTOR_INSPECT_CREATE==='1'&&page){try{
- await page.goto(GOODBARBER_ORIGIN+'/manage/users/geopush/new/',{waitUntil:'domcontentloaded'});
- await page.locator('#geofencing_id').selectOption('');
- await page.locator('a[title="Draw a circle"]').click();
- const map=page.locator('.leaflet-container'),box=await map.boundingBox();
- if(!box)throw Error('MAP_NOT_VISIBLE');await page.mouse.move(box.x+box.width/2,box.y+box.height/2);await page.mouse.down();await page.mouse.move(box.x+box.width/2+45,box.y+box.height/2,{steps:10});await page.mouse.up();
- await page.mouse.click(box.x+box.width/2,box.y+box.height/2);
- console.log('CIRCLE_FORM_STRUCTURE',JSON.stringify(await page.locator('#radius-form-lat,#send-push-btn').evaluateAll(nodes=>nodes.map(n=>({id:n.id,formId:n.closest('form')?.id,action:n.closest('form')?.getAttribute('action'),parent:n.parentElement.textContent.trim().slice(0,300),html:n.id==='send-push-btn'?n.outerHTML:undefined})))));
- await page.locator('#radius-form-radius').fill('150');await page.locator('#radius-form-lat').fill('38.1374581');await page.locator('#radius-form-lng').fill('-85.7938975');await page.locator('#radius-form-lng').press('Tab');
- console.log('CIRCLE_AFTER_FILL',await page.locator('#zones').inputValue());
- console.log('CIRCLE_FORM_BUTTONS',JSON.stringify(await page.locator('#radius-form-lat').evaluate(n=>Array.from(n.closest('form')?.querySelectorAll('button,a,input[type=submit]')||[]).map(e=>({tag:e.tagName,id:e.id,text:e.textContent.trim(),type:e.type,href:e.getAttribute('href')})))));
-
-}catch(error){console.error('CREATE_EDITOR_INSPECTION_FAILED',error.name);}}
 const timer=setInterval(()=>void tick(),15000);
+if(process.env.EXECUTOR_CREATE_PILOT_ID&&context&&!running){try{const q=await queue('queue');const first=q.jobs.find(j=>j.status==='pending');if(first?.id===process.env.EXECUTOR_CREATE_PILOT_ID){validateCreate(first);for(const socket of desktopSockets)socket.destroy();enabled=true;await tick();}}catch{enabled=false;console.error('CREATE_PILOT_NOT_READY');}}
 process.on('SIGTERM',async()=>{stopping=true;enabled=false;clearInterval(timer);for(let i=0;i<25&&running;i++)await new Promise(r=>setTimeout(r,1000));await context?.close();children.forEach(c=>c.kill('SIGTERM'));server.close();process.exit(0);});

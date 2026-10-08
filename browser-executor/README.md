@@ -15,3 +15,6 @@ Starts disabled. Open the protected service URL, open its desktop, sign into Goo
 If authentication expires, a UI operation is blocked, or verification fails, the executor stops. A journal records an in-flight claim before any mutation; on restart it stays stopped until an operator inspects that job. It never expires locks or retries ambiguous mutations automatically. Results must be read back from the persisted GoodBarber UI before completion is sent to the account chat. Screenshots remain on the private disk. Session files and journal must never be published.
 
 Not yet validated against a real signed-in server browser. No promise of uninterrupted sessions or notification delivery.
+
+## Creation flow
+Checkout-approved map coordinates support new commercial locations, entry/exit/dwell triggers, always-on timing and the checkout repeat options. The workflow reads back stored geometry, message, destination and repeat settings, pauses preparation, then lets the existing queue issue activation. Submission is journaled before clicking; ambiguous creates are never automatically resubmitted. A retained creation requires operator review. The pilot environment variable can authorize the single specified pending checkout job for the first integration test.
